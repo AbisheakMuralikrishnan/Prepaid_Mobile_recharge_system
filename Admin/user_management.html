@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <nav id="sidebar" class="bg-gray-900 text-white h-screen w-64 transition-all duration-300 fixed">
+            <button onclick="toggleSidebar()" class="p-4 focus:outline-none w-full flex justify-between items-center">
+                <span class="text-lg font-bold sidebar-text">Admin Panel</span>
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <ul class="mt-4 space-y-2">
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('index.html')">
+                    <i class="fas fa-home mr-3"></i> <span class="sidebar-text">Dashboard</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_management.html')">
+                    <i class="fas fa-users mr-3"></i> <span class="sidebar-text">User Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('plans_management.html')">
+                    <i class="fas fa-tasks mr-3"></i> <span class="sidebar-text">Plans Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_queries.html')">
+                    <i class="fas fa-envelope mr-3"></i> <span class="sidebar-text">User Queries</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('transaction.html')">
+                    <i class="fas fa-receipt mr-3"></i> <span class="sidebar-text">Transactions</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-1 p-8 ml-64 transition-all duration-300">
+            <h1 class="text-3xl font-bold mb-6 text-center">User Management</h1>
+
+            <!-- Expiring Soon Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Plans Expiring Soon (Next 5 Days)</h2>
+                <div id="expiringUsers"></div>
+                <button onclick="sendAlertToExpiringUsers()" class="bg-blue-600 text-white px-4 py-2 rounded-lg mt-4">Send Alert to Expiring Users</button>
+            </div>
+
+            <!-- User List -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">All Users</h2>
+                
+               <!-- Search Input for Users -->
+               <div class="mb-4 flex justify-center items-center space-x-2">
+                <input type="text" id="searchInput" oninput="filterUsers()" class="border p-2 rounded-lg w-1/3" placeholder="Search by name, email, or plan">
+                <button onclick="resetSearch()" class="bg-gray-500 text-white px-3 py-2 rounded-lg">
+                    <i class="fas fa-undo"></i> <!-- Reset Icon -->
+                </button>
+            </div>
+            
+
+
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border p-2">User ID</th>
+                            <th class="border p-2">User Name</th>
+                            <th class="border p-2">Phone Number</th>
+                            <th class="border p-2">Email</th>
+                            <th class="border p-2">Current Plan (₹)</th>
+                            <th class="border p-2">Plan Expiry</th>
+                            <th class="border p-2">Status</th>
+                            <th class="border p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Sample Data (Stored in LocalStorage for persistence)
+        // Sample Data (Stored in LocalStorage for persistence)
+let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [
+    { id: 1021, name: "Poornesh", phone: "9876543210", email: "poornesh@example.com", currentPlan: 299, planExpiry: "2025-02-22", status: "Active" },
+    { id: 1022, name: "Bharanidharan", phone: "9876543211", email: "bharani@example.com", currentPlan: 699, planExpiry: "2025-02-28", status: "Active" },
+    { id: 1023, name: "Logeshwaran", phone: "9876543212", email: "logesh@example.com", currentPlan: 3599, planExpiry: "2025-04-01", status: "Active" },
+    { id: 1024, name: "Ganesh", phone: "9876543213", email: "ganesh@example.com", currentPlan: 259, planExpiry: "2025-02-24", status: "Inactive" },
+    { id: 1025, name: "Prasana", phone: "9876543214", email: "prasana@example.com", currentPlan: 259, planExpiry: "2025-02-27", status: "Active" },
+    { id: 1026, name: "Fazil Roshan", phone: "9876543215", email: "roshan@example.com", currentPlan: 699, planExpiry: "2025-02-23", status: "Active" },
+    { id: 1027, name: "Safthar", phone: "9876543216", email: "safthar@example.com", currentPlan: 49, planExpiry: "2025-02-19", status: "Active" },
+    { id: 1028, name: "Prem", phone: "9876543217", email: "prem@example.com", currentPlan: 259, planExpiry: "2025-03-08", status: "Inactive" },
+    { id: 1029, name: "Madhav", phone: "9876543218", email: "madhav@example.com", currentPlan: 799, planExpiry: "2025-03-25", status: "Active" },
+    { id: 1030, name: "Karthick siva", phone: "9876543219", email: "siva@example.com", currentPlan: 99, planExpiry: "2025-03-30", status: "Active" },
+    { id: 1031, name: "Abisheak", phone: "9876543220", email: "abisheak@example.com", currentPlan: 2499, planExpiry: "2025-02-28", status: "Inactive" }
+];
+
+// Populate Users Table
+function toggleUserStatus(userId) {
+    allUsers = allUsers.map(user => {
+        if (user.id === userId) {
+            if (user.status === "Active") {
+                return { ...user, status: "Inactive" };
+            } else if (user.status === "Inactive") {
+                return { ...user, status: "Active" };
+            }
+        }
+        return user;
+    });
+
+    // Save updated users list in localStorage
+    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+    // Refresh the table
+    populateUsersTable(allUsers);
+}
+
+function renderStatusActions(user) {
+    if (user.status === "Active") {
+        return `
+            <button onclick="toggleUserStatus(${user.id})" class="bg-red-600 text-white px-4 py-2 rounded-lg">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        `;
+    } else if (user.status === "Inactive") {
+        return `
+            <button onclick="toggleUserStatus(${user.id})" class="bg-green-600 text-white px-4 py-2 rounded-lg">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        `;
+    }
+}
+
+function populateUsersTable(usersList) {
+    const usersTableBody = document.getElementById("usersTableBody");
+    usersTableBody.innerHTML = ""; // Clear the table body
+    usersList.forEach(user => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td class="border p-2">${user.id}</td>
+            <td class="border p-2">${user.name}</td>
+            <td class="border p-2">${user.phone || user.phone === 0 ? user.phone : "N/A"}</td>
+            <td class="border p-2">${user.email}</td>
+            <td class="border p-2">₹${user.currentPlan}</td>
+            <td class="border p-2">${user.planExpiry}</td>
+            <td class="border p-2">${user.status}</td>
+            <td class="border p-2">
+                ${renderStatusActions(user)} <!-- Dynamically render the button based on the status -->
+            </td>
+        `;
+        usersTableBody.appendChild(row);
+    });
+}
+
+
+// Filter Users based on search input
+function filterUsers() {
+    const searchQuery = document.getElementById("searchInput").value.trim().toLowerCase();
+
+    const filteredUsers = allUsers.filter(user =>
+        Object.values(user).some(value =>
+            value.toString().toLowerCase().includes(searchQuery)
+        )
+    );
+
+    populateUsersTable(filteredUsers); // Refresh the table with filtered users
+}
+
+
+function resetSearch() {
+    document.getElementById("searchInput").value = ""; // Clear input
+    populateUsersTable(allUsers); // Reset table to show all users
+}
+
+
+// Display Users Whose Plans Are Expiring Soon
+function displayExpiringUsers() {
+    const expiringUsersDiv = document.getElementById("expiringUsers");
+    const today = new Date();
+    const fiveDaysFromNow = new Date(today);
+    fiveDaysFromNow.setDate(today.getDate() + 5);
+
+    const expiringUsers = allUsers.filter(user => {
+        const planExpiryDate = new Date(user.planExpiry);
+        return planExpiryDate >= today && planExpiryDate <= fiveDaysFromNow;
+    });
+
+    if (expiringUsers.length > 0) {
+        expiringUsers.forEach(user => {
+            const userDiv = document.createElement("div");
+            userDiv.classList.add("p-4", "bg-yellow-100", "mb-4", "rounded-lg");
+            userDiv.innerHTML = `${user.name} (Plan Expiring: ${user.planExpiry})`;
+            expiringUsersDiv.appendChild(userDiv);
+        });
+    } else {
+        expiringUsersDiv.innerHTML = "<p>No users with plans expiring in the next 5 days.</p>";
+    }
+}
+
+// Initialize Page
+function initPage() {
+    populateUsersTable(allUsers);
+    displayExpiringUsers();
+}
+
+initPage(); // Initialize the page when it loads
+
+
+        // Sidebar Toggle Functionality
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const sidebarText = document.querySelectorAll('.sidebar-text');
+            
+            sidebar.classList.toggle('w-16');
+            sidebar.classList.toggle('w-64');
+            mainContent.classList.toggle('ml-16');
+            mainContent.classList.toggle('ml-64');
+            
+            // Hide text when collapsed
+            sidebarText.forEach(text => {
+                text.classList.toggle('hidden');
+            });
+        }
+
+        // Navigate to different pages (replace with actual pages)
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        // Send Alert to Expiring Users
+        function sendAlertToExpiringUsers() {
+            const expiringUsers = allUsers.filter(user => {
+                const planExpiryDate = new Date(user.planExpiry);
+                const today = new Date();
+                const fiveDaysFromNow = new Date(today);
+                fiveDaysFromNow.setDate(today.getDate() + 5);
+                return planExpiryDate >= today && planExpiryDate <= fiveDaysFromNow;
+            });
+
+            if (expiringUsers.length > 0) {
+                // Simulating alert sending (You can replace this with actual logic to send an email or message)
+                alert("Alert message has been sent to the following users:\n" + expiringUsers.map(user => user.name).join("\n"));
+            } else {
+                alert("No users with plans expiring soon.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

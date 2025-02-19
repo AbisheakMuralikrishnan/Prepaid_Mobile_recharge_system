@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Query Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+   <!-- Sidebar -->
+   <div class="flex">
+    <nav id="sidebar" class="bg-gray-900 text-white h-screen w-64 transition-all duration-300 fixed">
+        <button onclick="toggleSidebar()" class="p-4 focus:outline-none w-full flex justify-between items-center">
+            <span class="text-lg font-bold sidebar-text">Admin Panel</span>
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+        <ul class="mt-4 space-y-2">
+            <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('index.html')">
+                <i class="fas fa-home mr-3"></i> <span class="sidebar-text">Dashboard</span>
+            </li>
+            <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_management.html')">
+                <i class="fas fa-users mr-3"></i> <span class="sidebar-text">User Management</span>
+            </li>
+            <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('plans_management.html')">
+                <i class="fas fa-tasks mr-3"></i> <span class="sidebar-text">Plans Management</span>
+            </li>
+            <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_queries.html')">
+                <i class="fas fa-envelope mr-3"></i> <span class="sidebar-text">User Queries</span>
+            </li>
+            <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('transaction.html')">
+                <i class="fas fa-receipt mr-3"></i> <span class="sidebar-text">Transactions</span>
+            </li>
+        </ul>
+    </nav>
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-1 p-8 ml-64 transition-all duration-300">
+            <h1 class="text-3xl font-bold mb-6 text-center">User Query Management</h1>
+
+            <!-- Customer Support Tickets Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Customer Support Tickets</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border p-2">Ticket ID</th>
+                                <th class="border p-2">User</th>
+                                <th class="border p-2">Issue</th>
+                                <th class="border p-2">Status</th>
+                                <th class="border p-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="ticket-12345">
+                                <td class="border p-2">#12345</td>
+                                <td class="border p-2">Poornesh</td>
+                                <td class="border p-2">Unable to login</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12345)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12345)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12345" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12345)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="ticket-12346">
+                                <td class="border p-2">#12346</td>
+                                <td class="border p-2">Bharanidharan</td>
+                                <td class="border p-2">Payment not processed</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12346)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12346)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12346" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12346)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            <tr id="ticket-12347">
+                                <td class="border p-2">#12347</td>
+                                <td class="border p-2">Logeshwaran</td>
+                                <td class="border p-2">Recharge not reflecting in the account</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12347)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12347)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12347" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12347)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr id="ticket-12348">
+                                <td class="border p-2">#12348</td>
+                                <td class="border p-2">Ganesh</td>
+                                <td class="border p-2">Wrong pack recharged, need to change</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12348)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12348)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12348" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12348)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            <tr id="ticket-12349">
+                                <td class="border p-2">#12349</td>
+                                <td class="border p-2">Prasana</td>
+                                <td class="border p-2">Payment not processed</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12349)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12349)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12349" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12349)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                            <tr id="ticket-12350">
+                                <td class="border p-2">#12350</td>
+                                <td class="border p-2">Fazil Roshan</td>
+                                <td class="border p-2">Payment done but no reflection of recharge</td>
+                                <td class="border p-2">Pending</td>
+                                <td class="border p-2">
+                                    <div class="flex">
+                                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg" onclick="resolveTicket(12350)">Resolve</button>
+                                        <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg ml-2" onclick="forwardToDev(12350)">Forward to customer support</button>
+                                    </div>
+                                    <div id="resolve-box-12350" class="hidden mt-2">
+                                        <textarea id="resolution-12345" class="w-full p-2 border border-gray-300 rounded-md" placeholder="Type your resolution here..."></textarea>
+                                        <button class="bg-blue-600 text-white px-4 py-2 mt-2 rounded-lg" onclick="sendResolution(12350)">Send Resolution</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Queries Forwarded to Development Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Queries Sent to Customer Support Team</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border p-2">Ticket ID</th>
+                                <th class="border p-2">Issue</th>
+                                <th class="border p-2">Date Sent</th>
+                                <th class="border p-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="devQueriesBody">
+                            <tr>
+                                <td class="border p-2">#12345</td>
+                                <td class="border p-2">Payment Failure</td>
+                                <td class="border p-2">18-02-2025</td>
+                                <td class="border p-2">In Progress</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Feedback Analysis Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Feedback Analysis</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-200">
+                                <th class="border p-2">User</th>
+                                <th class="border p-2">Rating</th>
+                                <th class="border p-2">Comments</th>
+                                <th class="border p-2">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-2">John Doe</td>
+                                <td class="border p-2">4/5</td>
+                                <td class="border p-2">Great experience, but could improve speed.</td>
+                                <td class="border p-2">18-02-2025</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2">Jane Smith</td>
+                                <td class="border p-2">5/5</td>
+                                <td class="border p-2">Loved the service, would recommend to others!</td>
+                                <td class="border p-2">17-02-2025</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2">Alice Brown</td>
+                                <td class="border p-2">3/5</td>
+                                <td class="border p-2">Okay service, but could use better UI.</td>
+                                <td class="border p-2">15-02-2025</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2">Bob White</td>
+                                <td class="border p-2">2/5</td>
+                                <td class="border p-2">Unhappy with the slow response times.</td>
+                                <td class="border p-2">14-02-2025</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const mainContent = document.getElementById("main-content");
+            const sidebarTextElements = document.querySelectorAll(".sidebar-text");
+
+            sidebar.classList.toggle("w-64");
+            sidebar.classList.toggle("w-16");
+            mainContent.classList.toggle("ml-64");
+            mainContent.classList.toggle("ml-16");
+
+            // Hide text when sidebar is collapsed
+            if (sidebar.classList.contains("w-16")) {
+                sidebarTextElements.forEach(el => el.classList.add("hidden"));
+            } else {
+                sidebarTextElements.forEach(el => el.classList.remove("hidden"));
+            }
+        }
+
+        function resolveTicket(ticketId) {
+    const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
+    resolveBox.classList.toggle('hidden'); // Toggle visibility of resolution box
+
+    const resolutionTextarea = document.getElementById(`resolution-${ticketId}`);
+    resolutionTextarea.focus(); // Focus on the resolution textarea when the box is shown
+}
+
+
+function sendResolution(ticketId) {
+    const resolutionTextarea = document.getElementById(`resolution-${ticketId}`);
+    const resolution = resolutionTextarea.value;
+
+    if (resolution.trim()) {
+        alert(`Resolution for ticket #${ticketId}: ${resolution}`);
+        const ticketRow = document.getElementById(`ticket-${ticketId}`);
+        ticketRow.querySelector('td:nth-child(4)').innerText = 'Resolved';
+        
+        // Optionally hide the resolution box
+        const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
+        resolveBox.classList.add('hidden');
+    } else {
+        alert("Please enter a resolution.");
+    }
+}
+
+
+        function forwardToDev(ticketId) {
+    const ticketRow = document.getElementById(`ticket-${ticketId}`);
+    const issue = ticketRow.querySelector('td:nth-child(3)').innerText; // Get the issue from the 3rd column
+    ticketRow.classList.add('bg-yellow-100'); // Highlight ticket as forwarded
+    ticketRow.querySelector('td:nth-child(4)').innerText = 'Forwarded to Customer Support Team';
+    
+    // Remove ticket from the table
+    ticketRow.remove();
+    
+    alert("Ticket #" + ticketId + " has been forwarded to the Customer Support team.");
+    updateDevQueries(ticketId, issue, "Forwarded to Dev");
+}
+
+function updateDevQueries(ticketId, issue, status) {
+    const devQueriesBody = document.getElementById("devQueriesBody");
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+        <td class="border p-2">#${ticketId}</td>
+        <td class="border p-2">${issue}</td> <!-- Show the issue here -->
+        <td class="border p-2">${new Date().toLocaleDateString()}</td>
+        <td class="border p-2">${status}</td>
+    `;
+    devQueriesBody.appendChild(newRow);
+}
+
+    </script>
+
+</body>
+</html>

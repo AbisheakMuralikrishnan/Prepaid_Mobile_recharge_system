@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hidden { display: none; }
+        .error { border-color: red; }
+        .error-message { color: red; font-size: 0.875rem; margin-top: 4px; }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-2xl font-bold text-center mb-4">User Login</h2>
+        
+        <!-- Mobile Number Input -->
+        <div id="mobileInputSection">
+            <label class="block text-gray-700">Enter Mobile Number</label>
+            <input type="text" id="mobileNumber" class="w-full p-2 mt-2 border rounded bg-gray-100" placeholder="Enter your mobile number">
+            <span id="mobileError" class="error-message hidden">Please enter a valid 10-digit mobile number.</span>
+            <button id="sendOtpBtn" class="w-full mt-4 bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
+                Send OTP
+            </button>
+        </div>
+
+        <!-- OTP Input -->
+        <div id="otpInputSection" class="hidden">
+            <label class="block text-gray-700">Enter OTP</label>
+            <input type="text" id="otp" class="w-full p-2 mt-2 border rounded bg-gray-100" placeholder="Enter OTP">
+            <button id="verifyOtpBtn" class="w-full mt-4 bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
+                Verify & Login
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("sendOtpBtn").addEventListener("click", function () {
+            let mobileNumber = document.getElementById("mobileNumber");
+            let mobileError = document.getElementById("mobileError");
+
+            if (/^\d{10}$/.test(mobileNumber.value)) {
+                // Valid number, proceed to OTP input
+                mobileNumber.classList.remove("error");
+                mobileError.classList.add("hidden");
+
+                document.getElementById("mobileInputSection").classList.add("hidden");
+                document.getElementById("otpInputSection").classList.remove("hidden");
+            } else {
+                // Invalid number, show error message
+                mobileNumber.classList.add("error");
+                mobileError.classList.remove("hidden");
+            }
+        });
+
+        document.getElementById("verifyOtpBtn").addEventListener("click", function () {
+            let otp = document.getElementById("otp").value;
+            if (otp) {
+                window.location.href = "dashboard.html"; // Redirect to user dashboard
+            } else {
+                alert("Please enter a valid OTP.");
+            }
+        });
+    </script>
+</body>
+</html>

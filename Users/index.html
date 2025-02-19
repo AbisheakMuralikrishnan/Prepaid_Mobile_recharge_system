@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobicom</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            padding-top: 80px; /* Prevent content from being covered by fixed navbar */
+        }
+        .swiper {
+            width: 100%;
+            max-width: 900px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="pt-40">
+
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full bg-gray-400 shadow-md p-4 flex justify-between items-center z-50">
+    <div class="logo">
+        <img class="h-12" src="images/logo.png" alt="Mobicom Logo"/>
+    </div>
+    <nav class="flex space-x-4">
+        <a class="nav-btn" href="index.html">Home</a>
+        <a class="nav-btn" href="plans.html">Plans</a>
+        <a class="nav-btn" href="#support">Support</a>
+        <a class="nav-btn" href="#contact">Contact</a>
+        <a class="nav-btn" href="login.html"><i class="fas fa-user"></i></a>
+    </nav>
+</header>
+
+<!-- Swiper Carousel -->
+<div class="flex justify-center">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="images/hero-1.png" alt="Premium Connectivity">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/hero-2.png" alt="Unlimited Data Offers">
+            </div>
+        </div>
+
+        <!-- Pagination & Navigation -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+
+    <!-- Recharge Section -->
+    <section class="recharge-section">
+        <h2 class="text-2xl font-semibold">Prepaid Mobile Recharge</h2>
+        <p class="text-black-500">Recharge your prepaid number for talktime and data</p>
+        <div class="recharge-form">
+            <input id="mobileNumber" placeholder="Enter Mobile Number" type="text" maxlength="10" oninput="validateNumber()"/>
+            <button onclick="validateAndRecharge()">RECHARGE</button>
+        </div>
+        <p id="errorMessage" class="error hidden" style="color: red;">Please enter a valid 10-digit mobile number.</p>
+    </section>
+    <br><br><br><br>
+
+    <div class="container mx-auto p-4">
+        <!-- Top-selling postpaid plans section -->
+        <h1 class="text-3xl font-bold mb-4">Top-selling postpaid plans</h1>
+        
+        <div class="overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide" id="plansContainer">
+            <div class="flex space-x-4" id="plansWrapper">
+                <!-- Plan 1 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹3599</h2>
+                    <p class="text-sm">365 Days<br>Validity<br>2.5 GB/Day</p>
+                </div>
+                <!-- Plan 2 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹1029</h2>
+                    <p class="text-sm">84 Days<br>Validity<br>2 GB/Day</p>
+                </div>
+                <!-- Plan 3 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹749</h2>
+                    <p class="text-sm">72 Days<br>Validity<br>2 GB/Day +20 GB</p>
+                </div>
+                <!-- Plan 4 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">POPULAR PLAN</span>
+                    <h2 class="text-2xl font-bold my-2">₹299</h2>
+                    <p class="text-sm">28 Days<br>Validity<br>1.5GB/Day</p>
+                </div>
+                <!-- Plan 5 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹3599</h2>
+                    <p class="text-sm">365 Days<br>Validity<br>2.5 GB/Day</p>
+                </div>
+                <!-- Plan 6 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹1029</h2>
+                    <p class="text-sm">84 Days<br>Validity<br>2 GB/Day</p>
+                </div>
+                <!-- Plan 7 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">5G Plan</span>
+                    <h2 class="text-2xl font-bold my-2">₹749</h2>
+                    <p class="text-sm">72 Days<br>Validity<br>2 GB/Day +20 GB</p>
+                </div>
+                <!-- Plan 8 -->
+                <div class="min-w-[250px] bg-gray-100 p-4 rounded-lg shadow-md flex flex-col items-center text-center cursor-pointer" onclick="redirectToPlan()">
+                    <span class="text-xs font-bold text-red-600">POPULAR PLAN</span>
+                    <h2 class="text-2xl font-bold my-2">₹299</h2>
+                    <p class="text-sm">28 Days<br>Validity<br>1.5GB/Day</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Hide scrollbar -->
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    
+    
+        <br><br><br>
+
+        <!-- Choose a Data Pack Section -->
+<div class="max-w-4xl mx-auto text-center mt-12">
+    <h1 class="text-3xl font-bold mb-6 text-gray-900">Choose a Data Pack as per Your Needs</h1>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <!-- Data Pack 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl" 
+             onclick="redirectToPlan('₹299', '28 Days', '1.5 GB/day')">
+            <h2 class="text-2xl font-bold mb-3 text-black-600">1.5 GB/day</h2>
+            <p class="text-gray-600 mb-4">Unlimited calls and SMS</p>
+            <ul class="text-sm text-gray-700 space-y-2">
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>India's best value plan</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Perfect for social media</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Unlimited voice calls</li>
+            </ul>
+        </div>
+
+        <!-- Data Pack 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl" 
+             onclick="redirectToPlan('₹399', '28 Days', '2 GB/day')">
+            <h2 class="text-2xl font-bold mb-3 text-black-600">2 GB/day</h2>
+            <p class="text-gray-600 mb-4">Unlimited calls and SMS</p>
+            <ul class="text-sm text-gray-700 space-y-2">
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>India's always-connected plan</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Perfect for streaming & gaming</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Uninterrupted video calls</li>
+            </ul>
+        </div>
+
+        <!-- Data Pack 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-xl" 
+             onclick="redirectToPlan('₹499', '28 Days', '2.5 GB/day')">
+            <h2 class="text-2xl font-bold mb-3 text-black-600">2.5 GB/day</h2>
+            <p class="text-gray-600 mb-4">Unlimited calls and SMS</p>
+            <ul class="text-sm text-gray-700 space-y-2">
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Great for watching 4K videos</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Lag-free online gaming</li>
+                <li class="flex items-center"><i class="fas fa-check text-teal-600 mr-2"></i>Binge-watch web series</li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <br><br>
+
+    <section id="support" class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-center mb-6">Customer Support</h2>
+            <p class="text-center text-black-200 mb-6">
+                Need help? Our customer support team is here for you 24/7.
+                Browse our FAQs or contact us directly for assistance.
+            </p>
+    
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-6 bg-white rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Frequently Asked Questions</h3>
+                    <ul class="list-disc pl-6 mt-3 text-gray-600">
+                        <li>
+                            <button class="w-full text-left" onclick="toggleAnswer('answer1')">
+                                <strong>How do I recharge my mobile?</strong>
+                            </button>
+                            <div id="answer1" class="hidden pl-6 mt-2 text-teal-600">
+                                You can recharge your mobile by entering your mobile number, selecting a recharge plan, and completing the payment through available payment methods.
+                            </div>
+                        </li>
+                        <li>
+                            <button class="w-full text-left" onclick="toggleAnswer('answer2')">
+                                <strong>What payment methods do you accept?</strong>
+                            </button>
+                            <div id="answer2" class="hidden pl-6 mt-2 text-teal-600">
+                                We accept UPI, debit/credit/ATM cards, net banking, and various digital wallets.
+                            </div>
+                        </li>
+                        <li>
+                            <button class="w-full text-left" onclick="toggleAnswer('answer3')">
+                                <strong>How can I check my transaction history?</strong>
+                            </button>
+                            <div id="answer3" class="hidden pl-6 mt-2 text-teal-600">
+                                You can view your transaction history by logging into your account and navigating to the 'Transaction History' section in the user dashboard.
+                            </div>
+                        </li>
+                        <li>
+                            <button class="w-full text-left" onclick="toggleAnswer('answer4')">
+                                <strong>What should I do if my payment fails?</strong>
+                            </button>
+                            <div id="answer4" class="hidden pl-6 mt-2 text-teal-600">
+                                If your payment fails, please check your payment details and try again. If the issue persists, you can contact customer support for assistance.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-white rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Need Further Assistance?</h3>
+                    <p class="text-gray-600 mt-3">
+                        If you need more help, feel free to contact our support team.
+                        We are available 24/7 to assist you.
+                    </p>
+                    <a href="#contact" class="text-teal-600 mt-3 inline-block">Contact Us →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold text-center mb-6">Get in Touch</h2>
+            <p class="text-center text-black-200 mb-6">
+                Have any questions? Contact us via email, phone, or fill out the form below.
+            </p>
+    
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Contact Information -->
+                <div class="p-6 bg-white rounded-lg shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900">Contact Information</h3>
+                    <p class="mt-3 text-gray-600">
+                        📞 Phone: <a href="tel:+919876543210" class="text-teal-600 font-medium">+91 987 654 3210</a><br>
+                        ✉️ Email: <a href="mailto:support@mobicom.com" class="text-teal-600 font-medium">support@mobicom.com</a><br>
+                        🏢 Address: 123 Example Street, Tech City, India
+                        <br><br><br>
+                        <!-- About Us Section -->
+                        <h3 class="text-xl font-semibold text-gray-900">About Us</h3>
+                        <p class="text-lg text-gray-700 max-w-3xl mx-auto">Welcome to <a href="index.html" class="text-teal-600 font-semibold">MobiCom</a>, your trusted mobile recharge platform. We offer seamless recharge services,
+                            data packs, and exclusive deals, ensuring a hassle-free experience for our users.
+                        </p>
+                    </p>
+                    </div>
+                
+    
+                <div class="p-6 bg-white rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Send Us a Message</h3>
+                    <form class="mt-4">
+                        <input type="text" placeholder="Your Name" class="w-full p-3 rounded bg-gray-100 mb-3">
+                        <input type="email" placeholder="Your Email" class="w-full p-3 rounded bg-gray-100 mb-3">
+                        <textarea placeholder="Your Message" class="w-full p-3 rounded bg-gray-100 mb-3" rows="4"></textarea>
+                        <button type="submit" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+       var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }
+    });
+
+        const plansContainer = document.getElementById('plansContainer');
+    
+        function autoScroll() {
+            if (plansContainer) {
+                plansContainer.scrollLeft += 1; // Adjust speed by changing the number
+                if (plansContainer.scrollLeft >= plansContainer.scrollWidth - plansContainer.clientWidth) {
+                    plansContainer.scrollLeft = 0; // Reset scroll to beginning
+                }
+            }
+        }
+    
+        setInterval(autoScroll, 30); // Adjust speed by changing interval
+
+
+        function validateNumber() {
+    let mobileNumber = document.getElementById('mobileNumber').value;
+    mobileNumber = mobileNumber.replace(/\D/g, ''); // Remove non-numeric characters
+    document.getElementById('mobileNumber').value = mobileNumber;
+
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Check if the mobile number is exactly 10 digits
+    if (mobileNumber.length !== 10) {
+        errorMessage.classList.remove('hidden'); // Show error message
+    } else {
+        errorMessage.classList.add('hidden'); // Hide error message
+    }
+}
+
+        function validateAndRecharge() {
+    const mobileNumber = document.getElementById('mobileNumber').value;
+    if (mobileNumber.length === 10 && !isNaN(mobileNumber)) {
+        localStorage.setItem('mobileNumber', mobileNumber); // Save to localStorage
+        window.location.href = "plans.html"; // Redirect to the Plans page
+    } else {
+        document.getElementById('errorMessage').classList.remove('hidden');
+    }
+}
+
+    function toggleAnswer(answerId) {
+        const answerElement = document.getElementById(answerId);
+        if (answerElement.classList.contains('hidden')) {
+            answerElement.classList.remove('hidden');
+        } else {
+            answerElement.classList.add('hidden');
+        }
+    }
+    function saveNumber() {
+        let mobileNumber = document.getElementById("mobileInput").value;
+        localStorage.setItem("mobileNumber", mobileNumber); // Store the number in localStorage
+        window.location.href = "plans.html"; // Redirect to plans page
+    }
+
+    function redirectToPlan(price, validity, data) {
+            const url = `plans.html?price=${price}&validity=${validity}&data=${data}`;
+            window.location.href = url;
+        }
+    </script>
+<br>
+    <!-- Footer Section -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Column 1: Links -->
+            <div>
+                <h3 class="text-lg font-bold mb-4">MobiCom</h3>
+                <h2 class="text-lg font-bold mb-4">Our offerings</h2>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Prepaid</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Postpaid</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Port to MobiCom</a></li>
+                    <li><a href="#" class="hover:text-gray-400">International Roaming</a></li>
+                    <li><a href="#" class="hover:text-gray-400">eSim</a></li>
+                    <li><a href="#" class="hover:text-gray-400">5G Network</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 2: Services -->
+            <div>
+                <h3 class="text-lg font-bold mb-4">Services</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Prepaid</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Postpaid</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Broadband</a></li>
+                    <li><a href="#" class="hover:text-gray-400">International Mobile services</a></li>
+                    <li><a href="#" class="hover:text-gray-400">5G Bandwidth</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3: Legal and Social Links -->
+            <div>
+                <h3 class="text-lg font-bold mb-4">About Apple</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-gray-400">Contact MobiCom</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Terms of Use</a></li>
+                    <li><a href="#" class="hover:text-gray-400">Legal</a></li>
+                </ul>
+                
+                <!-- Social Media Icons -->
+                <div class="mt-4 flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="mt-8 text-center text-sm text-gray-500">
+            <p>&copy; 2025 Mobicom. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Font Awesome CDN for Social Media Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

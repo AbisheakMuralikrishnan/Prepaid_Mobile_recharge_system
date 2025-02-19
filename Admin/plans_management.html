@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <nav id="sidebar" class="bg-gray-900 text-white h-screen w-64 transition-all duration-300 fixed">
+            <button onclick="toggleSidebar()" class="p-4 focus:outline-none w-full flex justify-between items-center">
+                <span class="text-lg font-bold sidebar-text">Admin Panel</span>
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <ul class="mt-4 space-y-2">
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('index.html')">
+                    <i class="fas fa-home mr-3"></i> <span class="sidebar-text">Dashboard</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_management.html')">
+                    <i class="fas fa-users mr-3"></i> <span class="sidebar-text">User Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('plans_management.html')">
+                    <i class="fas fa-tasks mr-3"></i> <span class="sidebar-text">Plans Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_queries.html')">
+                    <i class="fas fa-envelope mr-3"></i> <span class="sidebar-text">User Queries</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('transaction.html')">
+                    <i class="fas fa-receipt mr-3"></i> <span class="sidebar-text">Transactions</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-1 p-8 ml-64 transition-all duration-300">
+            <h1 class="text-3xl font-bold mb-6 text-center">Plans Management</h1>
+
+            <!-- Add Plan Form -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <h2 class="text-2xl font-semibold mb-4">Add New Plan</h2>
+                <form id="planForm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <select id="planCategory" class="border p-2 rounded w-full" required>
+                            <option value="">Select Category</option>
+                            <option value="popular">Popular</option>
+                            <option value="recommended">Recommended</option>
+                            <option value="unlimited">Unlimited</option>
+                            <option value="data">Data</option>
+                            <option value="longValidity">Long Validity</option>
+                            <option value="savers">Savers</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="talktime">Talktime</option>
+                            <option value="roaming">Roaming</option>
+                            <option value="flight">Flight</option>
+                        </select>
+                        <input type="number" id="planPrice" placeholder="Price (₹)" class="border p-2 rounded w-full" required>
+                        <input type="text" id="planData" placeholder="Data (GB)" class="border p-2 rounded w-full" required>
+                        <input type="text" id="planValidity" placeholder="Validity (days)" class="border p-2 rounded w-full" required>
+                        <input type="text" id="planDetails" placeholder="Plan Details" class="border p-2 rounded w-full" required>
+                    </div>
+                    <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Add Plan</button>
+                </form>
+            </div>
+
+            <!-- Plans List -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4">Available Plans</h2>
+                <div id="plansCategories"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const sidebarText = document.querySelectorAll('.sidebar-text');
+
+            if (sidebar.classList.contains('w-64')) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-16');
+                mainContent.classList.remove('ml-64');
+                mainContent.classList.add('ml-16');
+
+                sidebarText.forEach(text => text.classList.add('hidden'));
+            } else {
+                sidebar.classList.remove('w-16');
+                sidebar.classList.add('w-64');
+                mainContent.classList.remove('ml-16');
+                mainContent.classList.add('ml-64');
+
+                sidebarText.forEach(text => text.classList.remove('hidden'));
+            }
+        }
+
+const plans = {
+    popular: [
+        { price: 299, data: "1.5 GB/day", validity: "28 days", details: "1.5 GB of data per day for 28 days." },
+        { price: 1029, data: "2 GB/day + OTT", validity: "84 days", details: "2 GB of data per day + access to OTT platforms for 84 days." },
+        { price: 749, data: "1.5 GB/day + 20 GB", validity: "72 days", details: "1.5 GB of data per day + 20 GB additional data for 72 days." }
+    ],
+    recommended: [
+        { price: 299, data: "1.5 GB/day", validity: "28 days", details: "1.5 GB of data per day for 28 days." },
+        { price: 499, data: "3 GB/day + OTT", validity: "56 days", details: "3 GB of data per day + access to OTT platforms for 56 days." },
+        { price: 999, data: "Unlimited Data + Netflix", validity: "90 days", details: "Unlimited data with Netflix subscription for 90 days." },
+        { price: 3599, data: "2.5 GB/day", validity: "365 days", details: "2.5 GB of data per day for 365 days." },
+        { price: 1029, data: "2 GB/day + OTT", validity: "84 days", details: "2 GB of data per day + access to OTT platforms for 84 days." },
+        { price: 749, data: "1.5 GB/day + 20 GB", validity: "72 days", details: "1.5 GB of data per day + 20 GB additional data for 72 days." }
+    ],
+    unlimited: [
+        { price: 399, data: "Unlimited Calls + 1.5GB/day", validity: "28 days", details: "Unlimited calls and 1.5 GB of data per day for 28 days." },
+        { price: 799, data: "Unlimited Calls + 2GB/day", validity: "84 days", details: "Unlimited calls and 2 GB of data per day for 84 days." }
+    ],
+    data: [
+        { price: 49, data: "1GB", validity: "24 hours", details: "1 GB of data valid for 24 hours." },
+        { price: 98, data: "2GB", validity: "48 hours", details: "2 GB of data valid for 48 hours." }
+    ],
+    longValidity: [
+    { price: 999, data: "Unlimited Data + Netflix", validity: "90 days", details: "Unlimited data with Netflix subscription for 90 days." },
+    { price: 3599, data: "2.5 GB/day", validity: "365 days", details: "2.5 GB of data per day for 365 days." },
+    ],
+    savers: [
+        { price: 199, data: "1.5GB/day", validity: "24 days", details: "1.5 GB of data per day for 24 days." },
+        { price: 599, data: "2.5GB/day", validity: "60 days", details: "2.5 GB of data per day for 60 days." }
+    ],
+    entertainment: [
+        { price: 349, data: "2GB/day + Amazon Prime", validity: "28 days", details: "2 GB of data per day + Amazon Prime subscription for 28 days." }
+    ],
+    talktime: [
+        { price: 10, data: "Talktime ₹7.47", validity: "Unlimited", details: "Talktime of ₹7.47 valid for unlimited duration." }
+    ],
+    roaming: [
+        { price: 1499, data: "Unlimited Calls + 3GB/day", validity: "10 days", details: "Unlimited calls and 3 GB of data per day for 10 days." }
+    ],
+    flight: [
+        { price: 579, data: "In-Flight Calls & 1GB Data", validity: "24 hours", details: "In-flight calls and 1GB data valid for 24 hours." }
+    ]
+};
+
+        document.addEventListener("DOMContentLoaded", function () {
+            loadPlans();
+        });
+
+        // Add New Plan Functionality
+        document.getElementById('planForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get values from the form
+            const category = document.getElementById('planCategory').value;
+            const price = parseInt(document.getElementById('planPrice').value);
+            const data = document.getElementById('planData').value;
+            const validity = document.getElementById('planValidity').value;
+            const details = document.getElementById('planDetails').value;
+
+            if (category && price && data && validity && details) {
+                // Add the new plan to the correct category
+                plans[category].push({ price, data, validity, details });
+
+                // Reload the plans to reflect the new plan
+                loadPlans();
+
+                // Reset the form fields after adding the plan
+                document.getElementById("planForm").reset(); // Reset form after submission
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+
+        function loadPlans() {
+            let plansCategoriesHTML = "";
+            for (let category in plans) {
+                if (plans[category].length > 0) {
+                    let categoryHTML = `
+                        <h3 class="text-xl font-semibold mt-6">${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                        <table class="w-full border-collapse border border-gray-300 mt-4">
+                            <thead>
+                                <tr class="bg-gray-200">
+                                    <th class="border p-2">Price (₹)</th>
+                                    <th class="border p-2">Data (GB)</th>
+                                    <th class="border p-2">Validity (days)</th>
+                                    <th class="border p-2">Details</th>
+                                    <th class="border p-2">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                    
+                    plans[category].forEach((plan, index) => {
+                        categoryHTML += `
+                            <tr class="border">
+                                <td class="border p-2">₹${plan.price}</td>
+                                <td class="border p-2">${plan.data}</td>
+                                <td class="border p-2">${plan.validity}</td>
+                                <td class="border p-2">${plan.details}</td>
+                                <td class="border p-2">
+                                    <div class="flex space-x-2">
+                                        <button onclick="editPlan('${category}', ${index})" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</button>
+                                        <button onclick="deletePlan('${category}', ${index})" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    });
+
+                    categoryHTML += "</tbody></table>";
+                    plansCategoriesHTML += categoryHTML;
+                }
+            }
+
+            document.getElementById("plansCategories").innerHTML = plansCategoriesHTML;
+        }
+
+        function editPlan(category, index) {
+            let plan = plans[category][index];
+            let newPrice = prompt("Edit Price (₹):", plan.price);
+            let newData = prompt("Edit Data (GB/day):", plan.data);
+            let newValidity = prompt("Edit Validity (days):", plan.validity);
+            let newDetails = prompt("Edit Plan Details:", plan.details);
+
+            if (newPrice && newData && newValidity && newDetails) {
+                plans[category][index] = {
+                    price: parseInt(newPrice),
+                    data: newData,
+                    validity: newValidity,
+                    details: newDetails
+                };
+                loadPlans();
+            }
+        }
+
+        function deletePlan(category, index) {
+            if (confirm("Are you sure you want to delete this plan?")) {
+                plans[category].splice(index, 1);
+                loadPlans();
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <!-- Sidebar -->
+    <div class="flex">
+        <nav id="sidebar" class="bg-gray-900 text-white h-screen w-64 transition-all duration-300 fixed">
+            <button onclick="toggleSidebar()" class="p-4 focus:outline-none w-full flex justify-between items-center">
+                <span class="text-lg font-bold sidebar-text">Admin Panel</span>
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+            <ul class="mt-4 space-y-2">
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('index.html')">
+                    <i class="fas fa-home mr-3"></i> <span class="sidebar-text">Dashboard</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_management.html')">
+                    <i class="fas fa-users mr-3"></i> <span class="sidebar-text">User Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('plans_management.html')">
+                    <i class="fas fa-tasks mr-3"></i> <span class="sidebar-text">Plans Management</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('user_queries.html')">
+                    <i class="fas fa-envelope mr-3"></i> <span class="sidebar-text">User Queries</span>
+                </li>
+                <li class="p-3 hover:bg-gray-700 cursor-pointer flex items-center" onclick="navigateTo('transaction.html')">
+                    <i class="fas fa-receipt mr-3"></i> <span class="sidebar-text">Transactions</span>
+                </li>
+            </ul>
+        </nav>
+        <script>
+            function navigateTo(page) {
+                window.location.href = page;
+            }
+        </script>
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-1 p-8 ml-64 transition-all duration-300">
+            <h1 class="text-3xl font-bold mb-6 text-center">Transactions</h1>
+
+            <!-- Transactions Section -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4">Recharge Transactions</h2>
+
+                <!-- Filters -->
+                <div class="mb-4 flex flex-wrap space-x-4">
+                    <input type="date" id="filterDate" class="border p-2 rounded-lg">
+                    <input type="number" id="filterAmount" placeholder="Min Amount" class="border p-2 rounded-lg">
+                    <select id="filterPayment" class="border p-2 rounded-lg">
+                        <option value="">Payment Methods</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="UPI">UPI</option>
+                    </select>
+                    <select id="filterStatus" class="border p-2 rounded-lg">
+                        <option value="">Status</option>
+                        <option value="Success">Success</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Failed">Failed</option>
+                    </select>
+                    <button onclick="applyFilters()" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Filter</button>
+                </div>
+
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border p-2">User ID</th>
+                            <th class="border p-2">User</th>
+                            <th class="border p-2">Phone Number</th>
+                            <th class="border p-2">Date & Time</th>
+                            <th class="border p-2">Amount</th>
+                            <th class="border p-2">Payment Method</th>
+                            <th class="border p-2">Ref ID</th>
+                            <th class="border p-2">Bank</th>
+                            <th class="border p-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsTableBody"></tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Toggle Sidebar
+    function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+
+    if (sidebar.classList.contains('w-64')) {
+        sidebar.classList.remove('w-64');
+        sidebar.classList.add('w-16');
+        mainContent.classList.remove('ml-64');
+        mainContent.classList.add('ml-16');
+    } else {
+        sidebar.classList.remove('w-16');
+        sidebar.classList.add('w-64');
+        mainContent.classList.remove('ml-16');
+        mainContent.classList.add('ml-64');
+    }
+}
+
+        // Dummy transactions
+        const transactions = [
+    { id: "U001", user: "Bharanidharan", phone: "9876543210", date: "10-01-2025", time: "14:30", amount: 199, payment: "Credit Card", refId: "TXN001234", bank: "HDFC Bank", status: "Success" },
+    { id: "U002", user: "Prasana", phone: "9845123456", date: "12-01-2025", time: "09:15", amount: 399, payment: "UPI", refId: "TXN001235", bank: "SBI", status: "Failed" },
+    { id: "U003", user: "Fazil Roshan", phone: "9765432109", date: "14-02-2025", time: "18:45", amount: 99, payment: "Debit Card", refId: "TXN001236", bank: "ICICI Bank", status: "Failed" },
+    { id: "U004", user: "Safthar", phone: "9654321098", date: "15-02-2025", time: "12:10", amount: 249, payment: "UPI", refId: "TXN001237", bank: "Axis Bank", status: "Success" },
+    { id: "U005", user: "Poornesh", phone: "9543210987", date: "18-02-2025", time: "16:20", amount: 299, payment: "NetBanking", refId: "TXN001238", bank: "Kotak Mahindra", status: "Pending" },
+    { id: "U006", user: "Logeshwaran", phone: "9432109876", date: "01-02-2025", time: "10:55", amount: 3599, payment: "UPI", refId: "TXN001239", bank: "YES Bank", status: "Success" }
+];
+
+        
+        function loadTransactions() {
+            let transactionsHTML = "";
+
+    // Sort transactions by date (latest first)
+    const sortedTransactions = [...transactions].sort((a, b) => new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`));
+
+    sortedTransactions.forEach(transaction => {
+        transactionsHTML += `
+            <tr class="border">
+                <td class="border p-2">${transaction.id}</td>
+                <td class="border p-2">${transaction.user}</td>
+                <td class="border p-2">${transaction.phone}</td>
+                <td class="border p-2">${transaction.date} <br> <span class="text-sm text-gray-500">${transaction.time}</span></td>
+                <td class="border p-2">₹${transaction.amount}</td>
+                <td class="border p-2">${transaction.payment}</td>
+                <td class="border p-2">${transaction.refId}</td>
+                <td class="border p-2">${transaction.bank}</td>
+                <td class="border p-2">${transaction.status}</td>
+            </tr>`;
+    });
+
+    document.getElementById("transactionsTableBody").innerHTML = transactionsHTML;
+}
+
+// Load transactions on page load
+document.addEventListener("DOMContentLoaded", loadTransactions);
+
+
+    function applyFilters() {
+        let filteredTransactions = [...transactions]; // Copy original transactions
+
+        const filterDate = document.getElementById("filterDate").value;
+        const filterAmount = document.getElementById("filterAmount").value;
+        const filterPayment = document.getElementById("filterPayment").value;
+        const filterStatus = document.getElementById("filterStatus").value;
+
+        if (filterDate) {
+            filteredTransactions = filteredTransactions.filter(t => t.date === filterDate);
+        }
+        if (filterAmount) {
+            filteredTransactions = filteredTransactions.filter(t => t.amount >= filterAmount);
+        }
+        if (filterPayment) {
+            filteredTransactions = filteredTransactions.filter(t => t.payment === filterPayment);
+        }
+        if (filterStatus) {
+            filteredTransactions = filteredTransactions.filter(t => t.status === filterStatus);
+        }
+
+        // Sort filtered transactions by date (latest first)
+        filteredTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let filteredHTML = "";
+        filteredTransactions.forEach(transaction => {
+            filteredHTML += `
+                <tr class="border">
+                    <td class="border p-2">${transaction.id}</td>
+                <td class="border p-2">${transaction.user}</td>
+                <td class="border p-2">${transaction.phone}</td>
+                <td class="border p-2">${transaction.date} <br> <span class="text-sm text-gray-500">${transaction.time}</span></td>
+                <td class="border p-2">₹${transaction.amount}</td>
+                <td class="border p-2">${transaction.payment}</td>
+                <td class="border p-2">${transaction.refId}</td>
+                <td class="border p-2">${transaction.bank}</td>
+                <td class="border p-2">${transaction.status}</td>
+                </tr>`;
+        });
+
+        document.getElementById("transactionsTableBody").innerHTML = filteredHTML;
+    }
+    function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+            const sidebarText = document.querySelectorAll('.sidebar-text');
+
+            if (sidebar.classList.contains('w-64')) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-16');
+                mainContent.classList.remove('ml-64');
+                mainContent.classList.add('ml-16');
+
+                sidebarText.forEach(text => text.classList.add('hidden'));
+            } else {
+                sidebar.classList.remove('w-16');
+                sidebar.classList.add('w-64');
+                mainContent.classList.remove('ml-16');
+                mainContent.classList.add('ml-64');
+
+                sidebarText.forEach(text => text.classList.remove('hidden'));
+            }
+        }
+</script>
+
+</body>
+</html>

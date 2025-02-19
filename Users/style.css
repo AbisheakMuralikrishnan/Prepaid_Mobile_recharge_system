@@ -1,0 +1,241 @@
+/* Global Styles */
+body {
+    background: url('images/background-3.webp') no-repeat center center fixed;
+    background-size: cover;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(64, 64, 64, 0.5); /* Adjust the opacity */
+    z-index: -1;
+}
+
+/* Header */
+header {
+    background-color: #fdf5ec;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: auto;
+}
+
+/* Carousel */
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 120px auto 40px;
+    width: 80%;
+    position: relative;
+}
+
+.carousel img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel button {
+    position: absolute;
+    background: rgba(0, 0, 50, 0.7);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
+
+/* Recharge Section */
+.recharge-section {
+    text-align: center;
+    margin-top: 40px;
+
+}
+
+.recharge-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.recharge-section p {
+    color: rgb(23, 23, 23);
+    margin-top: 8px;
+}
+
+.recharge-form {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.recharge-form input {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    width: 200px;
+    outline: none;
+}
+
+.recharge-form button {
+    background-color: #656d4a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.recharge-form button:hover {
+    background-color: #414833;
+}
+
+
+/* Navigation Buttons */
+.nav-btn {
+    color: #000000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+.nav-btn:hover {
+    background-color: #81cdbf;
+}
+
+/* Tabs */
+.tab-btn {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+/* Plan Cards */
+.plan-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+.plan-card:hover {
+    transform: scale(1.02);
+}
+
+/* View Details Button */
+.view-btn {
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: rgb(117, 170, 255);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.view-btn:hover {
+    text-decoration: underline;
+}
+.tab-btn {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+    border-bottom: 2px solid red;
+    font-weight: bold;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    z-index: 1000;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.popup.show {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.popup p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.popup button {
+    background: #00796b;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.popup button:hover {
+    background: #004d40;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -55%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

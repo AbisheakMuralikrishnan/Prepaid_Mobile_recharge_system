@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        .active {
+            background-color: #b6ad90 !important;
+            color: white !important;
+            transition: all 0.3s ease-in-out;
+        }
+        .dropdown {
+            display: none;
+            max-height: 300px; /* Add a max-height for dropdowns */
+            overflow-y: auto;  /* Scrollbar if content exceeds max height */
+        }
+        body {
+            background: url('images/background-3.webp') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        .payment-summary-container {
+            max-height: 500px; /* Set a fixed height for the summary container */
+            overflow-y: auto;  /* Scrollable if content exceeds */
+        }
+        .back-to-plans-btn {
+        background-color: #656d4a; /* Green background */
+        color: white; /* Text color */
+        padding: 12px 24px; /* Add padding */
+        border-radius: 30px; /* Rounded corners */
+        font-size: 16px; /* Slightly larger text */
+        font-weight: 600; /* Slightly bolder text */
+        text-align: center;
+        display: inline-block;
+        transition: all 0.3s ease; /* Smooth transition for hover effects */
+        border: none; /* Remove default border */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+    }
+
+    .back-to-plans-btn:hover {
+        background-color: #4b5236; /* Slightly darker green on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+    }
+
+    .back-to-plans-btn:active {
+        transform: translateY(0); /* Remove lift effect on click */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow on click */
+    }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <main class="p-8">
+        <div class="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+            <!-- Payment Options Section -->
+            <div class="w-full md:w-2/3">
+                <button onclick="goBack()" class="back-to-plans-btn">
+                    ← Back to Plans
+                </button>
+                <br><br>
+                <h2 class="text-2xl font-semibold mb-4">Payment Options</h2>
+                <div class="space-y-4" id="payment-options">
+                    <!-- Card Payment -->
+                    <button class="payment-option w-full flex items-center justify-between bg-neutral-500/50 p-4 rounded-lg" data-target="cardDropdown">
+                        <div class="flex items-center">
+                            <i class="fas fa-credit-card text-xl mr-2"></i>
+                            <span>Credit/Debit Card</span>
+                        </div>
+                    </button>
+                    <div id="cardDropdown" class="dropdown bg-white p-4 rounded shadow-md">
+                        <input type="text" placeholder="Enter Card Number" class="w-full p-2 mb-2 rounded bg-gray-100">
+                        <div class="flex space-x-2">
+                            <input type="text" placeholder="MM/YY" class="w-1/2 p-2 rounded bg-gray-100">
+                            <input type="password" placeholder="CVV" class="w-1/2 p-2 rounded bg-gray-100">
+                        </div>
+                    </div>
+
+                    <!-- Net Banking Button -->
+                    <button class="payment-option w-full flex items-center justify-between bg-neutral-500/50 p-4 rounded-lg" data-target="netBankingDropdown">
+                        <div class="flex items-center">
+                            <i class="fas fa-university text-xl mr-2"></i>
+                            <span>Net Banking</span>
+                        </div>
+                    </button>
+
+                    <!-- Net Banking Dropdown -->
+                    <div id="netBankingDropdown" class="dropdown bg-white p-6 rounded-lg shadow-md max-w-7xl mx-auto">
+                        <label class="block text-gray-700 font-semibold mb-2">Select Your Bank:</label>
+                        <div class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-4">
+                            <!-- Bank Tile HDFC -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('HDFC')">
+                                <img src='images/hdfc-logo.png' alt="HDFC Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">HDFC Bank</p>
+                            </div>
+
+                            <!-- Bank Tile SBI -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('SBI')">
+                                <img src="images/SBI-logo.svg.png" alt="SBI Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">SBI Bank</p>
+                            </div>
+
+                            <!-- Bank Tile ICICI -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('ICICI')">
+                                <img src="images/icici-logo.png" alt="ICICI Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">ICICI Bank</p>
+                            </div>
+
+                            <!-- Bank Tile Axis -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('Axis')">
+                                <img src="images/Axis-logo.png" alt="Axis Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">Axis Bank</p>
+                            </div>
+
+                            <!-- Bank Tile PNB -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('PNB')">
+                                <img src="images/pnb-logo.webp" alt="PNB Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">PNB Bank</p>
+                            </div>
+
+                            <!-- Bank Tile Canara -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('Canara')">
+                                <img src="images/canara-logo.png" alt="Canara Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">Canara Bank</p>
+                            </div>
+
+                            <!-- Bank Tile Union -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('Union')">
+                                <img src="images/union-logo.png" alt="Union Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">Union Bank</p>
+                            </div>
+
+                            <!-- Bank Tile Yes -->
+                            <div class="bank-tile p-6 bg-gray-100 rounded-lg shadow-lg text-center cursor-pointer hover:bg-teal-100 transition duration-300 ease-in-out" onclick="redirectToBank('Yes')">
+                                <img src="images/yes-logo.png" alt="Yes Bank Logo" class="w-20 h-20 mx-auto mb-2">
+                                <p class="font-semibold text-gray-700">Yes Bank</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UPI -->
+                    <button class="payment-option w-full flex items-center justify-between bg-neutral-500/50 p-4 rounded-lg" data-target="upiDropdown">
+                        <div class="flex items-center">
+                            <i class="fas fa-mobile-alt text-xl mr-2"></i>
+                            <span>UPI</span>
+                        </div>
+                    </button>
+                    <div id="upiDropdown" class="dropdown bg-white p-4 rounded shadow-md">
+                        <input type="text" placeholder="Enter UPI ID" class="w-full p-2 rounded bg-gray-100">
+                    </div>
+
+                    <!-- Wallets -->
+                    <button class="payment-option w-full flex items-center justify-between bg-neutral-500/50 p-4 rounded-lg" data-target="walletDropdown">
+                        <div class="flex items-center">
+                            <i class="fas fa-wallet text-xl mr-2"></i>
+                            <span>Wallets</span>
+                        </div>
+                    </button>
+                    <div id="walletDropdown" class="dropdown bg-white p-4 rounded shadow-md">
+                        <select class="w-full p-2 rounded bg-gray-100">
+                            <option>Select Wallet</option>
+                            <option>Amazon Pay</option>
+                            <option>Apple Pay</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Summary -->
+<div class="p-6 bg-stone-700/30 rounded-lg shadow-lg max-w-md mx-auto payment-summary-container">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Payment Summary</h2>
+    <p><strong><span id="displayMobileNumber">Not Available</span></strong></p>
+    <br>
+    
+    <div class="space-y-2">
+        <p class="text-zinc-600"><strong>Price:</strong> <span id="planPrice" class="font-medium text-slate-800">₹ 0</span></p>
+        <p class="text-zinc-600"><strong>Data:</strong> <span id="planData" class="font-medium text-slate-800">N/A</span></p>
+        <p class="text-zinc-600"><strong>Validity:</strong> <span id="validity" class="font-medium text-slate-800">N/A</span></p>
+        
+    </div>
+    <br>
+    <hr class="my-4">
+
+    <div class="flex justify-between text-lg font-semibold text-gray-700">
+        <span>Total Amount Payable</span>
+        <span id="totalAmountPayable" class="text-emerald-800"> ₹ 0</span>
+    </div>
+    <hr class="my-4">
+</div>
+
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const paymentOptions = document.querySelectorAll(".payment-option");
+            const dropdowns = document.querySelectorAll(".dropdown");
+
+            paymentOptions.forEach(option => {
+                option.addEventListener("click", function () {
+                    // Remove active class from all buttons
+                    paymentOptions.forEach(btn => btn.classList.remove("active"));
+                    this.classList.add("active");
+
+                    // Hide all dropdowns
+                    dropdowns.forEach(dropdown => dropdown.style.display = "none");
+
+                    // Show selected dropdown
+                    let targetDropdown = document.getElementById(this.getAttribute("data-target"));
+                    if (targetDropdown) {
+                        targetDropdown.style.display = "block";
+                    }
+                });
+            });
+
+            function getQueryParam(name) {
+                const params = new URLSearchParams(window.location.search);
+                return params.get(name) || "N/A";
+            }
+
+            const price = getQueryParam("price");
+            const validity = getQueryParam("validity");
+            document.getElementById("planData").innerText = getQueryParam("data");
+            document.getElementById("validity").innerText = validity
+            document.getElementById("planPrice").innerText = "₹ " + price;
+            document.getElementById("totalAmountPayable").innerText = "₹ " + price;
+        });
+        function goBack() {
+    window.location.href = "plans.html"; // Replace with the actual plans page URL
+}
+
+function redirectToBank(bankName) {
+        let bankURLs = {
+            'HDFC': 'https://www.hdfcbank.com',
+            'SBI': 'https://sbi.co.in',
+            'ICICI': 'https://www.icicibank.com',
+            'Axis': 'https://www.axisbank.com',
+            'PNB': 'https://www.pnbindia.in',
+            'Canara': 'https://www.canarabank.in',
+            'Union': 'https://www.unionbankofindia.co.in',
+            'Yes': 'https://www.yesbank.in'
+        };
+
+        if (bankURLs[bankName]) {
+            window.location.href = bankURLs[bankName];
+        } else {
+            alert("Invalid Bank Selection");
+        }
+    }
+
+    window.onload = function() {
+    const storedNumber = localStorage.getItem('mobileNumber');
+    if (storedNumber) {
+        // Display the stored number in the payment summary
+        document.getElementById('displayMobileNumber').textContent = storedNumber;
+    }
+}
+
+    </script>
+</body>
+</html>
