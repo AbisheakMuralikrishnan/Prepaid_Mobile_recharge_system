@@ -1,6 +1,6 @@
 /* Global Styles */
 body {
-    background: url('images/background-3.webp') no-repeat center center fixed;
+    background-color: white ;
     background-size: cover;
     position: relative;
 }
@@ -12,7 +12,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(64, 64, 64, 0.5); /* Adjust the opacity */
+    background: rgba(64, 64, 64, 0.5);
     z-index: -1;
 }
 
@@ -31,34 +31,39 @@ header {
 }
 
 /* Carousel */
-.carousel {
+.swiper {
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Swiper slide images */
+.swiper-slide img {
+    border-radius: 15px;
+    transition: transform 0.4s ease-in-out;
+}
+
+.swiper-slide img:hover {
+    transform: scale(1.05);
+}
+
+.swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #007bff;
+    opacity: 1;
+}
+
+.d-flex.justify-content-center {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 120px auto 40px;
-    width: 80%;
-    position: relative;
 }
-
-.carousel img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.carousel button {
-    position: absolute;
-    background: rgba(0, 0, 50, 0.7);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-#prevBtn { left: 10px; }
-#nextBtn { right: 10px; }
 
 /* Recharge Section */
 .recharge-section {
@@ -77,35 +82,63 @@ header {
     margin-top: 8px;
 }
 
-.recharge-form {
-    margin-top: 16px;
+.recharge-container {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
+    align-items: center;
+    height: 100vh;
 }
 
-.recharge-form input {
+.container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.input-group input {
     padding: 10px;
     border: 1px solid gray;
     border-radius: 20px;
-    width: 200px;
+    width: 250px;
     outline: none;
+    font-size: 16px;
+    text-align: center;
 }
 
-.recharge-form button {
+.input-group button {
     background-color: #656d4a;
     color: white;
     padding: 10px 20px;
     border-radius: 20px;
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
+    font-size: 16px;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.recharge-form button:hover {
-    background-color: #414833;
+.input-group button:hover {
+    background-color: #4a5238;
+    transform: scale(1.05);
 }
+
+.input-group button:active {
+    transform: scale(0.95);
+}
+
+.error {
+    margin-top: 10px;
+    font-size: 14px;
+    color: red;
+    display: none;
+}
+
 
 
 /* Navigation Buttons */
@@ -131,35 +164,111 @@ header {
     transition: color 0.3s;
 }
 
+/*change number section*/
+.input-field {
+    width: 200px; /* Fixed width for the input field */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-change {
+    padding: 10px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #79cf7c; /* Fresh Green background */
+    color: black;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase; /* Uppercase text for emphasis */
+    min-width: 50px; /* Fixed minimum width for the button */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    white-space: nowrap; /* Prevent button text from wrapping */
+    transition: background-color 0.3s ease;
+}
+
+.btn-change i {
+    font-size: 18px; /* Set a size for the icon */
+}
+
+.btn-change:hover {
+    background-color: #6bbf6a; /* Slightly darker green on hover */
+}
+
+.btn-change:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(72, 146, 56, 0.8); /* Green glow when focused */
+}
+
+.btn-change:active {
+    background-color: #66a95d; /* Even darker green when clicked */
+}
+
+
+
+
 /* Plan Cards */
 .plan-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
+    background-color: #ffffff;
     padding: 16px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-block-end: 16px;
+    transition: transform 0.2s ease-in-out;
 }
+
 .plan-card:hover {
     transform: scale(1.02);
 }
 
-/* View Details Button */
-.view-btn {
-    background: none;
-    font-weight: bold;
-    cursor: pointer;
-    color: rgb(117, 170, 255);
+.plan-card .plan-details {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 4px;
 }
-.view-btn:hover {
-    text-decoration: underline;
+
+.plan-card .plan-details p {
+    margin: 0;
 }
+
+.plan-card .plan-details .price {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.plan-card .plan-details .data {
+    color: #6b7280;
+}
+
+.plan-card .plan-details .validity {
+    color: #6b7280;
+    text-align: right;
+}
+
+.plan-card .plan-details i {
+    color: #6b7280;
+}
+
+.plan-card hr {
+    margin: 16px 0;
+}
+
+.view-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
 .tab-btn {
     padding: 10px 15px;
     cursor: pointer;
@@ -239,3 +348,139 @@ header {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light background for page content */
+}
+
+/* Footer (no background) */
+footer {
+    padding: 50px 0;
+    width: 100%;
+    position: relative;
+}
+
+footer .container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+footer .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .col-md-3 {
+    flex: 1;
+    padding: 15px;
+}
+
+footer h5 {
+    font-weight: bold;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer .social-icons a {
+    margin-right: 10px;
+    color: black;
+    font-size: 20px;
+}
+
+footer .social-icons a:hover {
+    color: #007bff;
+}
+
+footer .bg-dark {
+    background-color: #23272b;
+    padding: 20px 0;
+    color: #dcdcdc;
+}
+
+footer .bg-dark p {
+    margin: 0;
+}
+
+footer .bg-dark a {
+    color: #007bff;
+}
+
+footer .bg-dark a:hover {
+    color: #0056b3;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for exact center */
+    background-color: white; /* Background color */
+    padding: 20px; /* Padding inside the modal */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensure it's on top of other elements */
+    width: 320px; /* Fixed width */
+    max-width: 90%; /* Ensure it doesn't overflow the screen */
+    text-align: center; /* Center text */
+    font-family: Arial, sans-serif; /* Modern font */
+  }
+
+  /* Price Text */
+  .price {
+    font-size: 32px; /* Larger font size */
+    font-weight:b; /* Bold text */
+    color: #2c3e50; /* Dark color for emphasis */
+    margin: 10px 0; /* Space above and below */
+  }
+
+  /* Other Text */
+  .modal p {
+    font-size: 16px; /* Standard font size */
+    color: #666; /* Subtle gray color */
+    margin: 6px 0; /* Space between paragraphs */
+  }
+
+  /* Close Button Styles */
+  .close-btn {
+    background-color: #3498db; /* Blue background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 16px; /* Space above the button */
+    font-size: 16px; /* Button text size */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+
+  .close-btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+  }
+  
+

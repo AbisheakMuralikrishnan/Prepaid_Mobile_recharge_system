@@ -1,97 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prepaid Recharge Plans</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prepaid Recharge Plans</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 </head>
-<body class="bg-gray-100">
-
-    <header class="bg-gray-400 p-4 flex justify-between items-center">
+<body class="p-0">
+    <header class="bg-secondary p-4 d-flex justify-content-between align-items-center">
         <div class="logo">
             <img class="h-12" src="images/logo.png" alt="Mobicom Logo"/>
         </div>
-        <nav class="flex space-x-4" aria-label="Main Navigation">
+        <nav class="d-flex gap-4" aria-label="Main Navigation">
             <a class="nav-btn" href="index.html" aria-label="Home">Home</a>
             <a class="nav-btn" href="plans.html" aria-label="Plans">Plans</a>
             <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
             <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
-            <a class="nav-btn" href="dashboard.html" aria-label="User  Profile"><i class="fas fa-user"></i></a>
+            <a class="nav-btn" href="dashboard.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
         </nav>
     </header>
+      
+    </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main class="flex">
-        <!-- Sidebar -->
-        <aside class="bg-zinc-500/30 p-4 w-1/4 min-h-screen">
-            
-            <div class="flex items-center space-x-2">
-                <input id="changeInput" type="text" class="w-full p-2 rounded bg-white border border-gray-300" placeholder="Change" disabled />
-                <button id="changeButton" class="p-2 min-w-[70px] bg-neutral-500 text-teal rounded text-center whitespace-nowrap" onclick="enableChange()">
-                    Change
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Main Content -->
+<main class="d-flex">
+    <!-- Sidebar -->
+    <aside style="background-color: rgba(107,114,128,0.3); width:25%;" class="p-4 min-vh-100">
+        <div class="d-flex align-items-center gap-2">
+            <input id="changeInput" type="text" class="input-field" placeholder="Change" disabled />
+            <div class="flex-container">
+                <button id="changeButton" class="btn-change" onclick="enableChange()">
+                    <i class="fas fa-pencil-alt"></i> <!-- Pencil icon for Change -->
                 </button>
             </div>
-
-                <div class="bg-white p-4 rounded mt-4 shadow-md">
-                    <h2 class="text-lg font-semibold mb-2">Find a preferred plan</h2>
-                    <div class="relative flex items-center">
-                        <input type="text" id="searchInput" onkeyup="searchPlans()" class="w-full p-2 pl-10 border rounded focus:outline-none" placeholder="Search for plans">
-                        <i class="fas fa-search absolute left-3 text-gray-500"></i>
-                    </div>
-                    <button id="toggleFilters" class="p-2 mt-2 border rounded w-full bg-gray-300" aria-label="Toggle Filters" onclick="toggleFilters()">Filters <i class="fas fa-filter"></i></button>
-                    <div id="filtersContainer" class="hidden mt-4">
-                        <label class="block mt-4">Filter by Data:</label>
-                        <select id="dataFilter" class="w-full p-2 border rounded" onchange="filterPlans()">
-                            <option value="">All</option>
-                            <option value="1 GB">1 GB/day</option>
-                            <option value="1.5 GB">1.5 GB/day</option>
-                            <option value="2 GB">2 GB/day</option>
-                            <option value="2.5 GB">2.5 GB/day</option>
-                        </select>
-                        <label class="block mt-4">Filter by Price:</label>
-                        <select id="priceFilter" class="w-full p-2 border rounded" onchange="filterPlans()">
-                            <option value="">All</option>
-                            <option value="0-500">₹0 - ₹500</option>
-                            <option value="500-1000">₹500 - ₹1000</option>
-                            <option value="1000-2000">₹1000 - ₹2000</option>
-                            <option value="2000+">₹2000+</option>
-                        </select>
-                    </div>
+        </div>
+        
+      </div>
+      <div class="bg-white p-4 rounded mt-4 shadow">
+        <h2 class="h5 fw-semibold mb-2">Find a preferred plan</h2>
+        <div class="position-relative d-flex align-items-center">
+          <input type="text" id="searchInput" onkeyup="searchPlans()" class="w-100 p-2 border rounded" style="padding-left: 2.5rem;" placeholder="Search for plans">
+          <i class="fas fa-search position-absolute" style="right: 0.75rem; color: #6c757d;"></i>
+        </div>
+        <button id="toggleFilters" class="p-2 mt-2 border rounded w-100" style="background-color: #d1d5db;" aria-label="Toggle Filters" onclick="toggleFilters()">
+          Filters <i class="fas fa-filter"></i>
+        </button>
+        <div id="filtersContainer" class="d-none">
+            <div class="row mb-3">
+                <!-- Data Filter Dropdown -->
+                <div class="col-md-6">
+                    <label for="dataFilter" class="form-label">Select Data</label>
+                    <select id="dataFilter" class="form-select" onchange="filterPlans()">
+                        <option value="">All</option>
+                        <option value="1GB">1GB</option>
+                        <option value="1.5GB">1.5GB</option>
+                        <option value="2GB">2GB</option>
+                        <option value="2.5GB">2.5GB</option>
+                        <option value="3GB">3GB</option>
+                        <option value="4GB">4GB</option>
+                        <option value="5GB">5GB</option>
+                    </select>
                 </div>
-        </aside>
+        
+                <!-- Price Filter Dropdown -->
+                <div class="col-md-6">
+                    <label for="priceFilter" class="form-label">Select Price</label>
+                    <select id="priceFilter" class="form-select" onchange="filterPlans()">
+                        <option value="">All</option>
+                        <option value="0-500">₹0 - ₹500</option>
+                        <option value="501-1000">₹501 - ₹1000</option>
+                        <option value="1001-2000">₹1001 - ₹2000</option>
+                        <option value="2000+">₹2000+</option>
+                    </select>
+                </div>
+            </div>
+        
+            <!-- Clear Filters Button -->
+            <div class="text-end">
+                <button class="btn btn-outline-secondary" onclick="clearFilters()">Clear Filters</button>
+            </div>
+        </div>
+        
+    </aside>
+  
+    <!-- Right Content -->
+    <section class="p-4 w-75">
+      <h1 class="fw-bold mb-4">PREPAID RECHARGE PLANS</h1>
+    
+      <!-- Tabs -->
+      <div class="mb-4 d-flex border-bottom hide-scrollbar" style="overflow-x:auto; scroll-snap-type: x mandatory; white-space: nowrap;">
+        <button class="btn tab-btn active" onclick="changeTab('popular', this)" style="scroll-snap-align: center;">Popular plans</button>
+        <button class="btn tab-btn" onclick="changeTab('recommended', this)" style="scroll-snap-align: center;">Recommended plans</button>
+        <button class="btn tab-btn" onclick="changeTab('unlimited', this)" style="scroll-snap-align: center;">Truly Unlimited</button>
+        <button class="btn tab-btn" onclick="changeTab('data', this)" style="scroll-snap-align: center;">Data</button>
+        <button class="btn tab-btn" onclick="changeTab('longValidity', this)" style="scroll-snap-align: center;">Long validity plans</button>
+        <button class="btn tab-btn" onclick="changeTab('savers', this)" style="scroll-snap-align: center;">Super savers</button>
+        <button class="btn tab-btn" onclick="changeTab('entertainment', this)" style="scroll-snap-align: center;">Entertainment</button>
+        <button class="btn tab-btn" onclick="changeTab('talktime', this)" style="scroll-snap-align: center;">Talktime</button>
+        <button class="btn tab-btn" onclick="changeTab('roaming', this)" style="scroll-snap-align: center;">International Roaming</button>
+        <button class="btn tab-btn" onclick="changeTab('flight', this)" style="scroll-snap-align: center;">In-Flight Roaming</button>
+      </div>
+      
+    
+      <!-- Plans List -->
+      <div id="plans-container" class="d-flex flex-column gap-4"></div>
+    </section>
+  </main>
+  
+<script>
+    let currentCategory = 'popular';
+    let allPlans = []; // Store all plans for filtering
 
-        <!-- Right Content -->
-        <section class="p-4 w-3/4">
-            <h1 class="text-2xl font-bold mb-4">PREPAID RECHARGE PLANS</h1>
-
-<!-- Tabs -->
-<div class="mb-4 flex border-b overflow-x-auto" style="scroll-snap-type: x mandatory; white-space: nowrap;">
-    <button class="tab-btn active" onclick="changeTab('popular', this)" style="scroll-snap-align: center;">Popular plans</button>
-    <button class="tab-btn" onclick="changeTab('recommended', this)" style="scroll-snap-align: center;">Recommended plans</button>
-    <button class="tab-btn" onclick="changeTab('unlimited', this)" style="scroll-snap-align: center;">Truly Unlimited</button>
-    <button class="tab-btn" onclick="changeTab('data', this)" style="scroll-snap-align: center;">Data</button>
-    <button class="tab-btn" onclick="changeTab('longValidity', this)" style="scroll-snap-align: center;">Long validity plans</button>
-    <button class="tab-btn" onclick="changeTab('savers', this)" style="scroll-snap-align: center;">Super savers</button>
-    <button class="tab-btn" onclick="changeTab('entertainment', this)" style="scroll-snap-align: center;">Entertainment</button>
-    <button class="tab-btn" onclick="changeTab('talktime', this)" style="scroll-snap-align: center;">Talktime</button>
-    <button class="tab-btn" onclick="changeTab('roaming', this)" style="scroll-snap-align: center;">International Roaming</button>
-    <button class="tab-btn" onclick="changeTab('flight', this)" style="scroll-snap-align: center;">In-Flight Roaming</button>
-</div>
-
-            <!-- Plans List -->
-            <div id="plans-container" class="space-y-4"></div>
-        </section>
-    </main>
-
-    <script>
-        let currentCategory = 'popular';
-        let allPlans = []; // Store all plans for filtering
-
-        const plans = {
+    const plans = {
     popular: [
         { price: 299, data: "1.5 GB/day", validity: "28 days", details: "1.5 GB of data per day for 28 days." },
         { price: 1029, data: "2 GB/day + OTT", validity: "84 days", details: "2 GB of data per day + access to OTT platforms for 84 days." },
@@ -153,126 +179,142 @@
     ]
 };
 
+    // Combine all plans into a single array for filtering
+    function combineAllPlans() {
+        allPlans = [];
+        for (const category in plans) {
+            allPlans = allPlans.concat(plans[category]);
+        }
+    }
 
-        // Combine all plans into a single array for filtering
-        function combineAllPlans() {
-            allPlans = [];
-            for (const category in plans) {
-                allPlans = allPlans.concat(plans[category]);
+    function changeTab(category, element) {
+        currentCategory = category;
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        element.classList.add("active");
+        displayPlans(plans[category] || []);
+    }
+
+    function displayPlans(filteredPlans) {
+        const container = document.getElementById("plans-container");
+        container.innerHTML = ""; // Clear previous plans
+
+        filteredPlans.forEach(plan => {
+            const planDiv = document.createElement("div");
+            planDiv.className = "plan-card"; // Apply the plan card class for styling
+            
+            planDiv.innerHTML = `
+                <div class="plan-details flex justify-between items-center">
+                    <div>
+                        <p class="price text-xl font-bold">₹ ${plan.price}</p>
+                        <p class="data text-sm text-gray-600">${plan.data} | ${plan.validity}</p>
+                    </div>
+                    <button class="view-button text-blue-500 hover:text-blue-700 font-semibold" onclick="showPopup('${plan.data}', '${plan.details}', '${plan.price}', '${plan.validity}')">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                <hr class="my-4">
+            `;
+            
+            container.appendChild(planDiv); // Append the plan div to the container
+        });
+    }
+
+    function searchPlans() {
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const filteredPlans = allPlans.filter(plan =>
+            plan.data.toLowerCase().includes(input) ||
+            plan.price.toString().includes(input)
+        );
+        displayPlans(filteredPlans);
+    }
+
+    function filterPlans() {
+    const dataFilter = document.getElementById("dataFilter").value;
+    const priceFilter = document.getElementById("priceFilter").value;
+
+    let filteredPlans = allPlans;
+
+    // Filter by data
+    if (dataFilter) {
+        filteredPlans = filteredPlans.filter(plan => plan.data.includes(dataFilter));
+    }
+
+    // Filter by price
+    if (priceFilter) {
+        const [minPrice, maxPrice] = priceFilter.split('-').map(Number);
+        filteredPlans = filteredPlans.filter(plan => {
+            if (maxPrice) {
+                return plan.price >= minPrice && plan.price <= maxPrice;
+            } else {
+                return plan.price >= minPrice; // For "2000+" option
             }
-        }
+        });
+    }
 
-        function changeTab(category, element) {
-            currentCategory = category;
-            document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-            element.classList.add("active");
-            displayPlans(plans[category] || []);
-        }
+    displayPlans(filteredPlans);
+}
 
-        function displayPlans(filteredPlans) {
-    const container = document.getElementById("plans-container");
-    container.innerHTML = ""; // Clear previous plans
-    filteredPlans.forEach(plan => {
-        const planDiv = document.createElement("div");
-        planDiv.className = "p-4 bg-white rounded shadow flex justify-between items-center";
-        planDiv.innerHTML = `
-            <div>
-                <p class="text-xl font-bold">₹ ${plan.price}</p>
-                <p class="text-sm">${plan.data} | ${plan.validity}</p>
-            </div>
-            <button class="text-blue-500" onclick="showPopup('${plan.data}', '${plan.details}', '${plan.price}', '${plan.validity}')">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        `;
-        container.appendChild(planDiv);
-    });
+function toggleFilters() {
+    const filtersContainer = document.getElementById("filtersContainer");
+    filtersContainer.classList.toggle("d-none");  // Use d-none to hide and show the filters
+}
+function clearFilters() {
+    // Clear the dropdown values
+    document.getElementById("dataFilter").value = "";
+    document.getElementById("priceFilter").value = "";
+
+    // Reset the filter and display all plans
+    filterPlans();
 }
 
 
-       
+    // Initialize the plans and display the default category
+    combineAllPlans();
+    displayPlans(plans[currentCategory]);
 
-        function searchPlans() {
-            const input = document.getElementById("searchInput").value.toLowerCase();
-            const filteredPlans = allPlans.filter(plan =>
-                plan.data.toLowerCase().includes(input) ||
-                plan.price.toString().includes(input)
-            );
-            displayPlans(filteredPlans);
-        }
+    function showPopup(planData, planDetails, price, validity) {
+        // Encode the plan details as URL parameters
+        const url = `payment.html?data=${encodeURIComponent(planData)}&details=${encodeURIComponent(planDetails)}&price=${encodeURIComponent(price)}&validity=${encodeURIComponent(validity)}`;
+        
+        // Redirect to the payment page
+        window.location.href = url;
+    }
 
-        function filterPlans() {
-            const dataFilter = document.getElementById("dataFilter").value;
-            const priceFilter = document.getElementById("priceFilter").value;
+    function closePopup() {
+        // Hide the overlay and popup
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
 
-            let filteredPlans = allPlans;
+    function enableChange() {
+        const button = document.getElementById('changeButton');
+        document.getElementById('changeInput').disabled = false; // Enable the input field
+        button.innerHTML = '<i class="fas fa-save"></i>'; // Change icon to save
+        button.setAttribute('onclick', 'saveChange()'); // Change the onclick function
+    }
 
-            // Filter by data
-            if (dataFilter) {
-                filteredPlans = filteredPlans.filter(plan => plan.data.includes(dataFilter));
-            }
+    function saveChange() {
+        const button = document.getElementById('changeButton');
+        document.getElementById('changeInput').disabled = true; // Disable the input field after saving
+        button.innerHTML = '<i class="fas fa-pencil-alt"></i>'; // Change icon back to pencil (edit)
+        button.setAttribute('onclick', 'enableChange()'); // Reset the onclick function
+    }
 
-            // Filter by price
-            if (priceFilter) {
-                const [minPrice, maxPrice] = priceFilter.split('-').map(Number);
-                filteredPlans = filteredPlans.filter(plan => {
-                    if (maxPrice) {
-                        return plan.price >= minPrice && plan.price <= maxPrice;
-                    } else {
-                        return plan.price >= minPrice; // For "2000+" option
-                    }
-                });
-            }
-
-            displayPlans(filteredPlans);
-        }
-
-        function toggleFilters() {
-            const filtersContainer = document.getElementById("filtersContainer");
-            filtersContainer.classList.toggle("hidden");
-        }
-
-        // Initialize the plans and display the default category
-        combineAllPlans();
-        displayPlans(plans[currentCategory]);
-
-        function showPopup(planData, planDetails, price, validity) {
-    // Encode the plan details as URL parameters
-    const url = `payment.html?data=${encodeURIComponent(planData)}&details=${encodeURIComponent(planDetails)}&price=${encodeURIComponent(price)}&validity=${encodeURIComponent(validity)}`;
-    
-    // Redirect to the payment page
-    window.location.href = url;
-}
-
-
-function closePopup() {
-    // Hide the overlay and popup
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("popup").style.display = "none";
-}
-function enableChange() {
-    const button = document.getElementById('changeButton');
-    document.getElementById('changeInput').disabled = false; // Enable the input field
-    button.textContent = "Save"; // Change the button text to "Save"
-    button.setAttribute('onclick', 'saveChange()'); // Change the onclick function
-}
-
-function saveChange() {
-    const button = document.getElementById('changeButton');
-    document.getElementById('changeInput').disabled = true; // Disable the input field after saving
-    button.textContent = "Change"; // Change the button text back to "Change"
-    button.setAttribute('onclick', 'enableChange()'); // Reset the onclick function
-}
     function loadNumber() {
         let savedNumber = localStorage.getItem("mobileNumber");
         if (savedNumber) {
             document.getElementById("changeInput").value = savedNumber; // Display the stored number
         }
     }
-    
 
-    // Call loadNumber() when the page loads
-    window.onload = loadNumber;
+    // Call the function when the page loads
+    window.onload = function() {
+        loadNumber();
+        combineAllPlans(); // Ensure all plans are combined on page load
+        displayPlans(plans[currentCategory]); // Show default category plans
+    };
 
-    </script>
+</script>
+
 </body>
 </html>

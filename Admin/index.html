@@ -73,7 +73,7 @@
                 <section id="expiring-plans-section" class="mt-10 bg-white p-6 rounded-lg shadow-md cursor-pointer hover:bg-gray-100">
                     <h2 class="text-2xl font-semibold mb-4">Plans Expiring Soon</h2>
                     <div id="expiring-plans-list">
-                        <!-- The expiring plans will be dynamically inserted here -->
+
                     </div>
                 </section>
             </a>
@@ -141,11 +141,11 @@
 
 function getExpiringSoonPlans(plans) {
     const today = new Date();
-    const soonThreshold = 7; // Days within which the plans are considered expiring soon
+    const soonThreshold = 7;
     const expiringSoon = plans.filter(plan => {
         const expiryDate = new Date(plan.planExpiry);
-        const timeDifference = (expiryDate - today) / (1000 * 3600 * 24); // Convert time difference to days
-        return timeDifference <= soonThreshold && timeDifference >= 0; // Check if the plan expires soon
+        const timeDifference = (expiryDate - today) / (1000 * 3600 * 24);
+        return timeDifference <= soonThreshold && timeDifference >= 0;
     });
     return expiringSoon;
 }
@@ -173,10 +173,10 @@ function displayExpiringPlans(expiringPlans) {
         const salesChart = new Chart(ctx, {
             type: "bar",
             data: {
-                labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb"], // Last 6 months
+                labels: ["Sep", "Oct", "Nov", "Dec", "Jan", "Feb"],
                 datasets: [{
                     label: "Sales (₹)",
-                    data: [15000, 18000, 21000, 17000, 22000, 24000], // Example sales data
+                    data: [15000, 18000, 21000, 17000, 22000, 24000],
                     backgroundColor: "rgba(54, 162, 235, 0.6)",
                     borderColor: "rgba(54, 162, 235, 1)",
                     borderWidth: 1
@@ -184,7 +184,7 @@ function displayExpiringPlans(expiringPlans) {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true, // Prevent stretching
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -203,7 +203,8 @@ function displayExpiringPlans(expiringPlans) {
                     data: [400, 500, 200, 100],
                     backgroundColor: ['skyblue', 'lightgreen', 'teal', 'red']
                 }]
-            }
+            },
+            options: { responsive: true, maintainAspectRatio: false }
         });
 // Data for the chart
         let labels = ['18-25', '26-35', '36-45', '46+'];

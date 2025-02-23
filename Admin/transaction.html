@@ -123,7 +123,6 @@
         function loadTransactions() {
             let transactionsHTML = "";
 
-    // Sort transactions by date (latest first)
     const sortedTransactions = [...transactions].sort((a, b) => new Date(`${b.date} ${b.time}`) - new Date(`${a.date} ${a.time}`));
 
     sortedTransactions.forEach(transaction => {
@@ -144,12 +143,11 @@
     document.getElementById("transactionsTableBody").innerHTML = transactionsHTML;
 }
 
-// Load transactions on page load
 document.addEventListener("DOMContentLoaded", loadTransactions);
 
 
     function applyFilters() {
-        let filteredTransactions = [...transactions]; // Copy original transactions
+        let filteredTransactions = [...transactions];
 
         const filterDate = document.getElementById("filterDate").value;
         const filterAmount = document.getElementById("filterAmount").value;
@@ -168,8 +166,7 @@ document.addEventListener("DOMContentLoaded", loadTransactions);
         if (filterStatus) {
             filteredTransactions = filteredTransactions.filter(t => t.status === filterStatus);
         }
-
-        // Sort filtered transactions by date (latest first)
+        
         filteredTransactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         let filteredHTML = "";

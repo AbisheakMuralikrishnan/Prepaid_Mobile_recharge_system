@@ -56,7 +56,7 @@
                <div class="mb-4 flex justify-center items-center space-x-2">
                 <input type="text" id="searchInput" oninput="filterUsers()" class="border p-2 rounded-lg w-1/3" placeholder="Search by name, email, or plan">
                 <button onclick="resetSearch()" class="bg-gray-500 text-white px-3 py-2 rounded-lg">
-                    <i class="fas fa-undo"></i> <!-- Reset Icon -->
+                    <i class="fas fa-undo"></i>
                 </button>
             </div>
             
@@ -83,7 +83,6 @@
     </div>
 
     <script>
-        // Sample Data (Stored in LocalStorage for persistence)
         // Sample Data (Stored in LocalStorage for persistence)
 let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [
     { id: 1021, name: "Poornesh", phone: "9876543210", email: "poornesh@example.com", currentPlan: 299, planExpiry: "2025-02-22", status: "Active" },
@@ -112,10 +111,7 @@ function toggleUserStatus(userId) {
         return user;
     });
 
-    // Save updated users list in localStorage
     localStorage.setItem('allUsers', JSON.stringify(allUsers));
-
-    // Refresh the table
     populateUsersTable(allUsers);
 }
 
@@ -137,7 +133,7 @@ function renderStatusActions(user) {
 
 function populateUsersTable(usersList) {
     const usersTableBody = document.getElementById("usersTableBody");
-    usersTableBody.innerHTML = ""; // Clear the table body
+    usersTableBody.innerHTML = "";
     usersList.forEach(user => {
         const row = document.createElement("tr");
         row.innerHTML = `
@@ -167,13 +163,13 @@ function filterUsers() {
         )
     );
 
-    populateUsersTable(filteredUsers); // Refresh the table with filtered users
+    populateUsersTable(filteredUsers);
 }
 
 
 function resetSearch() {
-    document.getElementById("searchInput").value = ""; // Clear input
-    populateUsersTable(allUsers); // Reset table to show all users
+    document.getElementById("searchInput").value = "";
+    populateUsersTable(allUsers);
 }
 
 
@@ -207,7 +203,7 @@ function initPage() {
     displayExpiringUsers();
 }
 
-initPage(); // Initialize the page when it loads
+initPage();
 
 
         // Sidebar Toggle Functionality
@@ -226,8 +222,6 @@ initPage(); // Initialize the page when it loads
                 text.classList.toggle('hidden');
             });
         }
-
-        // Navigate to different pages (replace with actual pages)
         function navigateTo(page) {
             window.location.href = page;
         }
@@ -243,7 +237,6 @@ initPage(); // Initialize the page when it loads
             });
 
             if (expiringUsers.length > 0) {
-                // Simulating alert sending (You can replace this with actual logic to send an email or message)
                 alert("Alert message has been sent to the following users:\n" + expiringUsers.map(user => user.name).join("\n"));
             } else {
                 alert("No users with plans expiring soon.");

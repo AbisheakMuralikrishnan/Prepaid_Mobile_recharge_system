@@ -161,7 +161,7 @@
                 </div>
             </div>
 
-            <!-- Queries Forwarded to Development Section -->
+            <!-- Queries Forwarded to Customer Support Section -->
             <div class="bg-white p-6 rounded-lg shadow-md mb-6">
                 <h2 class="text-2xl font-semibold mb-4">Queries Sent to Customer Support Team</h2>
                 <div class="overflow-x-auto">
@@ -260,10 +260,10 @@
 
         function resolveTicket(ticketId) {
     const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
-    resolveBox.classList.toggle('hidden'); // Toggle visibility of resolution box
+    resolveBox.classList.toggle('hidden');
 
     const resolutionTextarea = document.getElementById(`resolution-${ticketId}`);
-    resolutionTextarea.focus(); // Focus on the resolution textarea when the box is shown
+    resolutionTextarea.focus();
 }
 
 
@@ -276,7 +276,6 @@ function sendResolution(ticketId) {
         const ticketRow = document.getElementById(`ticket-${ticketId}`);
         ticketRow.querySelector('td:nth-child(4)').innerText = 'Resolved';
         
-        // Optionally hide the resolution box
         const resolveBox = document.getElementById(`resolve-box-${ticketId}`);
         resolveBox.classList.add('hidden');
     } else {
@@ -287,8 +286,8 @@ function sendResolution(ticketId) {
 
         function forwardToDev(ticketId) {
     const ticketRow = document.getElementById(`ticket-${ticketId}`);
-    const issue = ticketRow.querySelector('td:nth-child(3)').innerText; // Get the issue from the 3rd column
-    ticketRow.classList.add('bg-yellow-100'); // Highlight ticket as forwarded
+    const issue = ticketRow.querySelector('td:nth-child(3)').innerText;
+    ticketRow.classList.add('bg-yellow-100');
     ticketRow.querySelector('td:nth-child(4)').innerText = 'Forwarded to Customer Support Team';
     
     // Remove ticket from the table

@@ -163,14 +163,11 @@ const plans = {
             const details = document.getElementById('planDetails').value;
 
             if (category && price && data && validity && details) {
-                // Add the new plan to the correct category
                 plans[category].push({ price, data, validity, details });
-
-                // Reload the plans to reflect the new plan
                 loadPlans();
 
                 // Reset the form fields after adding the plan
-                document.getElementById("planForm").reset(); // Reset form after submission
+                document.getElementById("planForm").reset();
             } else {
                 alert("Please fill in all fields.");
             }
