@@ -7,30 +7,69 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        .active {
-            background-color: #b6ad90 !important;
-            color: white !important;
-            transition: all 0.3s ease-in-out;
+        body {
+            background-color: aliceblue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .payment-option {
+            background-color: #f8f9fa;
+            color: #343a40;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .payment-option:hover {
+            background-color: #e9ecef;
+            border-color: #ced4da;
+        }
+        
+        .payment-option.active {
+            background-color: #4b6cb7 !important;
+            color: white !important;
+            border-color: #4b6cb7;
+            box-shadow: 0 4px 8px rgba(75, 108, 183, 0.3);
+        }
+        
         .dropdown {
             display: none;
-            max-height: 300px;
+            max-height: 350px;
             overflow-y: auto;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s ease-in-out;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            border: 1px solid #eaeaea;
         }
-        body {
-            background: url('images/background-3.webp') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-        }
-        .payment-summary-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
+        
         .back-to-plans-btn {
-            background-color: #656d4a;
+            background-color: #4b6cb7;
             color: white;
             padding: 12px 24px;
             border-radius: 30px;
@@ -40,164 +79,589 @@
             display: inline-block;
             transition: all 0.3s ease;
             border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(75, 108, 183, 0.25);
         }
+        
         .back-to-plans-btn:hover {
-            background-color: #4b5236;
+            background-color: #3a5499;
             transform: translateY(-2px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 15px rgba(75, 108, 183, 0.35);
         }
+        
         .back-to-plans-btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(75, 108, 183, 0.2);
         }
+        
         .bank-tile {
             cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
+            transition: all 0.3s ease;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+        
         .bank-tile:hover {
-            background-color: #e0f7fa !important;
+            background-color: #e2eeff !important;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        .payment-option {
-            background-color: #6c757d !important;
-            color: white !important;
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(75, 108, 183, 0.25);
+            border-color: #4b6cb7;
+        }
+        
+        .summary-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             border: none;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 10px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .summary-header {
+            background-color: #4b6cb7;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .summary-body {
+            padding: 20px;
+        }
+        
+        .summary-item {
             display: flex;
             justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 2px solid #eaeaea;
+            font-weight: 700;
+            font-size: 18px;
+            color: #4b6cb7;
+        }
+        
+        .bank-logo {
+            max-width: 70px;
+            height: 70px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .bank-tile:hover .bank-logo {
+            transform: scale(1.1);
+        }
+        
+        .bank-name {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        
+        .payment-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #4b6cb7;
+        }
+        
+        .option-text {
+            font-weight: 600;
+        }
+        
+        .proceed-btn {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            border: none;
+            color: white;
+            padding: 15px 0;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(24, 40, 72, 0.3);
+        }
+        
+        .proceed-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(24, 40, 72, 0.4);
+            background: linear-gradient(to right, #3a5499, #0c1c39);
+        }
+        
+        .mobile-number {
+            background-color: #e2eeff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
             align-items: center;
-            transition: background-color 0.3s ease;
         }
-        .payment-option:hover {
-            background-color: #5a6268 !important;
+        
+        .mobile-icon {
+            margin-right: 10px;
+            color: #4b6cb7;
         }
+        
+        .payment-header {
+            margin-bottom: 25px;
+            color: #2d4073;
+            font-weight: 700;
+        }
+
+    /* Validation Styles */
+    .is-invalid {
+        border-color: #dc3545 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+    
+    .is-valid {
+        border-color: #198754 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
+    
+    .invalid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #dc3545;
+    }
+    
+    .valid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #198754;
+    }
+    
+    /* Form shake animation */
+    .shake-animation {
+        animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    /* Payment Processing Overlay */
+    .payment-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+    
+    .payment-overlay.fade-out {
+        opacity: 0;
+    }
+    
+    /* Loader Container */
+    .loader-container {
+        text-align: center;
+        background-color: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        max-width: 300px;
+        width: 100%;
+    }
+    
+    /* Payment Loader */
+    .payment-loader {
+        border: 5px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 5px solid #4b6cb7;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 20px;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+        font-size: 18px;
+        color: #333;
+        margin: 0;
+    }
+    
+    /* Success Popup */
+    .success-popup {
+        background-color: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        transform: scale(0.7);
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+    
+    .success-popup.show {
+        transform: scale(1);
+        opacity: 1;
+    }
+    
+    .success-icon {
+        font-size: 70px;
+        color: #4CAF50;
+        margin-bottom: 20px;
+        animation: bounceIn 0.6s;
+    }
+    
+    @keyframes bounceIn {
+        0%, 20%, 40%, 60%, 80%, 100% {animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);}
+        0% {opacity: 0; transform: scale3d(.3, .3, .3);}
+        20% {transform: scale3d(1.1, 1.1, 1.1);}
+        40% {transform: scale3d(.9, .9, .9);}
+        60% {opacity: 1; transform: scale3d(1.03, 1.03, 1.03);}
+        80% {transform: scale3d(.97, .97, .97);}
+        100% {opacity: 1; transform: scale3d(1, 1, 1);}
+    }
+    
+    .success-popup h3 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+    
+    .success-popup p {
+        margin-bottom: 25px;
+        line-height: 1.6;
+        color: #666;
+    }
+    
+    .continue-btn {
+        background-color: #4b6cb7;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+    
+    .continue-btn:hover {
+        background-color: #3a5499;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(59, 84, 153, 0.3);
+    }
     </style>
 </head>
-<body class="bg-light">
-    <main class="container py-5">
-        <div class="row">
+<body>
+    <main class="main-container">
+        <div class="row g-4">
             <!-- Payment Options Section -->
-            <div class="col-md-8">
-                <button onclick="goBack()" class="back-to-plans-btn mb-4">
-                    ← Back to Plans
-                </button>
-                <h2 class="h2 mb-4">Payment Options</h2>
-                <div class="mb-4" id="payment-options">
-                    <!-- Card Payment -->
-                    <div class="payment-option" data-target="cardDropdown">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-credit-card me-2"></i>
-                            <span>Credit/Debit/ATM Card</span>
-                        </div>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div id="cardDropdown" class="dropdown bg-white p-3 mb-3 rounded">
-                        <input type="text" placeholder="Enter Card Number" class="form-control mb-2">
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" placeholder="MM/YY" class="form-control">
+            <div class="col-lg-8">
+                <div class="card mb-4 p-4">
+                    <button onclick="goBack()" class="back-to-plans-btn mb-4" style="width: fit-content;">
+                        <i class="fas fa-arrow-left me-2"></i> Back to Plans
+                    </button>
+                    
+                    <h2 class="payment-header">Select Payment Method</h2>
+                    
+                    <div id="payment-options">
+                        <!-- Card Payment -->
+                        <div class="payment-option" data-target="cardDropdown">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-credit-card payment-icon"></i>
+                                <span class="option-text">Credit/Debit/ATM Card</span>
                             </div>
-                            <div class="col">
-                                <input type="password" placeholder="CVV" class="form-control">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div id="cardDropdown" class="dropdown bg-white p-4">
+                            <div class="mb-3">
+                                <label class="form-label">Card Number</label>
+                                <div class="input-group">
+                                    <input type="text" placeholder="XXXX XXXX XXXX XXXX" class="form-control" maxlength="19" id="cardNumber">
+                                    <span class="input-group-text">
+                                        <i class="fab fa-cc-visa me-2"></i>
+                                        <i class="fab fa-cc-mastercard"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label class="form-label">Expiry Date</label>
+                                    <input type="text" placeholder="MM/YY" class="form-control" maxlength="5" id="expiryDate">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CVV</label>
+                                    <input type="password" placeholder="XXX" class="form-control" maxlength="3">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Name on Card</label>
+                                <input type="text" placeholder="Cardholder Name" class="form-control">
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Net Banking -->
-                    <div class="payment-option" data-target="netBankingDropdown">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-university me-2"></i>
-                            <span>Net Banking</span>
+                        <!-- Net Banking -->
+                        <div class="payment-option" data-target="netBankingDropdown">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-university payment-icon"></i>
+                                <span class="option-text">Net Banking</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div id="netBankingDropdown" class="dropdown bg-white p-3 mb-3 rounded">
-                        <label class="font-weight-bold">Select Your Bank:</label>
-                        <div class="row">
-                            <!-- Bank Tiles -->
-                            <div class="col-md-3 mb-3">
-                                <div class="bank-tile p-3 bg-light rounded text-center" onclick="redirectToBank('HDFC')">
-                                    <img src="images/hdfc-logo.png" alt="HDFC Bank Logo" class="img-fluid mb-2" style="width: 80px; height: 80px;">
-                                    <p class="font-weight-bold">HDFC Bank</p>
+                        <div id="netBankingDropdown" class="dropdown bg-white p-4">
+                            <label class="form-label fw-bold mb-3">Select Your Bank:</label>
+                            <div class="row row-cols-2 row-cols-md-4 g-3">
+                                <!-- Bank Tiles -->
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('HDFC')">
+                                        <img src="images/hdfc-logo.png" alt="HDFC Bank Logo" class="bank-logo">
+                                        <p class="bank-name">HDFC Bank</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="bank-tile p-3 bg-light rounded text-center" onclick="redirectToBank('SBI')">
-                                    <img src="images/SBI-logo.svg.png" alt="SBI Bank Logo" class="img-fluid mb-2" style="width: 80px; height: 80px;">
-                                    <p class="font-weight-bold">SBI Bank</p>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('SBI')">
+                                        <img src="images/SBI-logo.svg.png"SBI Bank Logo" class="bank-logo">
+                                        <p class="bank-name">SBI Bank</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="bank-tile p-3 bg-light rounded text-center" onclick="redirectToBank('ICICI')">
-                                    <img src="images/icici-logo.png" alt="ICICI Bank Logo" class="img-fluid mb-2" style="width: 80px; height: 80px;">
-                                    <p class="font-weight-bold">ICICI Bank</p>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('ICICI')">
+                                        <img src="images/icici-logo.png" alt="ICICI Bank Logo" class="bank-logo">
+                                        <p class="bank-name">ICICI Bank</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <div class="bank-tile p-3 bg-light rounded text-center" onclick="redirectToBank('Axis')">
-                                    <img src="images/axis-logo.png" alt="Axis Bank Logo" class="img-fluid mb-2" style="width: 80px; height: 80px;">
-                                    <p class="font-weight-bold">Axis Bank</p>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('Axis')">
+                                        <img src="images/Axis-logo.png"Axis Bank Logo" class="bank-logo">
+                                        <p class="bank-name">Axis Bank</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('PNB')">
+                                        <img src="images/pnb-logo.webp" alt="PNB Bank Logo" class="bank-logo">
+                                        <p class="bank-name">PNB Bank</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('Canara')">
+                                        <img src="images/canara-logo.png" alt="Canara Bank Logo" class="bank-logo">
+                                        <p class="bank-name">Canara Bank</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('Union')">
+                                        <img src="images/union-logo.png" alt="Union Bank Logo" class="bank-logo">
+                                        <p class="bank-name">Union Bank</p>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="bank-tile" onclick="redirectToBank('Yes')">
+                                        <img src="images/yes-logo.png" alt="Yes Bank Logo" class="bank-logo">
+                                        <p class="bank-name">Yes Bank</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- UPI -->
-                    <div class="payment-option" data-target="upiDropdown">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-mobile-alt me-2"></i>
-                            <span>UPI</span>
+                        <!-- UPI -->
+                        <div class="payment-option" data-target="upiDropdown">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-mobile-alt payment-icon"></i>
+                                <span class="option-text">UPI Payment</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div id="upiDropdown" class="dropdown bg-white p-3 mb-3 rounded">
-                        <input type="text" placeholder="Enter UPI ID" class="form-control">
-                    </div>
+                        <div id="upiDropdown" class="dropdown bg-white p-4">
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-center gap-4 mb-4">
+                                    <div class="text-center">
+                                        <img src="images/gpay.png" alt="Google Pay" class="mb-2" style="max-width: 100px; height: 100px;">
+                                        <p class="mb-0 small">Google Pay</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <img src="images/phonepe.png" alt="PhonePe" class="mb-2" style="max-width: 150px; height: 100px;">
+                                        <p class="mb-0 small">PhonePe</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <img src="images/paytm.png" alt="Paytm" class="mb-2" style="max-width: 100px; height: 100px;">
+                                        <p class="mb-0 small">Paytm</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <img src="images/bhim.png" alt="BHIM" class="mb-2" style="max-width: 100px; height: 100px;">
+                                        <p class="mb-0 small">BHIM</p>
+                                    </div>
+                                </div>
+                                <label class="form-label mb-2">Enter UPI ID</label>
+                                <div class="input-group">
+                                    <input type="text" placeholder="yourname@upi" class="form-control">
+                                    <button class="btn btn-outline-primary">Verify</button>
+                                </div>
+                                <small class="text-muted">Format: yourname@bankname or yourname@upi</small>
+                            </div>
+                        </div>
 
-                    <!-- Wallets -->
-                    <div class="payment-option" data-target="walletDropdown">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-wallet me-2"></i>
-                            <span>Wallets</span>
+                        <!-- Wallets -->
+                        <div class="payment-option" data-target="walletDropdown">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-wallet payment-icon"></i>
+                                <span class="option-text">Digital Wallets</span>
+                            </div>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
-                        <i class="fas fa-chevron-down"></i>
+                        <div id="walletDropdown" class="dropdown bg-white p-4">
+                            <div class="mb-4">
+                                <label class="form-label mb-3">Select Wallet</label>
+                                <div class="row row-cols-2 row-cols-md-4 g-3 mb-3">
+                                    <div class="col">
+                                        <div class="bank-tile">
+                                            <img src="images/amazon-pay.svg" alt="Amazon Pay" class="bank-logo" style="max-width: 50px; height: 50px;">
+                                            <p class="bank-name small">Amazon Pay</p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bank-tile">
+                                            <img src="images/apple-pay.png" alt="Apple Pay" class="bank-logo" style="max-width: 50px; height: 50px;">
+                                            <p class="bank-name small">Apple Pay</p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="bank-tile">
+                                            <img src="images/paypal.png" alt="PayPal" class="bank-logo" style="max-width: 50px; height: 50px;">
+                                            <p class="bank-name small">PayPal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div id="walletDropdown" class="dropdown bg-white p-3 mb-3 rounded">
-                        <select class="form-control">
-                            <option>Select Wallet</option>
-                            <option>Amazon Pay</option>
-                            <option>Apple Pay</option>
-                        </select>
+                </div>
+                
+                <!-- Additional Information -->
+                <div class="card p-4">
+                    <h5 class="mb-3">Secure Payment Information</h5>
+                    <div class="d-flex align-items-center mb-4">
+                        <i class="fas fa-shield-alt fs-1 me-3 text-success"></i>
+                        <div>
+                            <p class="mb-1">All payments are secured with encryption technology.</p>
+                            <p class="mb-0 small text-muted">We do not store your card details or share with third parties.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-3">
+                        <img src="images/visa.webp" alt="Visa" class="img-fluid" style="width: 150px; height: 100px; object-fit: contain;">
+                        <img src="images/mastercard.jpeg" alt="Mastercard" class="img-fluid" style="width: 150px; height: 100px; object-fit: contain;">
+                        <img src="images/rupay.png" alt="Rupay" class="img-fluid" style="width: 150px; height: 100px; object-fit: contain;">
+                        <img src="images/netbanking.jpeg" alt="Net Banking" class="img-fluid" style="width: 150px; height: 100px; object-fit: contain;">
+
                     </div>
                 </div>
             </div>
 
             <!-- Payment Summary -->
-            <div class="col-md-4">
-                <div class="p-4 bg-white rounded shadow payment-summary-container">
-                    <h2 class="h4 font-weight-bold mb-4">Payment Summary</h2>
-                    <p><strong><span id="displayMobileNumber">Not Available</span></strong></p>
-                    <div class="mb-3">
-                        <p class="mb-1"><strong>Price:</strong> <span id="planPrice">₹ 0</span></p>
-                        <p class="mb-1"><strong>Data:</strong> <span id="planData">N/A</span></p>
-                        <p class="mb-1"><strong>Validity:</strong> <span id="validity">N/A</span></p>
+            <div class="col-lg-4">
+                <div class="summary-card">
+                    <div class="summary-header">
+                        <h3 class="h5 mb-0">Payment Summary</h3>
                     </div>
-                    <hr class="my-3">
-                    <div class="d-flex justify-content-between font-weight-bold">
-                        <span>Total Amount Payable</span>
-                        <span id="totalAmountPayable" class="text-success">₹ 0</span>
+                    <div class="summary-body">
+                        <div class="mobile-number">
+                            <i class="fas fa-mobile-alt mobile-icon"></i>
+                            <span id="displayMobileNumber">Not Available</span>
+                        </div>
+                        
+                        <div class="card p-3 mb-4 bg-light border-0">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="fas fa-sim-card me-2 text-primary"></i>
+                                <h5 class="mb-0">Plan Details</h5>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span>Plan Price:</span>
+                                <span id="planPrice" class="fw-semibold">₹ 0</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span>Data:</span>
+                                <span id="planData" class="fw-semibold">N/A</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span>Validity:</span>
+                                <span id="validity" class="fw-semibold">N/A</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="summary-item">
+                                <span>Plan Amount</span>
+                                <span id="planAmount">₹ 0</span>
+                            </div>
+                            
+                            <div class="summary-item">
+                                <span>GST (18%)</span>
+                                <span id="taxAmount">₹ 0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-total">
+                            <span>Total Amount</span>
+                            <span id="totalAmountPayable">₹ 0</span>
+                        </div>
+                        
+                        <button class="proceed-btn">Confirm & Pay</button>
+                        
+                        <p class="small text-muted mt-3 text-center">By proceeding, you agree to our <a href="#" class="text-decoration-none">Terms & Conditions</a></p>
                     </div>
                 </div>
+            
             </div>
         </div>
     </main>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const paymentOptions = document.querySelectorAll(".payment-option");
@@ -205,29 +669,79 @@
 
             paymentOptions.forEach(option => {
                 option.addEventListener("click", function () {
-                    paymentOptions.forEach(btn => btn.classList.remove("active"));
-                    this.classList.add("active");
+                    // Toggle active class
+                    if (this.classList.contains('active')) {
+                        this.classList.remove("active");
+                        let targetDropdown = document.getElementById(this.getAttribute("data-target"));
+                        if (targetDropdown) {
+                            targetDropdown.style.display = "none";
+                        }
+                    } else {
+                        paymentOptions.forEach(btn => btn.classList.remove("active"));
+                        this.classList.add("active");
 
-                    dropdowns.forEach(dropdown => dropdown.style.display = "none");
+                        dropdowns.forEach(dropdown => dropdown.style.display = "none");
 
-                    let targetDropdown = document.getElementById(this.getAttribute("data-target"));
-                    if (targetDropdown) {
-                        targetDropdown.style.display = "block";
+                        let targetDropdown = document.getElementById(this.getAttribute("data-target"));
+                        if (targetDropdown) {
+                            targetDropdown.style.display = "block";
+                        }
                     }
                 });
             });
+
+            // Card number formatting
+            const cardNumberInput = document.getElementById('cardNumber');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let input = e.target.value.replace(/\D/g, '');
+                    if (input.length > 16) input = input.substr(0, 16);
+                    
+                    let formatted = '';
+                    for (let i = 0; i < input.length; i++) {
+                        if (i > 0 && i % 4 === 0) formatted += ' ';
+                        formatted += input[i];
+                    }
+                    
+                    e.target.value = formatted;
+                });
+            }
+            
+            // Expiry date formatting
+            const expiryDateInput = document.getElementById('expiryDate');
+            if (expiryDateInput) {
+                expiryDateInput.addEventListener('input', function(e) {
+                    let input = e.target.value.replace(/\D/g, '');
+                    if (input.length > 4) input = input.substr(0, 4);
+                    
+                    if (input.length > 2) {
+                        input = input.substr(0, 2) + '/' + input.substr(2);
+                    }
+                    
+                    e.target.value = input;
+                });
+            }
 
             function getQueryParam(name) {
                 const params = new URLSearchParams(window.location.search);
                 return params.get(name) || "N/A";
             }
 
-            const price = getQueryParam("price");
-            const validity = getQueryParam("validity");
-            document.getElementById("planData").innerText = getQueryParam("data");
+            const price = getQueryParam("price") || "999";
+            const validity = getQueryParam("validity") || "28 days";
+            const data = getQueryParam("data") || "2 GB/day";
+            
+            // Calculate GST
+            const priceNum = parseFloat(price) || 999;
+            const gst = Math.round(priceNum * 0.18);
+            const total = priceNum;
+            
+            document.getElementById("planData").innerText = data;
             document.getElementById("validity").innerText = validity;
             document.getElementById("planPrice").innerText = "₹ " + price;
-            document.getElementById("totalAmountPayable").innerText = "₹ " + price;
+            document.getElementById("planAmount").innerText = "₹ " + price;
+            document.getElementById("taxAmount").innerText = "₹ " + gst;
+            document.getElementById("totalAmountPayable").innerText = "₹ " + total;
         });
 
         function goBack() {
@@ -254,11 +768,277 @@
         }
 
         window.onload = function () {
-            const storedNumber = localStorage.getItem('mobileNumber');
+            const storedNumber = localStorage.getItem('mobileNumber') || '9876543210';
             if (storedNumber) {
                 document.getElementById('displayMobileNumber').textContent = storedNumber;
             }
         };
+
+        // Credit card validation functions
+function validateCardNumber(number) {
+    // Remove spaces and non-digits
+    const cardNumber = number.replace(/\D/g, '');
+    
+    // Check if empty
+    if (!cardNumber) return { valid: false, message: "Card number is required" };
+    
+    // Check length (most cards are 16 digits)
+    if (cardNumber.length < 13 || cardNumber.length > 19)
+        return { valid: false, message: "Card number should be between 13-19 digits" };
+    
+    // Luhn algorithm for card validation
+    let sum = 0;
+    let shouldDouble = false;
+    
+    // Loop through values starting from the rightmost digit
+    for (let i = cardNumber.length - 1; i >= 0; i--) {
+        let digit = parseInt(cardNumber.charAt(i));
+
+        if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+        }
+
+        sum += digit;
+        shouldDouble = !shouldDouble;
+    }
+    
+    // If sum is divisible by 10, the number is valid
+    return {
+        valid: (sum % 10) === 0,
+        message: (sum % 10) === 0 ? "" : "Invalid card number"
+    };
+}
+
+function validateExpiryDate(expiry) {
+    // Check if empty
+    if (!expiry) return { valid: false, message: "Expiry date is required" };
+    
+    // Format should be MM/YY
+    const parts = expiry.split('/');
+    if (parts.length !== 2) return { valid: false, message: "Expiry date format should be MM/YY" };
+    
+    const month = parseInt(parts[0], 10);
+    const year = parseInt(parts[1], 10) + 2000; // Convert YY to 20YY
+    
+    // Check month is 1-12
+    if (month < 1 || month > 12) return { valid: false, message: "Month should be between 1-12" };
+    
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // getMonth() returns 0-11
+    
+    // Check if the card is expired
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+        return { valid: false, message: "Card has expired" };
+    }
+    
+    return { valid: true, message: "" };
+}
+
+function validateCVV(cvv) {
+    // Check if empty
+    if (!cvv) return { valid: false, message: "CVV is required" };
+    
+    // CVV is typically 3-4 digits
+    if (!/^\d{3,4}$/.test(cvv)) {
+        return { valid: false, message: "CVV should be 3-4 digits" };
+    }
+    
+    return { valid: true, message: "" };
+}
+
+function validateCardholderName(name) {
+    // Check if empty
+    if (!name.trim()) return { valid: false, message: "Cardholder name is required" };
+    
+    // Name should be at least 3 characters
+    if (name.trim().length < 3) {
+        return { valid: false, message: "Cardholder name is too short" };
+    }
+    
+    return { valid: true, message: "" };
+}
+
+// Create feedback element function
+function createFeedbackElement(inputId, message, isValid) {
+    const inputElement = document.getElementById(inputId);
+    if (!inputElement) return;
+    
+    // Remove any existing feedback
+    const existingFeedback = document.querySelector(`#${inputId}-feedback`);
+    if (existingFeedback) existingFeedback.remove();
+    
+    // Create new feedback element
+    const feedbackElement = document.createElement('div');
+    feedbackElement.id = `${inputId}-feedback`;
+    feedbackElement.className = isValid ? 'valid-feedback' : 'invalid-feedback';
+    feedbackElement.style.display = 'block';
+    feedbackElement.textContent = message;
+    
+    // Add classes to input based on validation
+    inputElement.classList.remove('is-valid', 'is-invalid');
+    inputElement.classList.add(isValid ? 'is-valid' : 'is-invalid');
+    
+    // Insert feedback after input
+    inputElement.parentNode.appendChild(feedbackElement);
+    
+    return isValid;
+}
+
+// Add event handlers for real-time validation
+document.addEventListener("DOMContentLoaded", function() {
+    // Get form inputs
+    const cardNumberInput = document.getElementById('cardNumber');
+    const expiryDateInput = document.getElementById('expiryDate');
+    const cvvInput = document.getElementById('cvv');
+    const nameInput = document.getElementById('cardholderName');
+    const proceedBtn = document.querySelector('.proceed-btn');
+    
+    // Add event listeners for real-time validation
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('blur', function() {
+            const result = validateCardNumber(this.value);
+            createFeedbackElement('cardNumber', result.message, result.valid);
+        });
+    }
+    
+    if (expiryDateInput) {
+        expiryDateInput.addEventListener('blur', function() {
+            const result = validateExpiryDate(this.value);
+            createFeedbackElement('expiryDate', result.message, result.valid);
+        });
+    }
+    
+    if (cvvInput) {
+        cvvInput.addEventListener('blur', function() {
+            const result = validateCVV(this.value);
+            createFeedbackElement('cvv', result.message, result.valid);
+        });
+    }
+    
+    if (nameInput) {
+        nameInput.addEventListener('blur', function() {
+            const result = validateCardholderName(this.value);
+            createFeedbackElement('cardholderName', result.message, result.valid);
+        });
+    }
+    
+    // Validate all fields on form submission
+    if (proceedBtn) {
+        proceedBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Check if card payment option is active
+            const cardOption = document.querySelector('.payment-option[data-target="cardDropdown"]');
+            if (!cardOption || !cardOption.classList.contains('active')) {
+                // If another payment method is selected, just show the loading and success
+                showPaymentAnimation();
+                return;
+            }
+            
+            // Validate all card fields
+
+            const expiryResult = validateExpiryDate(expiryDateInput ? expiryDateInput.value : '');
+            const cvvResult = validateCVV(cvvInput ? cvvInput.value : '');
+            const nameResult = validateCardholderName(nameInput ? nameInput.value : '');
+            
+            // Show feedback for each field
+            const isCardValid = createFeedbackElement('cardNumber', cardNumberResult.message, cardNumberResult.valid);
+            const isExpiryValid = createFeedbackElement('expiryDate', expiryResult.message, expiryResult.valid);
+            const isCvvValid = createFeedbackElement('cvv', cvvResult.message, cvvResult.valid);
+            const isNameValid = createFeedbackElement('cardholderName', nameResult.message, nameResult.valid);
+            
+            // If all fields are valid, show payment animation
+            if (isCardValid && isExpiryValid && isCvvValid && isNameValid) {
+                showPaymentAnimation();
+            } else {
+                // Shake the form to indicate error
+                const form = document.querySelector('#cardDropdown');
+                if (form) {
+                    form.classList.add('shake-animation');
+                    setTimeout(() => {
+                        form.classList.remove('shake-animation');
+                    }, 500);
+                }
+            }
+        });
+    }
+});
+
+// Payment animation and success popup
+function showPaymentAnimation() {
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'payment-overlay';
+    document.body.appendChild(overlay);
+    
+    // Create loader container
+    const loaderContainer = document.createElement('div');
+    loaderContainer.className = 'loader-container';
+    overlay.appendChild(loaderContainer);
+    
+    // Create loader animation
+    const loader = document.createElement('div');
+    loader.className = 'payment-loader';
+    loaderContainer.appendChild(loader);
+    
+    // Create loading text
+    const loadingText = document.createElement('p');
+    loadingText.className = 'loading-text';
+    loadingText.textContent = 'Processing Payment...';
+    loaderContainer.appendChild(loadingText);
+    
+    // Simulate payment processing
+    setTimeout(() => {
+        // Hide loader
+        loaderContainer.style.display = 'none';
+        
+        // Create success popup
+        const successPopup = document.createElement('div');
+        successPopup.className = 'success-popup';
+        overlay.appendChild(successPopup);
+        
+        // Add success icon
+        const successIcon = document.createElement('div');
+        successIcon.className = 'success-icon';
+        successIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+        successPopup.appendChild(successIcon);
+        
+        // Add success message
+        const successMessage = document.createElement('h3');
+        successMessage.textContent = 'Payment Successful!';
+        successPopup.appendChild(successMessage);
+        
+        // Add details
+        const details = document.createElement('p');
+        details.innerHTML = `Amount: <strong>${document.getElementById('totalAmountPayable').textContent}</strong><br>Transaction ID: <strong>${generateTransactionId()}</strong>`;
+        successPopup.appendChild(details);
+        
+        // Add continue button
+        const continueBtn = document.createElement('button');
+        continueBtn.className = 'continue-btn';
+        continueBtn.textContent = 'Continue';
+        continueBtn.addEventListener('click', () => {
+            // Remove overlay with animation
+            overlay.classList.add('fade-out');
+            setTimeout(() => {
+                document.body.removeChild(overlay);
+            }, 500);
+        });
+        successPopup.appendChild(continueBtn);
+        
+        // Animate success popup
+        setTimeout(() => {
+            successPopup.classList.add('show');
+        }, 100);
+    }, 3000); // 3 seconds for simulated processing
+}
+
+// Generate a random transaction ID
+function generateTransactionId() {
+    return 'TXN' + Math.random().toString(36).substr(2, 9).toUpperCase();
+}
     </script>
 </body>
 </html>

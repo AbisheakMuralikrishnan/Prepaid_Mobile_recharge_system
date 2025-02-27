@@ -13,42 +13,48 @@
   <link rel="stylesheet" href="style.css">
   <title>User Dashboard</title>
 </head>
-<body class="p-0">
-    <header class="bg-secondary p-4 d-flex justify-content-between align-items-center">
-        <div class="logo">
-            <img class="h-12" src="images/logo.png" alt="Mobicom Logo"/>
+
+<body class="p-0" style="background-color: aliceblue;">
+  <header>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <img src="images/logo.png" alt="Mobicom Logo"/>
+            </div>
+            <nav class="d-none d-md-flex gap-4" aria-label="Main Navigation">
+                <a class="nav-btn" href="index.html" aria-label="Home">Home</a>
+                <a class="nav-btn" href="plans.html" aria-label="Plans">Plans</a>
+                <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
+                <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
+                <div class="position-relative">
+                    <!-- Profile Button -->
+                    <button id="profileDropdown" class="nav-btn" aria-label="User Profile">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div id="profileMenu" class="position-absolute end-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg d-none">
+                        <!-- Profile Link -->
+                        <a href="dashboard.html" class="d-block px-4 py-2 text-center text-gray-700 hover-bg-gray-200">Profile</a>
+                        <!-- Logout Button -->
+                        <button onclick="logout()" class="d-block w-100 text-center px-4 py-2 text-gray-700 hover-bg-red-200">Logout</button>
+                    </div>
+                </div>
+            </nav>
+            <button class="btn d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <nav class="d-flex gap-4" aria-label="Main Navigation">
-            <a class="nav-btn" href="index.html" aria-label="Home">Home</a>
-            <a class="nav-btn" href="plans.html" aria-label="Plans">Plans</a>
-            <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
-            <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
-            <div class="position-relative">
-
-              <!-- Profile Button -->
-              <button id="profileDropdown" class="nav-btn" aria-label="User Profile">
-                  <i class="fas fa-user"></i>
-              </button>
-              
-              <!-- Dropdown Menu -->
-              <div id="profileMenu" class="position-absolute end-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg d-none">
-                  <!-- Profile Link -->
-                  <a href="dashboard.html" class="d-block px-4 py-2 text-center text-gray-700 hover-bg-gray-200">Profile</a>
-                  
-                  <!-- Logout Button -->
-                  <button onclick="logout()" class="d-block w-100 text-center px-4 py-2 text-gray-700 hover-bg-red-200">Logout</button>
-              </div>
-          </div>
-        </nav>
-    </header>
-
-    <!-- Welcome User Section -->
-    <div class="bg-dark text-white text-center p-4 fs-5 fw-bold">
-        Welcome, <span id="username">User</span> !
     </div>
+</header>
 
-    <main class="container mt-4">
-      <div class="row gap-4">
+
+
+    <main class="container mt-4" style="background-color: aliceblue;">
+          <!-- Welcome User Section -->
+    <div class="text-center p-4 fs-5 fw-bold">
+      Welcome, <span id="username">Leo Dass</span> !
+  </div>
+      <div class="row gap-4" style="background-color: aliceblue;">
       
         <!-- User Profile Section -->
         <div class="col-md-5 bg-white p-4 rounded shadow-sm">
@@ -104,10 +110,61 @@
           </div>
         
           <!-- Data Usage Chart -->
-          <div class="w-50 h-32">
+          <div>
             <canvas id="dataUsageChart"></canvas>
           </div>
         </div>
+
+        <!-- Additional Sections in a Row -->
+<div class="w-100 mt-4 d-flex justify-content-between gap-4 flex-wrap">
+
+<!-- Recharge Reminder -->
+<div class="p-4 rounded border shadow-sm bg-light text-center flex-fill" style="max-width: 240px; min-width: 200px;">
+  <h4 class="fs-5 fw-bold text-info">Recharge Reminder</h4>
+  <p class="text-secondary mb-3">Next Recharge: <strong style="color: #7ec8e3;" class="text-primary">March 5, 2025</strong></p>
+  <button class="btn btn-info btn-sm w-100 text-white" id="setReminder" style="background-color: #b3e0ff; border-color: #99ccff;">
+      Set Reminder
+  </button>
+</div>
+
+
+  <!-- Offers & Discounts -->
+<div class="p-4 rounded border shadow-sm bg-light text-center flex-fill" style="max-width: 240px; min-width: 200px;">
+  <h4 class="fs-5 fw-bold text-info">Offers & Discounts</h4>
+  <p class="text-secondary mb-2">Flat <strong class="text-primary">10% cashback</strong> on UPI Payments </p>
+  <button class="btn btn-info btn-sm w-100 text-white" style="background-color:  #5c87b6; border-color: #99ccff;">
+    View Offers
+</button>
+</div>
+
+<!-- Customer Support (Contact Us) -->
+<div class="p-4 rounded border shadow-sm bg-light text-center flex-fill" style="max-width: 240px; min-width: 200px;">
+  <h4 class="fs-5 fw-bold text-info">Customer Support</h4>
+  <p class="text-secondary mb-3">Need help? Contact us 24/7.</p>
+  <button class="btn btn-info btn-sm w-100 text-gray-700" onclick="navigateToSection('contact')"
+      style="background-color: #D1F8EF; border-color: #99ccff;">
+      Contact Us
+  </button>
+</div>
+
+<!-- Transaction History (Invoice) -->
+<div class="p-4 rounded border shadow-sm bg-light text-center flex-fill" style="max-width: 240px; min-width: 200px;">
+  <h4 class="fs-5 fw-bold text-primary">Transaction History</h4>
+  <p class="text-secondary mb-3">View your recent recharges.</p>
+  <button class="btn btn-primary btn-sm w-100 text-white" onclick="navigateToInvoice()"
+      style="background-color: #7ca99e; border-color: #80bfff;">
+      View History
+  </button>
+</div>
+</div>
+<br>
+
+<!-- Line Chart (Monthly Data Usage) -->
+<div style="width: 100%; height: 400px; background: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+  <h3 style="text-align: center;">Data Usage Over the Month</h3>
+  <canvas id="MonthlyDataUsageChart" style="max-width: 100%; height: 300px;"></canvas>
+</div>
+
 
         <!-- Transaction List -->
         <div id="transactionList" class="col-md-12 bg-white p-4 rounded shadow-sm mt-4">
@@ -167,13 +224,14 @@
         </div>
 
         <!-- Download Invoice Button -->
-        <div class="mt-4 d-flex justify-content-center">
-          <button onclick="generateInvoice()" class="btn btn-success">
-            <i class="fas fa-download"></i> Download Invoice
-        </button>
-        </div>
-      </div>
-      </div>
+        <section id="invoice">
+<div class="mt-4 d-flex justify-content-center">
+  <button onclick="generateFullInvoice()" class="btn btn-success">
+      <i class="fas fa-download"></i> Download Invoice
+  </button>
+</div>
+        </section>
+
 
 <!-- Modern Transaction Modal -->
 <div id="transactionModal" class="modal">
@@ -189,6 +247,22 @@
             
     </main>
     <script>
+
+
+function navigateToPlans(sectionId) {
+    window.location.href = 'plans.html#' + sectionId;
+  }
+
+function navigateToSection(sectionId) {
+    window.location.href = 'index.html#' + sectionId;
+  }
+
+  function navigateToInvoice() {
+  document.getElementById("invoice").scrollIntoView({ behavior: "smooth" });
+}
+
+
+
       // Toggle dropdown visibility when the profile button is clicked
       document.getElementById("profileDropdown").addEventListener("click", function() {
         const menu = document.getElementById("profileMenu");
@@ -218,45 +292,137 @@
         document.getElementById('profileEdit').classList.toggle('d-none');
       }
 
-      function saveProfile() {
-        const newEmail = document.getElementById('emailInput').value;
-        const newPhone = document.getElementById('phoneInput').value;
-        const newAltPhone = document.getElementById('altPhoneInput').value;
+      // Function to open modal and load existing data
+document.getElementById("profileEditModal").addEventListener("show.bs.modal", function () {
+    document.getElementById("emailInput").value = document.getElementById("emailDisplay").textContent.trim();
+    document.getElementById("phoneInput").value = document.getElementById("phoneNumberDisplay").textContent.trim();
+    document.getElementById("altPhoneInput").value = document.getElementById("altPhoneNumberDisplay").textContent.trim();
+});
 
-        if (newEmail) document.getElementById('emailDisplay').innerHTML = `<strong>${newEmail}</strong>`;
-        if (newPhone) document.getElementById('phoneNumberDisplay').innerHTML = `<strong>${newPhone}</strong>`;
-        if (newAltPhone) document.getElementById('altPhoneNumberDisplay').innerHTML = `<strong>${newAltPhone}</strong>`;
+// Function to save profile updates
+function saveProfile() {
+    const newEmail = document.getElementById('emailInput').value.trim();
+    const newPhone = document.getElementById('phoneInput').value.trim();
+    const newAltPhone = document.getElementById('altPhoneInput').value.trim();
 
+    if (newEmail) {
+        document.getElementById('emailDisplay').innerHTML = `<strong>${newEmail}</strong>`;
+        localStorage.setItem("userEmail", newEmail);
+    }
+    if (newPhone) {
+        document.getElementById('phoneNumberDisplay').innerHTML = `<strong>${newPhone}</strong>`;
         localStorage.setItem("mobileNumber", newPhone);
+    }
+    if (newAltPhone) {
+        document.getElementById('altPhoneNumberDisplay').innerHTML = `<strong>${newAltPhone}</strong>`;
         localStorage.setItem("altMobileNumber", newAltPhone);
-      }
+    }
+}
 
-      function filterTransactions() {
-        const searchTerm = document.getElementById('transactionSearch').value.toLowerCase();
-        document.querySelectorAll('.transaction').forEach(transaction => {
-          transaction.style.display = transaction.innerText.toLowerCase().includes(searchTerm) ? 'block' : 'none';
-        });
-      }
+// Load data from localStorage on page load
+window.onload = function () {
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedPhone = localStorage.getItem("mobileNumber");
+    const storedAltPhone = localStorage.getItem("altMobileNumber");
+
+    if (storedEmail) document.getElementById('emailDisplay').innerHTML = `<strong>${storedEmail}</strong>`;
+    if (storedPhone) document.getElementById('phoneNumberDisplay').innerHTML = `<strong>${storedPhone}</strong>`;
+    if (storedAltPhone) document.getElementById('altPhoneNumberDisplay').innerHTML = `<strong>${storedAltPhone}</strong>`;
+};
+
+document.getElementById("profileEditModal").addEventListener("shown.bs.modal", function () {
+    document.getElementById("emailInput").focus();
+});
+
 
       document.getElementById("username").textContent = "Leo Dass"
 
-      // Data Usage Chart
-      const ctx = document.getElementById('dataUsageChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Used Data', 'Remaining Data'],
-          datasets: [{
+// Data Usage Chart
+const ctx = document.getElementById('dataUsageChart').getContext('2d');
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Used Data', 'Remaining Data'],
+        datasets: [{
             data: [0.8, 1.2], // Adjusted for 3GB total
-            backgroundColor: ['#f87171', '#34d399'],
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: '50%' // Adjust the cutout for a better look
+            backgroundColor: ['#7ec8e3', '#b3e0dc'],
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '60%', // Adjust the cutout for a better look
+        plugins: {
+            legend: {
+                display: true,
+                position: 'right', // Moves legend to the right
+                labels: {
+                    boxWidth: 15, // Adjust the box size for better readability
+                    padding: 10,
+                    font: {
+                        size: 14
+                    }
+                }
+            }
         }
-      });
+    }
+});
+
+// Line Chart: Monthly Data Usage
+const ctx1 = document.getElementById('MonthlyDataUsageChart').getContext('2d');
+
+const data = {
+    labels: ["1", "5", "10", "15", "20", "25", "30"], // Days of the month
+    datasets: [{
+        label: 'Data Usage (GB)',
+        data: [1.5, 2.0, 2.8, 3.5, 3.0, 4.2, 3.8], // Data usage values
+        borderColor: '#4CAF50',
+        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+        borderWidth: 2,
+        pointBackgroundColor: '#4CAF50',
+        pointRadius: 5,
+        tension: 0.3
+    }]
+};
+
+new Chart(ctx1, {
+    type: 'line',
+    data: data,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: "Day of the Month",
+                    color: "#333",
+                    font: { size: 14, weight: "bold" }
+                },
+                ticks: { color: "#333" }, // Darker text for visibility
+                grid: { color: "rgba(0, 0, 0, 0.1)" } // Light gray grid
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: "Data Usage (GB)",
+                    color: "#333",
+                    font: { size: 14, weight: "bold" }
+                },
+                ticks: { color: "#333" }, // Darker text for visibility
+                grid: { color: "rgba(0, 0, 0, 0.1)" } // Light gray grid
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    color: "#333", // Legend text color changed to black
+                    font: { size: 14 }
+                }
+            }
+        }
+    }
+});
 
 // Transactions data
 const transactions = [
@@ -327,67 +493,47 @@ const transactions = [
       document.getElementById("transactionModal").style.display = "none";
     }
 
-//Function to download invoice
-function generateInvoice() {
-    const { pdfMake } = window;
+    // Initial render of transactions
+  renderTransactions(transactions);
 
-    const tableBody = [
-        [
-            { text: "Date", bold: true },
-            { text: "Amount", bold: true },
-            { text: "Time", bold: true },
-            { text: "Payment Mode", bold: true }
-        ],
-        ["19-Feb-2025", "Rs 349", "14:35", "Credit Card"],
-        ["10-Feb-2025", "Rs 299", "09:12", "UPI"],
-        ["28-Dec-2024", "Rs 98", "16:50", "Debit Card"],
-        ["05-Feb-2024", "Rs 3599", "11:20", "Net Banking"],
-        ["02-Mar-2025", "Rs 799", "08:45", "Wallet"],
-        ["15-Jan-2025", "Rs 1599", "13:10", "Credit Card"],
-        ["10-Apr-2025", "Rs 1299", "18:05", "UPI"],
-        ["25-Feb-2025", "Rs 449", "20:30", "Debit Card"],
-        ["18-Mar-2025", "Rs 1200", "10:15", "Net Banking"],
-        ["05-Jan-2025", "Rs 2550", "12:55", "UPI"],
-        ["01-Apr-2025", "Rs 950", "07:25", "Wallet"],
-        ["15-Feb-2025", "Rs 1100", "21:40", "Credit Card"],
-        ["20-Nov-2024", "Rs 1200", "14:00", "Net Banking"],
-        ["12-Dec-2024", "Rs 2499", "16:30", "Debit Card"],
-        ["03-Mar-2025", "Rs 499", "09:50", "UPI"],
-        ["25-Jan-2025", "Rs 2899", "19:15", "Credit Card"],
-        ["20-Apr-2025", "Rs 1699", "11:05", "Wallet"],
-        ["12-Oct-2024", "Rs 1199", "15:20", "Net Banking"],
-        ["28-Feb-2025", "Rs 549", "17:45", "Debit Card"],
-        ["10-Mar-2025", "Rs 1899", "22:10", "UPI"]
-    ];
+// Function to filter transactions by month
+document.getElementById("monthFilter").addEventListener("change", function () {
+  const selectedMonth = this.value;
+  const filteredTransactions =
+    selectedMonth === "all"
+      ? transactions
+      : transactions.filter((t) => t.month === selectedMonth);
 
+  renderTransactions(filteredTransactions);
+});
+
+function generateInvoice(amount, date, time, paymentmode) {
     const docDefinition = {
         content: [
             { text: "INVOICE", style: "header" },
             { text: "MobiCom", style: "subheader" },
             { text: "123 Example Street, Tech City, India", style: "address" },
-            { text: "Leo Das", style: "subheader" },
-            { text: "6381879353", style: "subheader" },
+            { text: "\nBill To:", style: "subheader" },
+            { text: "Leo Das", style: "customerName" },
+            { text: "6381879353", style: "customerPhone" },
             { text: "456 Example Street, Techno City, India", style: "address" },
-            { text: "Date: 21-Feb-2025", style: "date" },
-
-            { text: "\nInvoice Summary", style: "sectionHeader" },
-            {
-                table: {
-                    widths: ["*", "*"],
-                    body: [["Lifetime Total Amount", { text: "Rs 26,784", bold: true, color: "blue" }]],
-                },
-                layout: "lightHorizontalLines",
-            },
+            { text: `Invoice Date: ${new Date().toLocaleDateString()}`, style: "date" },
 
             { text: "\nTransaction Details", style: "sectionHeader" },
             {
                 table: {
-                    headerRows: 1,
-                    widths: ["*", "*", "*", "*"], // Four columns for Date, Amount, Time, Payment Mode
-                    body: tableBody,
+                    widths: ["*", "*"],
+                    body: [
+                        [{ text: "Date", bold: true }, { text: date }],
+                        [{ text: "Time", bold: true }, { text: time }],
+                        [{ text: "Amount", bold: true }, { text: `Rs ${amount}`, color: "blue", bold: true }],
+                        [{ text: "Payment Mode", bold: true }, { text: paymentmode }]
+                    ]
                 },
-                layout: "lightHorizontalLines",
+                layout: "lightHorizontalLines"
             },
+
+            { text: "\nThank you for your payment!", style: "footer" }
         ],
         styles: {
             header: { fontSize: 22, bold: true, alignment: "center", color: "black" },
@@ -395,13 +541,108 @@ function generateInvoice() {
             address: { fontSize: 12, margin: [0, 0, 0, 10] },
             date: { fontSize: 12, italics: true, margin: [0, 0, 0, 10] },
             sectionHeader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
-        },
+            customerName: { fontSize: 14, bold: true, margin: [0, 5, 0, 0] },
+            customerPhone: { fontSize: 12, margin: [0, 0, 0, 10] },
+            footer: { fontSize: 12, alignment: "center", margin: [0, 20, 0, 0], italics: true }
+        }
     };
 
-    pdfMake.createPdf(docDefinition).download("Invoice.pdf");
+    pdfMake.createPdf(docDefinition).download(`Invoice_${date}.pdf`);
 }
 
 
+// Function to generate a full invoice with all transactions
+        function generateFullInvoice() {
+            const tableBody = [
+                [
+                    { text: "Date", bold: true },
+                    { text: "Amount", bold: true },
+                    { text: "Time", bold: true },
+                    { text: "Payment Mode", bold: true }
+                ],
+
+                ...transactions.map(t => [t.date, `Rs ${t.amount}`, t.time, t.paymentmode])
+            ];
+
+            const docDefinition = {
+                content: [
+                    { text: "INVOICE", style: "header" },
+                    { text: "MobiCom", style: "subheader" },
+                    { text: "123 Example Street, Tech City, India", style: "address" },
+                    { text: "\nBill To:", style: "subheader" },
+                    { text: "Leo Das", style: "customerName" },
+                    { text: "6381879353", style: "customerPhone" },
+                    { text: "456 Example Street, Techno City, India", style: "address" },
+                    { text: `Date: ${new Date().toLocaleDateString()}`, style: "date" },
+
+                    { text: "\nInvoice Summary", style: "sectionHeader" },
+                    {
+                        table: {
+                            widths: ["*", "*"],
+                            body: [["Lifetime Total Amount", { text: "Rs 26,784", bold: true, color: "blue" }]],
+                        },
+                        layout: "lightHorizontalLines",
+                    },
+
+                    { text: "\nTransaction Details", style: "sectionHeader" },
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: ["*", "*", "*", "*"],
+                            body: tableBody,
+                        },
+                        layout: "lightHorizontalLines",
+                    },
+                    { text: "\nThank you for your payment!", style: "footer" }
+                ],
+                
+                styles: {
+                    header: { fontSize: 22, bold: true, alignment: "center", color: "black" },
+                    subheader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] },
+                    address: { fontSize: 12, margin: [0, 0, 0, 10] },
+                    date: { fontSize: 12, italics: true, margin: [0, 0, 0, 10] },
+                    sectionHeader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
+                    footer: { fontSize: 12, alignment: "center", margin: [0, 20, 0, 0], italics: true }
+                },
+            };
+
+            pdfMake.createPdf(docDefinition).download("Full_Invoice.pdf");
+        }
+
+    function populateTransactionTable() {
+    const table = document.getElementById("transactionTable");
+    transactions.forEach((t, index) => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${t.date}</td>
+            <td>₹${t.amount}</td>
+            <td>${t.time}</td>
+            <td>${t.paymentmode}</td>
+            <td>
+                <button class="btn btn-primary btn-sm download-btn" data-index="${index}">
+                    📥
+                </button>
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+
+    // Attach click event to all transaction download buttons
+    document.querySelectorAll(".download-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const index = this.getAttribute("data-index");
+            generateIndividualInvoice(transactions[index]);
+        });
+    });
+}
+
+        // Attach event listener for full invoice button
+        document.getElementById("btnDownloadAll").addEventListener("click", generateFullInvoice);
+
+        // Populate the transaction table on page load
+        document.addEventListener("DOMContentLoaded", populateTransactionTable);
 
       // Filter transactions based on the selected month
       document.getElementById("monthFilter").addEventListener("change", function() {

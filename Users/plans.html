@@ -4,114 +4,189 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prepaid Recharge Plans</title>
-  <link rel="stylesheet" href="style.css">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+.number-container {
+    display: flex;
+    align-items: center; /* Align input and button */
+    gap: 10px; /* Space between input and button */
+}
+
+  </style>
 </head>
-<body class="p-0">
-    <header class="bg-secondary p-4 d-flex justify-content-between align-items-center">
-        <div class="logo">
-            <img class="h-12" src="images/logo.png" alt="Mobicom Logo"/>
-        </div>
-        <nav class="d-flex gap-4" aria-label="Main Navigation">
+<body>
+  <!-- Header -->
+  <header id="mainHeader">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="logo">
+            <img src="images/logo.png" alt="Mobicom Logo"/>
+          </div>
+          <nav class="d-none d-md-flex gap-4" aria-label="Main Navigation">
             <a class="nav-btn" href="index.html" aria-label="Home">Home</a>
-            <a class="nav-btn" href="plans.html" aria-label="Plans">Plans</a>
+            <a class="nav-btn active" href="plans.html" aria-label="Plans">Plans</a>
             <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
             <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
-            <a class="nav-btn" href="dashboard.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
-        </nav>
+            <a class="nav-btn" href="login.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
+          </nav>
+          <button class="mobile-toggle d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-label="Toggle mobile menu">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
     </header>
-      
-    </nav>
-  </header>
+    
+    <!-- Mobile Menu Offcanvas (updated styling) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Mobicom</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-flex flex-column gap-3">
+          <a class="nav-btn active" href="index.html">Home</a>
+          <a class="nav-btn" href="index.html#recharge">Plans</a>
+          <a class="nav-btn" href="#support">Support</a>
+          <a class="nav-btn" href="#contact">Contact</a>
+          <a class="nav-btn" href="login.html">Login <i class="fas fa-user ms-2"></i></a>
+        </div>
+      </div>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Main Content -->
-<main class="d-flex">
-    <!-- Sidebar -->
-    <aside style="background-color: rgba(107,114,128,0.3); width:25%;" class="p-4 min-vh-100">
-        <div class="d-flex align-items-center gap-2">
-            <input id="changeInput" type="text" class="input-field" placeholder="Change" disabled />
-            <div class="flex-container">
-                <button id="changeButton" class="btn-change" onclick="enableChange()">
-                    <i class="fas fa-pencil-alt"></i> <!-- Pencil icon for Change -->
+    <!-- Main Content -->
+    <main class="container-fluid" style="background-color: aliceblue;">
+        <div class="row">
+          <!-- Left Sidebar -->
+          <div class="col-md-3 sidebar-container">
+            <div class="sidebar-content">
+              <!-- User Profile Card -->
+              <div class="profile-card">
+                <div class="profile-card-content">
+                  <div class="number-container">
+                    <div class="number-display">
+                        <input type="text" id="changeInput" value="+91 9876543210" disabled>
+                    </div>
+                    <div class="number-display">
+                        <button id="changeButton" onclick="enableChange()" aria-label="Edit number">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                  <div class="balance-section">
+                    <div class="balance-header">
+                      <span>Last Recharge</span>
+                      <span class="expiry-text">28 days ago</span>
+                    </div>
+                    <div class="balance-amount">₹299</div>
+                    <div class="balance-progress">
+                      <div class="balance-bar" style="width: 15%;"></div>
+                    </div>
+                    <div class="warning-text">
+                      <i class="fas fa-exclamation-circle me-1"></i> Expires in 2 days
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Search & Filter Card -->
+              <div class="search-filter-card">
+                <h2 class="h5 fw-semibold mb-3">Find Your Perfect Plan</h2>
+                <div class="search-container"></div>
+                <button id="toggleFilters" class="filter-button" onclick="toggleFilters()">
+                  <span><i class="fas fa-filter me-2"></i> Advanced Filters</span>
+                  <i id="filterIcon" class="fas fa-chevron-down"></i>
                 </button>
-            </div>
-        </div>
-        
-      </div>
-      <div class="bg-white p-4 rounded mt-4 shadow">
-        <h2 class="h5 fw-semibold mb-2">Find a preferred plan</h2>
-        <div class="position-relative d-flex align-items-center">
-          <input type="text" id="searchInput" onkeyup="searchPlans()" class="w-100 p-2 border rounded" style="padding-left: 2.5rem;" placeholder="Search for plans">
-          <i class="fas fa-search position-absolute" style="right: 0.75rem; color: #6c757d;"></i>
-        </div>
-        <button id="toggleFilters" class="p-2 mt-2 border rounded w-100" style="background-color: #d1d5db;" aria-label="Toggle Filters" onclick="toggleFilters()">
-          Filters <i class="fas fa-filter"></i>
-        </button>
-        <div id="filtersContainer" class="d-none">
-            <div class="row mb-3">
-                <!-- Data Filter Dropdown -->
-                <div class="col-md-6">
-                    <label for="dataFilter" class="form-label">Select Data</label>
-                    <select id="dataFilter" class="form-select" onchange="filterPlans()">
-                        <option value="">All</option>
+                <div id="filtersContainer" class="filters-panel d-none">
+                    <div class="filter-form-group">
+                      <label for="dataFilter" class="filter-label">Data</label>
+                      <select id="dataFilter" class="filter-select" onchange="filterPlans()">
+                        <option value="">All Data</option>
                         <option value="1GB">1GB</option>
-                        <option value="1.5GB">1.5GB</option>
                         <option value="2GB">2GB</option>
-                        <option value="2.5GB">2.5GB</option>
                         <option value="3GB">3GB</option>
-                        <option value="4GB">4GB</option>
                         <option value="5GB">5GB</option>
-                    </select>
-                </div>
-        
-                <!-- Price Filter Dropdown -->
-                <div class="col-md-6">
-                    <label for="priceFilter" class="form-label">Select Price</label>
-                    <select id="priceFilter" class="form-select" onchange="filterPlans()">
-                        <option value="">All</option>
+                        <option value="Unlimited">Unlimited</option>
+                      </select>
+                    </div>
+                  
+                    <div class="filter-form-group">
+                      <label for="priceFilter" class="filter-label">Price Range</label>
+                      <select id="priceFilter" class="filter-select" onchange="filterPlans()">
+                        <option value="">All Prices</option>
                         <option value="0-500">₹0 - ₹500</option>
-                        <option value="501-1000">₹501 - ₹1000</option>
-                        <option value="1001-2000">₹1001 - ₹2000</option>
+                        <option value="500-1000">₹500 - ₹1000</option>
+                        <option value="1000-2000">₹1000 - ₹2000</option>
                         <option value="2000+">₹2000+</option>
-                    </select>
+                      </select>
+                    </div>
+                  
+                    <div class="filter-form-group">
+                      <label class="filter-label">Validity</label>
+                      <div class="checkbox-group">
+                        <label>
+                          <input type="checkbox" class="filter-checkbox" value="28" onchange="filterPlans()"> 28 Days
+                        </label>
+                        <label>
+                          <input type="checkbox" class="filter-checkbox" value="56" onchange="filterPlans()"> 56 Days
+                        </label>
+                        <label>
+                          <input type="checkbox" class="filter-checkbox" value="90" onchange="filterPlans()"> 90 Days
+                        </label>
+                        <label>
+                          <input type="checkbox" class="filter-checkbox" value="365" onchange="filterPlans()"> 365 Days
+                        </label>
+                      </div>
+                    </div>
+                
+                  
+                    <button class="clear-filters" onclick="clearFilters()">
+                      <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                  </div>
+              </div>
+    
+              <!-- Recently Viewed Plans -->
+              <div class="recent-plans">
+                <h3 class="recent-title">Recently Viewed Plans</h3>
+                <div class="recent-plan-item">
+                  <div class="recent-plan-details">
+                    <span>₹499</span>
+                    <small>2GB/day | 28 days</small>
+                  </div>
+                  <button class="btn btn-sm btn-outline-primary">Select</button>
                 </div>
+              </div>
+
             </div>
-        
-            <!-- Clear Filters Button -->
-            <div class="text-end">
-                <button class="btn btn-outline-secondary" onclick="clearFilters()">Clear Filters</button>
+          </div>
+    
+          <!-- Plans Section -->
+          <div class="col-md-9 plans-container" style="background-color:aliceblue;">
+            <div class="tabs-container mb-4">
+              <div class="tabs-header">
+                <h3 class="category-title">Plans</h3>
+              </div>
+              <div class="tabs-content">
+                <button class="tab-button active" onclick="changeTab('popular', this)">Popular</button>
+                <button class="tab-button" onclick="changeTab('recommended', this)">Recommended</button>
+                <button class="tab-button" onclick="changeTab('unlimited', this)">Unlimited</button>
+                <button class="tab-button" onclick="changeTab('data', this)">Data</button>
+                <button class="tab-button" onclick="changeTab('longValidity', this)">Long Validity</button>
+                <button class="tab-button" onclick="changeTab('savers', this)">Savers</button>
+                <button class="tab-button" onclick="changeTab('entertainment', this)">Entertainment</button>
+                <button class="tab-button" onclick="changeTab('talktime', this)">Talktime</button>
+                <button class="tab-button" onclick="changeTab('roaming', this)">Roaming</button>
+                <button class="tab-button" onclick="changeTab('flight', this)">Flight</button>
+              </div>
             </div>
+            <div id="plans-container" class="plans-grid"></div>
+          </div>
         </div>
-        
-    </aside>
-  
-    <!-- Right Content -->
-    <section class="p-4 w-75">
-      <h1 class="fw-bold mb-4">PREPAID RECHARGE PLANS</h1>
-    
-      <!-- Tabs -->
-      <div class="mb-4 d-flex border-bottom hide-scrollbar" style="overflow-x:auto; scroll-snap-type: x mandatory; white-space: nowrap;">
-        <button class="btn tab-btn active" onclick="changeTab('popular', this)" style="scroll-snap-align: center;">Popular plans</button>
-        <button class="btn tab-btn" onclick="changeTab('recommended', this)" style="scroll-snap-align: center;">Recommended plans</button>
-        <button class="btn tab-btn" onclick="changeTab('unlimited', this)" style="scroll-snap-align: center;">Truly Unlimited</button>
-        <button class="btn tab-btn" onclick="changeTab('data', this)" style="scroll-snap-align: center;">Data</button>
-        <button class="btn tab-btn" onclick="changeTab('longValidity', this)" style="scroll-snap-align: center;">Long validity plans</button>
-        <button class="btn tab-btn" onclick="changeTab('savers', this)" style="scroll-snap-align: center;">Super savers</button>
-        <button class="btn tab-btn" onclick="changeTab('entertainment', this)" style="scroll-snap-align: center;">Entertainment</button>
-        <button class="btn tab-btn" onclick="changeTab('talktime', this)" style="scroll-snap-align: center;">Talktime</button>
-        <button class="btn tab-btn" onclick="changeTab('roaming', this)" style="scroll-snap-align: center;">International Roaming</button>
-        <button class="btn tab-btn" onclick="changeTab('flight', this)" style="scroll-snap-align: center;">In-Flight Roaming</button>
-      </div>
-      
-    
-      <!-- Plans List -->
-      <div id="plans-container" class="d-flex flex-column gap-4"></div>
-    </section>
-  </main>
+      </main>
+
   
 <script>
     let currentCategory = 'popular';
@@ -195,29 +270,29 @@
     }
 
     function displayPlans(filteredPlans) {
-        const container = document.getElementById("plans-container");
-        container.innerHTML = ""; // Clear previous plans
+  const container = document.getElementById("plans-container");
+  container.innerHTML = "";
 
-        filteredPlans.forEach(plan => {
-            const planDiv = document.createElement("div");
-            planDiv.className = "plan-card"; // Apply the plan card class for styling
-            
-            planDiv.innerHTML = `
-                <div class="plan-details flex justify-between items-center">
-                    <div>
-                        <p class="price text-xl font-bold">₹ ${plan.price}</p>
-                        <p class="data text-sm text-gray-600">${plan.data} | ${plan.validity}</p>
-                    </div>
-                    <button class="view-button text-blue-500 hover:text-blue-700 font-semibold" onclick="showPopup('${plan.data}', '${plan.details}', '${plan.price}', '${plan.validity}')">
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                <hr class="my-4">
-            `;
-            
-            container.appendChild(planDiv); // Append the plan div to the container
-        });
-    }
+  filteredPlans.forEach(plan => {
+    const planDiv = document.createElement("div");
+    planDiv.className = "plan-card";
+    
+    planDiv.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <p class="price mb-1">₹ ${plan.price}</p>
+          <p class="data mb-0">${plan.data} | ${plan.validity}</p>
+        </div>
+        <button class="view-button" onclick="showPopup('${plan.data}', '${plan.details}', '${plan.price}', '${plan.validity}')">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      <hr class="my-3">
+    `;
+    
+    container.appendChild(planDiv);
+  });
+}
 
     function searchPlans() {
         const input = document.getElementById("searchInput").value.toLowerCase();
@@ -229,34 +304,71 @@
     }
 
     function filterPlans() {
-    const dataFilter = document.getElementById("dataFilter").value;
-    const priceFilter = document.getElementById("priceFilter").value;
+  const dataFilter = document.getElementById("dataFilter").value;
+  const priceFilter = document.getElementById("priceFilter").value;
+  const validityCheckboxes = document.querySelectorAll(".filter-checkbox[value]:checked");
+  const featureCheckboxes = document.querySelectorAll(".filter-checkbox[value]:checked");
 
-    let filteredPlans = allPlans;
+  let filteredPlans = allPlans;
 
-    // Filter by data
-    if (dataFilter) {
-        filteredPlans = filteredPlans.filter(plan => plan.data.includes(dataFilter));
-    }
+  // Filter by data
+  if (dataFilter) {
+    filteredPlans = filteredPlans.filter(plan => plan.data.includes(dataFilter));
+  }
 
-    // Filter by price
-    if (priceFilter) {
-        const [minPrice, maxPrice] = priceFilter.split('-').map(Number);
-        filteredPlans = filteredPlans.filter(plan => {
-            if (maxPrice) {
-                return plan.price >= minPrice && plan.price <= maxPrice;
-            } else {
-                return plan.price >= minPrice; // For "2000+" option
-            }
-        });
-    }
+  // Filter by price
+  if (priceFilter) {
+    const [minPrice, maxPrice] = priceFilter.split('-').map(Number);
+    filteredPlans = filteredPlans.filter(plan => {
+      if (maxPrice) {
+        return plan.price >= minPrice && plan.price <= maxPrice;
+      } else {
+        return plan.price >= minPrice; // For "2000+" option
+      }
+    });
+  }
 
-    displayPlans(filteredPlans);
+  // Filter by validity
+  if (validityCheckboxes.length > 0) {
+    const selectedValidities = Array.from(validityCheckboxes).map(cb => parseInt(cb.value));
+    filteredPlans = filteredPlans.filter(plan => {
+      const planValidity = parseInt(plan.validity);
+      return selectedValidities.includes(planValidity);
+    });
+  }
+
+  // Filter by features
+  if (featureCheckboxes.length > 0) {
+    const selectedFeatures = Array.from(featureCheckboxes).map(cb => cb.value);
+    filteredPlans = filteredPlans.filter(plan => {
+      return selectedFeatures.some(feature => plan.details.includes(feature));
+    });
+  }
+
+  displayPlans(filteredPlans);
+}
+
+function clearFilters() {
+  // Reset all filter inputs
+  document.getElementById("dataFilter").value = "";
+  document.getElementById("priceFilter").value = "";
+  document.querySelectorAll(".filter-checkbox").forEach(cb => cb.checked = false);
+
+  // Display all plans
+  displayPlans(allPlans);
 }
 
 function toggleFilters() {
-    const filtersContainer = document.getElementById("filtersContainer");
-    filtersContainer.classList.toggle("d-none");  // Use d-none to hide and show the filters
+  const filtersContainer = document.getElementById("filtersContainer");
+  const filterIcon = document.getElementById("filterIcon");
+  
+  filtersContainer.classList.toggle("d-none");
+  // Rotate the icon for visual feedback
+  if (filtersContainer.classList.contains("d-none")) {
+    filterIcon.classList.replace("fa-chevron-up", "fa-chevron-down");
+  } else {
+    filterIcon.classList.replace("fa-chevron-down", "fa-chevron-up");
+  }
 }
 function clearFilters() {
     // Clear the dropdown values
@@ -286,26 +398,46 @@ function clearFilters() {
         document.getElementById("popup").style.display = "none";
     }
 
-    function enableChange() {
-        const button = document.getElementById('changeButton');
-        document.getElementById('changeInput').disabled = false; // Enable the input field
-        button.innerHTML = '<i class="fas fa-save"></i>'; // Change icon to save
-        button.setAttribute('onclick', 'saveChange()'); // Change the onclick function
+    document.addEventListener("DOMContentLoaded", function () {
+    loadNumber(); // Load stored number on page load
+});
+
+function enableChange() {
+    const button = document.getElementById('changeButton');
+    const inputField = document.getElementById('changeInput');
+    
+    inputField.disabled = false; // Enable the input field
+    inputField.focus(); // Auto-focus for convenience
+    button.innerHTML = '<i class="fas fa-save"></i>'; // Change icon to save
+    button.setAttribute('onclick', 'saveChange()'); // Change the onclick function
+}
+
+function saveChange() {
+    const button = document.getElementById('changeButton');
+    const inputField = document.getElementById('changeInput');
+
+    let newNumber = inputField.value.trim(); // Trim whitespace
+
+    // Validate the phone number (10-13 digits, allowing +91 format)
+    if (!/^\+?[0-9]{10,13}$/.test(newNumber)) {
+        alert("Please enter a valid phone number (10-13 digits).");
+        inputField.focus();
+        return;
     }
 
-    function saveChange() {
-        const button = document.getElementById('changeButton');
-        document.getElementById('changeInput').disabled = true; // Disable the input field after saving
-        button.innerHTML = '<i class="fas fa-pencil-alt"></i>'; // Change icon back to pencil (edit)
-        button.setAttribute('onclick', 'enableChange()'); // Reset the onclick function
-    }
+    localStorage.setItem("mobileNumber", newNumber); // Save the number
+    inputField.disabled = true; // Disable input after saving
+    button.innerHTML = '<i class="fas fa-pencil-alt"></i>'; // Change icon back to edit
+    button.setAttribute('onclick', 'enableChange()'); // Reset the onclick function
+}
 
-    function loadNumber() {
-        let savedNumber = localStorage.getItem("mobileNumber");
-        if (savedNumber) {
-            document.getElementById("changeInput").value = savedNumber; // Display the stored number
-        }
+function loadNumber() {
+    let savedNumber = localStorage.getItem("mobileNumber");
+    if (savedNumber) {
+        document.getElementById("changeInput").value = savedNumber; // Display stored number
     }
+}
+
 
     // Call the function when the page loads
     window.onload = function() {

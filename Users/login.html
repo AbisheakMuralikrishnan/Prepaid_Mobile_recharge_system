@@ -10,6 +10,15 @@
         .hidden { display: none; }
         .error { border-color: red; }
         .error-message { color: red; font-size: 0.875rem; margin-top: 4px; }
+        .otp-input {
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            font-size: 1.5rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            margin: 0 0.5rem;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center h-screen bg-gray-100">
@@ -29,7 +38,13 @@
         <!-- OTP Input -->
         <div id="otpInputSection" class="hidden">
             <label class="block text-gray-700">Enter OTP</label>
-            <input type="text" id="otp" class="w-full p-2 mt-2 border rounded bg-gray-100" placeholder="Enter OTP">
+            <div class="flex justify-center mt-2">
+                <input type="text" maxlength="1" class="otp-input" id="otp1">
+                <input type="text" maxlength="1" class="otp-input" id="otp2">
+                <input type="text" maxlength="1" class="otp-input" id="otp3">
+                <input type="text" maxlength="1" class="otp-input" id="otp4">
+            </div>
+            <span id="otpError" class="error-message hidden">Invalid OTP. Please try again.</span>
             <button id="verifyOtpBtn" class="w-full mt-4 bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
                 Verify & Login
             </button>
@@ -37,30 +52,50 @@
     </div>
 
     <script>
+        let generatedOtp = "";
+
         document.getElementById("sendOtpBtn").addEventListener("click", function () {
-            let mobileNumber = document.getElementById("mobileNumber");
+            let mobileNumber = document.getElementById("mobileNumber").value;
             let mobileError = document.getElementById("mobileError");
 
-            if (/^\d{10}$/.test(mobileNumber.value)) {
-                // Valid number, proceed to OTP input
-                mobileNumber.classList.remove("error");
+            if (/^\d{10}$/.test(mobileNumber)) {
                 mobileError.classList.add("hidden");
 
+                // Generate a random 4-digit OTP
+                generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+                alert("Your OTP is: " + generatedOtp); // Display OTP (For testing, replace with an actual OTP modal)
+
+                // Show OTP section
                 document.getElementById("mobileInputSection").classList.add("hidden");
                 document.getElementById("otpInputSection").classList.remove("hidden");
             } else {
-                // Invalid number, show error message
-                mobileNumber.classList.add("error");
                 mobileError.classList.remove("hidden");
             }
         });
 
+        document.querySelectorAll(".otp-input").forEach((input, index, inputs) => {
+            input.addEventListener("input", function () {
+                if (this.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+            input.addEventListener("keydown", function (event) {
+                if (event.key === "Backspace" && index > 0 && this.value === "") {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+
         document.getElementById("verifyOtpBtn").addEventListener("click", function () {
-            let otp = document.getElementById("otp").value;
-            if (otp) {
-                window.location.href = "dashboard.html"; // Redirect to user dashboard
+            let enteredOtp = Array.from(document.querySelectorAll(".otp-input"))
+                           .map(input => input.value)
+                           .join("");
+            let otpError = document.getElementById("otpError");
+
+            if (enteredOtp === generatedOtp) {
+                window.location.href = "dashboard.html"; // Redirect on successful OTP match
             } else {
-                alert("Please enter a valid OTP.");
+                otpError.classList.remove("hidden");
             }
         });
     </script>

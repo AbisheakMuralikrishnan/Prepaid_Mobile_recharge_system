@@ -4,300 +4,1048 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobicom</title>
+    <title>Mobicom - Mobile Recharge & Plans</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            padding-top: 80px; /* Prevent content from being covered by fixed navbar */
+        :root {
+            --primary-color: #5068FF;
+            --secondary-color: #FF6B6B;
+            --accent-color: #36BFFA;
+            --dark-color: #2A2D3E;
+            --light-color: #F8F9FA;
+            --text-color: #333333;
+            --success-color: #4CAF50;
         }
-/* iPhone Mockup - Smooth Transition */
-.iphone-mockup {
-    position: relative;
-    width: 100vw;
-    height: calc(100vh - 80px);
-    overflow: hidden;
-    margin-top: -10px;
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeInUp 1s ease-in-out forwards;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding-top: 80px;
+            margin: 0;
+            color: var(--text-color);
+            background-color: #f5f8ff;
+            overflow-x: hidden;
+        }
+
+        /* Recharge Section */
+        .recharge-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group {
+            display: flex;
+            margin: 20px 0;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(80, 104, 255, 0.2);
+        }
+
+        .input-group button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 50px 50px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group button:hover {
+            background: #3e56e8;
+            transform: translateY(-2px);
+        }
+
+        .error {
+            color: var(--secondary-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Plans Section */
+        .plan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(80, 104, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .plan-card .tag {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .plan-card .price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+
+        .plan-card .details {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .plan-card .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .plan-card .feature i {
+            color: var(--success-color);
+        }
+
+        .section-heading {
+            position: relative;
+            font-weight: 700;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 0;
+            border-radius: 4px;
+        }
+
+        /* Support Section */
+        .support-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-question {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #eef1ff;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            color: #666;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-form input, .contact-form textarea {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(80, 104, 255, 0.1);
+        }
+
+        .contact-form button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-form button:hover {
+            background: #3e56e8;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding-top: 60px;
+        }
+
+        footer h5 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        footer h5::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -8px;
+            left: 0;
+            border-radius: 3px;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        footer ul li:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        /* Animations */
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Plans scroll */
+        .plans-scroll {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+        }
+
+        .plans-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .plans-container {
+            display: inline-flex;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .scroll-plan-card {
+            background: white;
+            min-width: 240px;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scroll-plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(80, 104, 255, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #3e56e8;
+            border-color: #3e56e8;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
+        }
+
+        .scroll-controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .scroll-btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
+        }
+
+        /* Special Offers Section */
+        .offer-card {
+            background: linear-gradient(135deg, #5068FF 0%, #4776E6 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(80, 104, 255, 0.3);
+        }
+
+        .offer-card h3 {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .offer-card p {
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .offer-card .btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .offer-card .btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-card .circles {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+        }
+
+        .offer-card .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .offer-card .circle-1 {
+            width: 100px;
+            height: 100px;
+            top: -20px;
+            right: -20px;
+        }
+
+        .offer-card .circle-2 {
+            width: 150px;
+            height: 150px;
+            top: -40px;
+            right: -40px;
+        }
+
+        .offer-card .circle-3 {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -60px;
+        }
+
+
+
+
+        :root {
+  --primary-color: #5068FF;
+  --dark-color: #333333;
+  --transition: all 0.3s ease-in-out;
 }
 
-/* Mockup Image Styling */
-.iphone-mockup img {
-    width: 100vw;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-}
-
-/* Floating Labels */
-.floating-label {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px 18px;
-    border-radius: 30px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    white-space: nowrap;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    animation: fadeInLabels 1.2s ease-in-out 0.5s forwards;
-}
-
-/* Right-aligned floating labels */
-.floating-label.right {
-    right: 10%;
-    text-align: right;
-    animation: fadeInRight 1s ease-in-out 1s forwards;
-}
-
-/* Left-aligned floating labels */
-.floating-label.left {
-    left: 5%;
-    text-align: left;
-    animation: fadeInLeft 1s ease-in-out 1s forwards;
-}
-
-/* Hover effect */
-.floating-label:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
-}
-
-/* Keyframes */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInRight {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInLeft {
-    from { opacity: 0; transform: translateX(-30px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes fadeInLabels {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* Modern Navbar Styling */
 header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Ensures the navbar stays above other content */
-    background-color: #6c757d; /* Optional: background color for better visibility */
-    padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 12px 0;
+  transition: var(--transition);
 }
 
-body {
-    padding-top: 80px; /* Ensure content does not overlap the fixed navbar */
+header.scrolled {
+  padding: 8px 0;
 }
 
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-</style>
+.logo img {
+  height: 42px;
+  transition: var(--transition);
+}
+
+header.scrolled .logo img {
+  height: 36px;
+}
+
+.nav-btn {
+  color: var(--dark-color);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-btn:not(.active)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 5px;
+  left: 50%;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+  transform: translateX(-50%);
+}
+
+.nav-btn:hover::after {
+  width: 60%;
+}
+
+.nav-btn:hover {
+  color: var(--primary-color);
+}
+
+.nav-btn.active {
+  color: white;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 10px rgba(80, 104, 255, 0.3);
+}
+
+.mobile-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  transition: var(--transition);
+}
+
+.mobile-toggle:hover {
+  color: var(--primary-color);
+}
+
+/* Offcanvas Menu Styling */
+.offcanvas {
+  width: 280px;
+  border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.offcanvas-title {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.offcanvas .nav-btn {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Hero Carousel Styling */
+/* Updated Hero Carousel Styling */
+.hero-carousel {
+  margin-top: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Updated carousel content positioning and transparency */
+/* Base carousel content styles */
+.carousel-content, .carousel-content2 {
+  width: 90%;
+  max-width: 450px;
+  padding: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.02); /* Very transparent background */
+  backdrop-filter: blur(3px);
+  border-radius: 12px;
+  transform: translateY(0);
+  opacity: 0; /* Start with opacity 0, will be animated to 1 when active */
+  transition: all 0.8s ease-in-out 0.3s;
+  position: relative;
+  top: 90px; /* Vertical positioning */
+}
+
+/* Left-positioned content */
+.carousel-content {
+  margin: 0 0 0 10%; /* Position on the left */
+}
+
+/* Right-positioned content */
+.carousel-content2 {
+  margin: 0 10% 0 auto; /* Position on the right */
+}
+
+/* Activate both content types when slide is active */
+.carousel-item.active .carousel-content,
+.carousel-item.active .carousel-content2 {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Text styling for better readability on transparent background */
+.carousel-content h2, .carousel-content2 h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
+}
+
+.carousel-content p, .carousel-content2 p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  max-width: 600px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
+}
+
+/* Button styling */
+.carousel-btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 4px 15px rgba(80, 104, 255, 0.4);
+}
+
+.carousel-btn:hover {
+  background-color: #4056e0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(80, 104, 255, 0.5);
+}
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carousel-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.carousel-indicator.active {
+  background-color: white;
+  width: 30px;
+  border-radius: 10px;
+}
+
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.carousel-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(5px);
+}
+
+.carousel-control:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+    </style>
 </head>
 
-<body class="p-0">
-    <header class="bg-secondary p-4 d-flex justify-content-between align-items-center">
-        <div class="logo">
-            <img class="h-12" src="images/logo.png" alt="Mobicom Logo"/>
+<body>
+    <!-- Header/Navbar -->
+    <header id="mainHeader">
+        <div class="container">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="logo">
+              <img src="images/logo.png" alt="Mobicom Logo"/>
+            </div>
+            <nav class="d-none d-md-flex gap-4" aria-label="Main Navigation">
+              <a class="nav-btn active" href="index.html" aria-label="Home">Home</a>
+              <a class="nav-btn" href="index.html#recharge" aria-label="Plans">Plans</a>
+              <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
+              <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
+              <a class="nav-btn" href="login.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
+            </nav>
+            <button class="mobile-toggle d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-label="Toggle mobile menu">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
         </div>
-        <nav class="d-flex gap-4" aria-label="Main Navigation">
-            <a class="nav-btn" href="index.html" aria-label="Home">Home</a>
-            <a class="nav-btn" href="plans.html" aria-label="Plans">Plans</a>
-            <a class="nav-btn" href="index.html#support" aria-label="Support">Support</a>
-            <a class="nav-btn" href="index.html#contact" aria-label="Contact">Contact</a>
-            <a class="nav-btn" href="login.html" aria-label="User Profile"><i class="fas fa-user"></i></a>
-        </nav>
-    </header>
-
-    <br><br><br>
-    
-    <div class="d-flex justify-content-center">
-        <div class="iphone-mockup" id="mockupContainer">
-            <img src="images/index-image.png" alt="iPhone 15 mockup">
-    
-            <!-- Floating Labels (aligned left & right) -->
-            <div class="floating-label right" style="top: 28%;">
-                <i class="fas fa-bolt"></i> Quick Recharge
-            </div>
-            <div class="floating-label left" style="top: 40%;">
-                <i class="fas fa-shield-alt"></i> Secure Payment
-            </div>
-            <div class="floating-label right" style="top: 70%;">
-                <i class="fas fa-headset"></i> 24/7 Support
-            </div>
+      </header>
+      
+      <!-- Mobile Menu Offcanvas (updated styling) -->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title">Mobicom</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-    </div>
-    
+        <div class="offcanvas-body">
+          <div class="d-flex flex-column gap-3">
+            <a class="nav-btn active" href="index.html">Home</a>
+            <a class="nav-btn" href="index.html#recharge">Plans</a>
+            <a class="nav-btn" href="#support">Support</a>
+            <a class="nav-btn" href="#contact">Contact</a>
+            <a class="nav-btn" href="login.html">Login <i class="fas fa-user ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Hero Carousel Section -->
+      <section class="hero-carousel">
+        <div class="carousel-inner">
+          <!-- Carousel Item 1 -->
+          <div class="carousel-item active" style="background-image: url('images/hero-2.jpg');">
+            <div class="carousel-content">
+              <h2>Connect Without Limits</h2>
+              <p>Experience lightning-fast 5G speeds with unlimited data plans designed for the modern digital lifestyle.</p>
+              <a href="#plans" class="carousel-btn">Explore Plans</a>
+            </div>
+          </div>
+          
+          <!-- Carousel Item 2 -->
+          <div class="carousel-item" style="background-image: url('images/hero-1.jpg');">
+            <div class="carousel-content2">
+              <h2>Family Plans That Bring You Closer</h2>
+              <p>Keep your whole family connected with shared data plans and exclusive family discounts.</p>
+              <a href="#family-plans" class="carousel-btn">View Family Plans</a>
+            </div>
+          </div>
+          
+          <!-- Carousel Item 3 -->
+          <div class="carousel-item" style="background-image: url('images/hero-3.jpg');">
+            <div class="carousel-content2">
+              <h2>International Coverage</h2>
+              <p>Stay connected wherever you go with our affordable international roaming options.</p>
+              <a href="plans.html#roaming" class="carousel-btn">Learn More</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carousel Navigation -->
+        <div class="carousel-indicators">
+          <div class="carousel-indicator active" data-slide="0"></div>
+          <div class="carousel-indicator" data-slide="1"></div>
+          <div class="carousel-indicator" data-slide="2"></div>
+        </div>
+        
+        <div class="carousel-controls">
+          <div class="carousel-control prev">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+          <div class="carousel-control next">
+            <i class="carousel-control next fas fa-chevron-right"></i>
+          </div>
+        </div>
+      </section><br><br>
     
     <!-- Recharge Section -->
-<div class="container">
-    <h1>Prepaid Mobile Recharge</h1>
-    <p>Recharge your prepaid number for talktime and data</p>
-    <div class="input-group">
-        <input id="mobileNumber" type="text" placeholder="Mobile Number" maxlength="10">
-        <button onclick="validateAndRecharge()">RECHARGE</button>
-    </div>
-    <p id="errorMessage" class="error">Please enter a valid 10-digit mobile number.</p>
-</div>
-<br><br><br><br>
-
-
-    <div class="container p-4">
-        <!-- Top-selling postpaid plans section -->
-        <h1 class="h1 mb-4">Top-selling postpaid plans</h1>
-
-        <div class="overflow-auto scrollbar-hide shadow" id="plansContainer">
-            <div class="d-flex gap-3" id="plansWrapper">
-                <!-- Plan 1 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content;" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹3599</h2>
-                        <p class="small">365 Days<br>Validity<br>2.5 GB/Day</p>
-                    </div>
-                </div>
-
-                <!-- Plan 2 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()"> <span
-                            class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹1029</h2>
-                        <p class="small">84 Days<br>Validity<br>2 GB/Day</p>
-                    </div>
-                </div>
-                <!-- Plan 3 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹749</h2>
-                        <p class="small">72 Days<br>Validity<br>2 GB/Day +20 GB</p>
-                    </div>
-                </div>
-                <!-- Plan 4 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">POPULAR PLAN</span>
-                        <h2 class="h2 my-2">₹299</h2>
-                        <p class="small">28 Days<br>Validity<br>1.5GB/Day</p>
-                    </div>
-                </div>
-                <!-- Plan 5 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹3599</h2>
-                        <p class="small">365 Days<br>Validity<br>2.5 GB/Day</p>
-                    </div>
-                </div>
-                <!-- Plan 6 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹1029</h2>
-                        <p class="small">84 Days<br>Validity<br>2 GB/Day</p>
-                    </div>
-                </div>
-                <!-- Plan 7 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">5G Plan</span>
-                        <h2 class="h2 my-2">₹749</h2>
-                        <p class="small">72 Days<br>Validity<br>2 GB/Day +20 GB</p>
-                    </div>
-                </div>
-                <!-- Plan 8 -->
-                <div class="d-flex justify-content-center">
-                    <div class="bg-light p-4 rounded shadow-sm text-center cursor-pointer"
-                        style="width: 200px; height: fit-content" onclick="redirectToPlan()">
-                        <span class="text-danger small fw-bold">POPULAR PLAN</span>
-                        <h2 class="h2 my-2">₹299</h2>
-                        <p class="small">28 Days<br>Validity<br>1.5GB/Day</p>
+    <section class="py-5">
+        <div class="container" id="recharge">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="recharge-container text-center">
+                        <h2 class="mb-3">Quick Mobile Recharge</h2>
+                        <p class="text-muted mb-4">Recharge your prepaid number instantly for talktime and data</p>
+                        
+                        <!-- Input & Button Container -->
+                        <div class="input-group">
+                            <input id="mobileNumber" type="text" placeholder="Enter 10-digit Mobile Number" maxlength="10">
+                            <button onclick="validateAndRecharge()">RECHARGE</button>
+                        </div>
+    
+                        <!-- Error Message -->
+                        <p id="errorMessage" class="error" style="display: none;">Please enter a valid 10-digit mobile number.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    
 
-    <br><br><br>
-
-    <!-- Choose a Data Pack Section -->
-    <div class="container text-center mt-5">
-        <h1 class="h1 mb-4">Choose a Data Pack as per Your Needs</h1>
-
-        <div class="row g-4">
-            <!-- Data Pack 1 -->
-            <div class="col-md-4">
-                <div class="bg-white p-4 rounded shadow-sm cursor-pointer"
-                    onclick="redirectToPlan('₹299', '28 Days', '1.5 GB/day')">
-                    <h2 class="h2 mb-3">1.5 GB/day</h2>
-                    <p class="text-muted mb-4">Unlimited calls and SMS</p>
-                    <ul class="list-unstyled text-start">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>India's best value plan</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Perfect for social media</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unlimited voice calls</li>
-                    </ul>
+    <!-- Special Offers Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-heading">Special Offers</h2>
                 </div>
             </div>
-
-            <!-- Data Pack 2 -->
-            <div class="col-md-4">
-                <div class="bg-white p-4 rounded shadow-sm cursor-pointer"
-                    onclick="redirectToPlan('₹399', '28 Days', '2 GB/day')">
-                    <h2 class="h2 mb-3">2 GB/day</h2>
-                    <p class="text-muted mb-4">Unlimited calls and SMS</p>
-                    <ul class="list-unstyled text-start">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>India's always-connected plan
-                        </li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Perfect for streaming & gaming
-                        </li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Uninterrupted video calls</li>
-                    </ul>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="offer-card">
+                        <div class="circles">
+                            <div class="circle circle-1"></div>
+                            <div class="circle circle-2"></div>
+                            <div class="circle circle-3"></div>
+                        </div>
+                        <h3>Get 20% Extra Data</h3>
+                        <p>Recharge with any plan above ₹399 and get 20% extra data for free. Limited time offer.</p>
+                        <a href="plans.html" class="btn">View Plans</a>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Data Pack 3 -->
-            <div class="col-md-4">
-                <div class="bg-white p-4 rounded shadow-sm cursor-pointer"
-                    onclick="redirectToPlan('₹499', '28 Days', '2.5 GB/day')">
-                    <h2 class="h2 mb-3">2.5 GB/day</h2>
-                    <p class="text-muted mb-4">Unlimited calls and SMS</p>
-                    <ul class="list-unstyled text-start">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Great for watching 4K videos</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Lag-free online gaming</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Binge-watch web series</li>
-                    </ul>
+                <div class="col-md-6">
+                    <div class="offer-card" style="background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);">
+                        <div class="circles">
+                            <div class="circle circle-1"></div>
+                            <div class="circle circle-2"></div>
+                            <div class="circle circle-3"></div>
+                        </div>
+                        <h3>First Recharge Bonus</h3>
+                        <p>New users get ₹50 cashback on their first recharge of ₹299 or more. Use code: NEW50</p>
+                        <a href="plans.html" class="btn">Claim Now</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Top-selling Plans Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h2 class="section-heading">Top-selling Prepaid Plans</h2>
+                </div>
+            </div>
+            
+            <div class="plans-scroll" id="plansContainer">
+                <div class="plans-container" id="plansWrapper">
+                    <!-- Plan 1 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹3599', '365 Days', '2.5 GB/Day')">
+                        <span class="tag">5G Plan</span>
+                        <h3 class="price">₹3599</h3>
+                        <p class="details">
+                            365 Days Validity<br>
+                            2.5 GB/Day<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                    
+                    <!-- Plan 2 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹1029', '84 Days', '2 GB/Day')">
+                        <span class="tag">5G Plan</span>
+                        <h3 class="price">₹1029</h3>
+                        <p class="details">
+                            84 Days Validity<br>
+                            2 GB/Day<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                    
+                    <!-- Plan 3 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹749', '72 Days', '2 GB/Day')">
+                        <span class="tag">5G Plan</span>
+                        <h3 class="price">₹749</h3>
+                        <p class="details">
+                            72 Days Validity<br>
+                            2 GB/Day + 20GB<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                    
+                    <!-- Plan 4 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹299', '28 Days', '1.5GB/Day')">
+                        <span class="tag">POPULAR PLAN</span>
+                        <h3 class="price">₹299</h3>
+                        <p class="details">
+                            28 Days Validity<br>
+                            1.5GB/Day<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                    
+                    <!-- Plan 5 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹599', '56 Days', '2 GB/Day')">
+                        <span class="tag">BEST VALUE</span>
+                        <h3 class="price">₹599</h3>
+                        <p class="details">
+                            56 Days Validity<br>
+                            2 GB/Day<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                    
+                    <!-- Plan 6 -->
+                    <div class="scroll-plan-card" onclick="redirectToPlan('₹199', '28 Days', '1 GB/Day')">
+                        <span class="tag">BASIC PLAN</span>
+                        <h3 class="price">₹199</h3>
+                        <p class="details">
+                            28 Days Validity<br>
+                            1 GB/Day<br>
+                            Unlimited Calls
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="plans.html" class="btn btn-primary">View All Plans</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Choose Data Pack Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h2 class="section-heading mx-auto">Choose a Data Pack</h2>
+                    <p class="text-muted">Find the perfect plan that suits your internet needs</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <!-- Data Pack 1 -->
+                <div class="col-md-4">
+                    <div class="plan-card" onclick="redirectToPlan('₹299', '28 Days', '1.5 GB/day')">
+                        <span class="tag">BASIC</span>
+                        <h3 class="price">1.5 GB/day</h3>
+                        <p class="details">₹299 for 28 Days</p>
+                        
+                        <div class="mt-4">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>India's best value plan</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Perfect for social media</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Unlimited voice calls</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>100 SMS per day</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto pt-4 text-center">
+                            <button class="btn btn-primary">Select Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Pack 2 -->
+                <div class="col-md-4">
+                    <div class="plan-card" onclick="redirectToPlan('₹399', '28 Days', '2 GB/day')">
+                        <span class="tag">POPULAR</span>
+                        <h3 class="price">2 GB/day</h3>
+                        <p class="details">₹399 for 28 Days</p>
+                        
+                        <div class="mt-4">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>India's always-connected plan</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Perfect for streaming & gaming</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Uninterrupted video calls</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>100 SMS per day</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto pt-4 text-center">
+                            <button class="btn btn-primary">Select Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Pack 3 -->
+                
+                <div class="col-md-4">
+                    <div class="plan-card" onclick="redirectToPlan('₹399', '28 Days', '2 GB/day')">
+                        <span class="tag">POPULAR</span>
+                        <h3 class="price">2.5 GB/day</h3>
+                        <p class="details">₹499 for 28 Days</p>
+                        
+                        <div class="mt-4">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Great for watching 4K videos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Perfect for streaming & gaming</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Binge-watch web series</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>100 SMS per day</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-auto pt-4 text-center">
+                            <button class="btn btn-primary">Select Plan</button>
+                        </div>
+                    </div>
+                </div>
+                
     </div>
     <br><br>
 
@@ -437,145 +1185,206 @@ body {
 </div>
 </div>
 </section>
-
 <script>
-// Initialize Swiper
-const swiper = new Swiper('.mySwiper', {
-    loop: true, // Loop the carousel
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-    autoplay: {
-        delay: 3000, // Auto slide every 3 seconds
-    },
-});
-
-
-const plansContainer = document.getElementById('plansContainer');
-const plansWrapper = document.getElementById('plansWrapper');
-
-function autoScroll() {
-    if (plansContainer) {
-        plansContainer.scrollLeft += 1; // Adjust speed by changing the number
-        if (plansContainer.scrollLeft >= plansWrapper.scrollWidth - plansContainer.clientWidth) {
-            plansContainer.scrollLeft = 0; // Reset scroll to the beginning
-        }
-    }
-}
-
-setInterval(autoScroll, 30); // Adjust speed by changing interval
-
-
-function validateAndRecharge() {
-    let mobileNumber = document.getElementById("mobileNumber").value;
+    
+    function validateAndRecharge() {
+    let mobileNumber = document.getElementById("mobileNumber")?.value.trim();
     let errorMessage = document.getElementById("errorMessage");
 
-// Regular expression to match a 10-digit number
-let regex = /^[6-9]\d{9}$/;
+    if (!mobileNumber) {
+        errorMessage.style.display = "block";
+        errorMessage.textContent = "Mobile number field is empty.";
+        return;
+    }
 
-if (regex.test(mobileNumber)) {
-    errorMessage.style.display = "none";
+    let regex = /^[6-9]\d{9}$/; // Only allows valid 10-digit Indian numbers
 
-// Store the number in localStorage
-localStorage.setItem("mobileNumber", mobileNumber);
+    if (regex.test(mobileNumber)) {
+        errorMessage.style.display = "none";
 
-// Redirect to the Plans Page
-window.location.href = "plans.html";
-} else {
-    errorMessage.style.display = "block";
-}
-}
+        // Store the number in localStorage
+        localStorage.setItem("mobileNumber", mobileNumber);
+        console.log("Stored Mobile Number:", localStorage.getItem("mobileNumber"));
 
-
-
-// Toggle Answer Visibility (using Bootstrap d-none)
-function toggleAnswer(answerId) {
-    const answerElement = document.getElementById(answerId);
-    if (answerElement.classList.contains('d-none')) {
-        answerElement.classList.remove('d-none');
+        // Ensure proper path
+        window.location.href = "./plans.html";
     } else {
-        answerElement.classList.add('d-none');
+        errorMessage.style.display = "block";
+        errorMessage.textContent = "Please enter a valid 10-digit mobile number.";
     }
 }
 
-// Save Mobile Number
-function saveNumber() {
-    let mobileNumber = document.getElementById("mobileInput").value;
-    localStorage.setItem("mobileNumber", mobileNumber); // Store number
-    window.location.href = "plans.html"; // Redirect to plans page
-}
-                
-// Redirect to Plan with Parameters
-function redirectToPlan(price, validity, data) {
-    const url = `plans.html?price=${price}&validity=${validity}&data=${data}`;
-    window.location.href = url;
-    }
-    </script>
 
-</body>
-<br><br>
-<footer class="py-5" style="width: 100%; position: relative;">
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <h5 class="font-weight-bold mb-4">Our offerings</h5>
-            <ul class="list-unstyled">
-                <li class="mb-2">Mobile</li>
-                <li class="mb-2">Fiber</li>
-                <li class="mb-2">Business</li>
-                <li class="mb-2">Apps</li>
-                <li class="mb-2">Devices</li>
-                <li class="mb-2">5G Network</li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h5 class="font-weight-bold mb-4">Support</h5>
-            <ul class="list-unstyled">
-                <li class="mb-2">Explore Support</li>
-                <li class="mb-2">Locate us</li>
-                <li class="mb-2">FAQ</li>
-                <li class="mb-2">Track order</li>
-                <li class="mb-2">Contact us</li>
-                <li class="mb-2">Do not disturb</li>
-                <li class="mb-2">Protect Yourself</li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h5 class="font-weight-bold mb-4">Our company</h5>
-            <ul class="list-unstyled">
-                <li class="mb-2">About us</li>
-                <li class="mb-2">Careers</li>
-                <li class="mb-2">Investor relations</li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h5 class="font-weight-bold mb-4">Useful links</h5>
-            <ul class="list-unstyled">
-                <li class="mb-2">Get MobiCom Prepaid</li>
-                <li class="mb-2">Get MobiCom SIM</li>
-                <li class="mb-2">Choose your number</li>
-                <li class="mb-2">Recharge</li>
-                <li class="mb-2">Pay Bills</li>
-                <li class="mb-2">Login</li>
-            </ul>
-        </div>
-    </div>
-</div>
-            
-<!-- Footer bottom -->
-<div class="py-3 mt-5">
-    <div class="container text-center text-muted small">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <div class="d-flex align-items-center mb-3 mb-md-0">
-                <p class="mb-0">“MobiCom” trademark is owned by MobiCom Private Limited and licensed to its affiliates and subsidiaries. All rights to this website, including copyright in content represented thereat, vest in MobiCom Private Limited and/or its respective affiliates and subsidiaries. All rights reserved.</p>
+    
+    
+    
+    // Toggle Answer Visibility (using Bootstrap d-none)
+    function toggleAnswer(answerId) {
+        const answerElement = document.getElementById(answerId);
+        if (answerElement.classList.contains('d-none')) {
+            answerElement.classList.remove('d-none');
+        } else {
+            answerElement.classList.add('d-none');
+        }
+    }
+    
+    // Save Mobile Number
+    function saveNumber() {
+        let mobileNumber = document.getElementById("mobileInput").value;
+        localStorage.setItem("mobileNumber", mobileNumber); // Store number
+        window.location.href = "plans.html"; // Redirect to plans page
+    }
+                    
+    // Redirect to Plan with Parameters
+    function redirectToPlan(price, validity, data) {
+        const url = `plans.html?price=${price}&validity=${validity}&data=${data}`;
+        window.location.href = url;
+        }
+  
+  // Carousel functionality
+  document.addEventListener('DOMContentLoaded', function() {
+  // Get all carousel elements
+  const items = document.querySelectorAll('.carousel-item');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  const prevBtn = document.querySelector('.carousel-control.prev');
+  const nextBtn = document.querySelector('.carousel-control.next');
+  let currentSlide = 0;
+  let slideInterval;
+  
+  // Initialize automatic slideshow
+  startSlideshow();
+  
+  // Function to show a specific slide
+  function showSlide(index) {
+    // Remove active class from all slides and indicators
+    items.forEach(item => item.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    
+    // Add active class to current slide and indicator
+    items[index].classList.add('active');
+    indicators[index].classList.add('active');
+    
+    // Update current slide index
+    currentSlide = index;
+  }
+  
+  // Function to show next slide
+  function nextSlide() {
+    let nextIndex = currentSlide + 1;
+    if (nextIndex >= items.length) {
+      nextIndex = 0;
+    }
+    showSlide(nextIndex);
+  }
+  
+  // Function to show previous slide
+  function prevSlide() {
+    let prevIndex = currentSlide - 1;
+    if (prevIndex < 0) {
+      prevIndex = items.length - 1;
+    }
+    showSlide(prevIndex);
+  }
+  
+  // Function to start automatic slideshow
+  function startSlideshow() {
+    stopSlideshow();
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+  
+  // Function to stop automatic slideshow
+  function stopSlideshow() {
+    if (slideInterval) {
+      clearInterval(slideInterval);
+    }
+  }
+  
+  // Event listeners for carousel controls
+  prevBtn.addEventListener('click', function() {
+    prevSlide();
+    startSlideshow(); // Restart slideshow after manual navigation
+  });
+  
+  nextBtn.addEventListener('click', function() {
+    nextSlide();
+    startSlideshow(); // Restart slideshow after manual navigation
+  });
+  
+  // Event listeners for carousel indicators
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', function() {
+      showSlide(index);
+      startSlideshow(); // Restart slideshow after manual navigation
+    });
+  });
+  
+  // Pause slideshow when user hovers over carousel
+  const carousel = document.querySelector('.hero-carousel');
+  carousel.addEventListener('mouseenter', stopSlideshow);
+  carousel.addEventListener('mouseleave', startSlideshow);
+});
+        </script>
+    
+    </body>
+    <br><br>
+    <footer class="py-5" style="width: 100%; position: relative;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5 class="font-weight-bold mb-4">Our offerings</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">Mobile</li>
+                    <li class="mb-2">Fiber</li>
+                    <li class="mb-2">Business</li>
+                    <li class="mb-2">Apps</li>
+                    <li class="mb-2">Devices</li>
+                    <li class="mb-2">5G Network</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="font-weight-bold mb-4">Support</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">Explore Support</li>
+                    <li class="mb-2">Locate us</li>
+                    <li class="mb-2">FAQ</li>
+                    <li class="mb-2">Track order</li>
+                    <li class="mb-2">Contact us</li>
+                    <li class="mb-2">Do not disturb</li>
+                    <li class="mb-2">Protect Yourself</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="font-weight-bold mb-4">Our company</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">About us</li>
+                    <li class="mb-2">Careers</li>
+                    <li class="mb-2">Investor relations</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="font-weight-bold mb-4">Useful links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">Get MobiCom Prepaid</li>
+                    <li class="mb-2">Get MobiCom SIM</li>
+                    <li class="mb-2">Choose your number</li>
+                    <li class="mb-2">Recharge</li>
+                    <li class="mb-2">Pay Bills</li>
+                    <li class="mb-2">Login</li>
+                </ul>
             </div>
         </div>
     </div>
-</div>
-</footer>
-</html>
+                
+    <!-- Footer bottom -->
+    <div class="py-3 mt-5">
+        <div class="container text-center text-muted small">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <div class="d-flex align-items-center mb-3 mb-md-0">
+                    <p class="mb-0">“MobiCom” trademark is owned by MobiCom Private Limited and licensed to its affiliates and subsidiaries. All rights to this website, including copyright in content represented thereat, vest in MobiCom Private Limited and/or its respective affiliates and subsidiaries. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
+    </html>
+    
