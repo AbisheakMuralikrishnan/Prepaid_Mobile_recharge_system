@@ -8,701 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="indexScript.js"></script>
+    <link rel="stylesheet" href="indexStyle.css">
 
-    <style>
-        :root {
-            --primary-color: #5068FF;
-            --secondary-color: #FF6B6B;
-            --accent-color: #36BFFA;
-            --dark-color: #2A2D3E;
-            --light-color: #F8F9FA;
-            --text-color: #333333;
-            --success-color: #4CAF50;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            padding-top: 80px;
-            margin: 0;
-            color: var(--text-color);
-            background-color: #f5f8ff;
-            overflow-x: hidden;
-        }
-
-        /* Recharge Section */
-        .recharge-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-            margin-top: -50px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .input-group {
-            display: flex;
-            margin: 20px 0;
-        }
-
-        .input-group input {
-            flex: 1;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 50px 0 0 50px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(80, 104, 255, 0.2);
-        }
-
-        .input-group button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0 30px;
-            border-radius: 0 50px 50px 0;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .input-group button:hover {
-            background: #3e56e8;
-            transform: translateY(-2px);
-        }
-
-        .error {
-            color: var(--secondary-color);
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-
-        /* Plans Section */
-        .plan-card {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .plan-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(80, 104, 255, 0.1);
-            border-color: var(--primary-color);
-        }
-
-        .plan-card .tag {
-            display: inline-block;
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--secondary-color);
-            font-weight: 600;
-            font-size: 12px;
-            padding: 6px 12px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-        }
-
-        .plan-card .price {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 8px;
-        }
-
-        .plan-card .details {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-
-        .plan-card .feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .plan-card .feature i {
-            color: var(--success-color);
-        }
-
-        .section-heading {
-            position: relative;
-            font-weight: 700;
-            margin-bottom: 40px;
-            display: inline-block;
-        }
-
-        .section-heading::after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 4px;
-            background: var(--primary-color);
-            bottom: -10px;
-            left: 0;
-            border-radius: 4px;
-        }
-
-        /* Support Section */
-        .support-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            height: 100%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .support-card:hover {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .faq-question {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: #eef1ff;
-        }
-
-        .faq-answer {
-            padding: 15px;
-            color: #666;
-            border-top: 1px solid #eee;
-            display: none;
-        }
-
-        /* Contact Section */
-        .contact-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            height: 100%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .contact-form input, .contact-form textarea {
-            background: #f8f9fa;
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .contact-form input:focus, .contact-form textarea:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(80, 104, 255, 0.1);
-        }
-
-        .contact-form button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .contact-form button:hover {
-            background: #3e56e8;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding-top: 60px;
-        }
-
-        footer h5 {
-            font-weight: 600;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        footer h5::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 3px;
-            background: var(--primary-color);
-            bottom: -8px;
-            left: 0;
-            border-radius: 3px;
-        }
-
-        footer ul li {
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        footer ul li:hover {
-            color: var(--primary-color);
-            transform: translateX(5px);
-        }
-
-        .footer-bottom {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-
-        /* Animations */
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Plans scroll */
-        .plans-scroll {
-            width: 100%;
-            overflow-x: auto;
-            white-space: nowrap;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-        }
-
-        .plans-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .plans-container {
-            display: inline-flex;
-            gap: 20px;
-            padding: 10px;
-        }
-
-        .scroll-plan-card {
-            background: white;
-            min-width: 240px;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .scroll-plan-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(80, 104, 255, 0.1);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            border-radius: 50px;
-            padding: 10px 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #3e56e8;
-            border-color: #3e56e8;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
-        }
-
-        .scroll-controls {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .scroll-btn {
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .scroll-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(80, 104, 255, 0.3);
-        }
-
-        /* Special Offers Section */
-        .offer-card {
-            background: linear-gradient(135deg, #5068FF 0%, #4776E6 100%);
-            color: white;
-            border-radius: 16px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(80, 104, 255, 0.3);
-        }
-
-        .offer-card h3 {
-            font-weight: 700;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .offer-card p {
-            margin-bottom: 25px;
-            opacity: 0.9;
-        }
-
-        .offer-card .btn {
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .offer-card .btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .offer-card .circles {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            opacity: 0.1;
-        }
-
-        .offer-card .circle {
-            position: absolute;
-            border-radius: 50%;
-            border: 3px solid white;
-        }
-
-        .offer-card .circle-1 {
-            width: 100px;
-            height: 100px;
-            top: -20px;
-            right: -20px;
-        }
-
-        .offer-card .circle-2 {
-            width: 150px;
-            height: 150px;
-            top: -40px;
-            right: -40px;
-        }
-
-        .offer-card .circle-3 {
-            width: 200px;
-            height: 200px;
-            top: -60px;
-            right: -60px;
-        }
-
-
-
-
-        :root {
-  --primary-color: #5068FF;
-  --dark-color: #333333;
-  --transition: all 0.3s ease-in-out;
-}
-
-/* Modern Navbar Styling */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background-color: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  padding: 12px 0;
-  transition: var(--transition);
-}
-
-header.scrolled {
-  padding: 8px 0;
-}
-
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.logo img {
-  height: 42px;
-  transition: var(--transition);
-}
-
-header.scrolled .logo img {
-  height: 36px;
-}
-
-.nav-btn {
-  color: var(--dark-color);
-  text-decoration: none;
-  font-weight: 600;
-  padding: 10px 18px;
-  border-radius: 8px;
-  transition: var(--transition);
-  position: relative;
-}
-
-.nav-btn:not(.active)::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 5px;
-  left: 50%;
-  background-color: var(--primary-color);
-  transition: var(--transition);
-  transform: translateX(-50%);
-}
-
-.nav-btn:hover::after {
-  width: 60%;
-}
-
-.nav-btn:hover {
-  color: var(--primary-color);
-}
-
-.nav-btn.active {
-  color: white;
-  background-color: var(--primary-color);
-  box-shadow: 0 4px 10px rgba(80, 104, 255, 0.3);
-}
-
-.mobile-toggle {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: var(--dark-color);
-  transition: var(--transition);
-}
-
-.mobile-toggle:hover {
-  color: var(--primary-color);
-}
-
-/* Offcanvas Menu Styling */
-.offcanvas {
-  width: 280px;
-  border-left: 1px solid rgba(0,0,0,0.05);
-}
-
-.offcanvas-header {
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.offcanvas-title {
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-.offcanvas .nav-btn {
-  display: block;
-  margin-bottom: 5px;
-}
-
-/* Hero Carousel Styling */
-/* Updated Hero Carousel Styling */
-.hero-carousel {
-  margin-top: 30px;
-  position: relative;
-  overflow: hidden;
-}
-
-.carousel-inner {
-  position: relative;
-  width: 100%;
-  height: 500px;
-}
-
-.carousel-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.6s ease-in-out;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-}
-
-.carousel-item.active {
-  opacity: 1;
-  z-index: 1;
-}
-
-/* Updated carousel content positioning and transparency */
-/* Base carousel content styles */
-.carousel-content, .carousel-content2 {
-  width: 90%;
-  max-width: 450px;
-  padding: 30px;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.02); /* Very transparent background */
-  backdrop-filter: blur(3px);
-  border-radius: 12px;
-  transform: translateY(0);
-  opacity: 0; /* Start with opacity 0, will be animated to 1 when active */
-  transition: all 0.8s ease-in-out 0.3s;
-  position: relative;
-  top: 90px; /* Vertical positioning */
-}
-
-/* Left-positioned content */
-.carousel-content {
-  margin: 0 0 0 10%; /* Position on the left */
-}
-
-/* Right-positioned content */
-.carousel-content2 {
-  margin: 0 10% 0 auto; /* Position on the right */
-}
-
-/* Activate both content types when slide is active */
-.carousel-item.active .carousel-content,
-.carousel-item.active .carousel-content2 {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Text styling for better readability on transparent background */
-.carousel-content h2, .carousel-content2 h2 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
-}
-
-.carousel-content p, .carousel-content2 p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  max-width: 600px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Stronger shadow for readability */
-}
-
-/* Button styling */
-.carousel-btn {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(80, 104, 255, 0.4);
-}
-
-.carousel-btn:hover {
-  background-color: #4056e0;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(80, 104, 255, 0.5);
-}
-.carousel-indicators {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.carousel-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.carousel-indicator.active {
-  background-color: white;
-  width: 30px;
-  border-radius: 10px;
-}
-
-.carousel-controls {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  z-index: 10;
-}
-
-.carousel-control {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  backdrop-filter: blur(5px);
-}
-
-.carousel-control:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-    </style>
 </head>
 
 <body>
@@ -806,8 +114,6 @@ header.scrolled .logo img {
                             <input id="mobileNumber" type="text" placeholder="Enter 10-digit Mobile Number" maxlength="10">
                             <button onclick="validateAndRecharge()">RECHARGE</button>
                         </div>
-    
-                        <!-- Error Message -->
                         <p id="errorMessage" class="error" style="display: none;">Please enter a valid 10-digit mobile number.</p>
                     </div>
                 </div>
@@ -1060,6 +366,7 @@ header.scrolled .logo img {
             <section class="py-5">
                 <div class="container">
                     <div class="row g-4">
+
 <!-- FAQ Section -->
 <div class="col-md-6">
     <div class="bg-white p-4 rounded shadow-sm">
@@ -1119,7 +426,6 @@ header.scrolled .logo img {
         </p>
         <br>
 
-<!-- Additional Assistance Options -->
 <div class="mb-4">
 <h5 class="mb-2">How Can We Help?</h5><br>
 <ul class="list-unstyled">
@@ -1136,7 +442,6 @@ header.scrolled .logo img {
 
 </section>
 
-<!-- Add Font Awesome icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
 
@@ -1185,206 +490,91 @@ header.scrolled .logo img {
 </div>
 </div>
 </section>
-<script>
-    
-    function validateAndRecharge() {
-    let mobileNumber = document.getElementById("mobileNumber")?.value.trim();
-    let errorMessage = document.getElementById("errorMessage");
-
-    if (!mobileNumber) {
-        errorMessage.style.display = "block";
-        errorMessage.textContent = "Mobile number field is empty.";
-        return;
-    }
-
-    let regex = /^[6-9]\d{9}$/; // Only allows valid 10-digit Indian numbers
-
-    if (regex.test(mobileNumber)) {
-        errorMessage.style.display = "none";
-
-        // Store the number in localStorage
-        localStorage.setItem("mobileNumber", mobileNumber);
-        console.log("Stored Mobile Number:", localStorage.getItem("mobileNumber"));
-
-        // Ensure proper path
-        window.location.href = "./plans.html";
-    } else {
-        errorMessage.style.display = "block";
-        errorMessage.textContent = "Please enter a valid 10-digit mobile number.";
-    }
-}
-
-
-    
-    
-    
-    // Toggle Answer Visibility (using Bootstrap d-none)
-    function toggleAnswer(answerId) {
-        const answerElement = document.getElementById(answerId);
-        if (answerElement.classList.contains('d-none')) {
-            answerElement.classList.remove('d-none');
-        } else {
-            answerElement.classList.add('d-none');
-        }
-    }
-    
-    // Save Mobile Number
-    function saveNumber() {
-        let mobileNumber = document.getElementById("mobileInput").value;
-        localStorage.setItem("mobileNumber", mobileNumber); // Store number
-        window.location.href = "plans.html"; // Redirect to plans page
-    }
-                    
-    // Redirect to Plan with Parameters
-    function redirectToPlan(price, validity, data) {
-        const url = `plans.html?price=${price}&validity=${validity}&data=${data}`;
-        window.location.href = url;
-        }
-  
-  // Carousel functionality
-  document.addEventListener('DOMContentLoaded', function() {
-  // Get all carousel elements
-  const items = document.querySelectorAll('.carousel-item');
-  const indicators = document.querySelectorAll('.carousel-indicator');
-  const prevBtn = document.querySelector('.carousel-control.prev');
-  const nextBtn = document.querySelector('.carousel-control.next');
-  let currentSlide = 0;
-  let slideInterval;
-  
-  // Initialize automatic slideshow
-  startSlideshow();
-  
-  // Function to show a specific slide
-  function showSlide(index) {
-    // Remove active class from all slides and indicators
-    items.forEach(item => item.classList.remove('active'));
-    indicators.forEach(indicator => indicator.classList.remove('active'));
-    
-    // Add active class to current slide and indicator
-    items[index].classList.add('active');
-    indicators[index].classList.add('active');
-    
-    // Update current slide index
-    currentSlide = index;
-  }
-  
-  // Function to show next slide
-  function nextSlide() {
-    let nextIndex = currentSlide + 1;
-    if (nextIndex >= items.length) {
-      nextIndex = 0;
-    }
-    showSlide(nextIndex);
-  }
-  
-  // Function to show previous slide
-  function prevSlide() {
-    let prevIndex = currentSlide - 1;
-    if (prevIndex < 0) {
-      prevIndex = items.length - 1;
-    }
-    showSlide(prevIndex);
-  }
-  
-  // Function to start automatic slideshow
-  function startSlideshow() {
-    stopSlideshow();
-    slideInterval = setInterval(nextSlide, 5000);
-  }
-  
-  // Function to stop automatic slideshow
-  function stopSlideshow() {
-    if (slideInterval) {
-      clearInterval(slideInterval);
-    }
-  }
-  
-  // Event listeners for carousel controls
-  prevBtn.addEventListener('click', function() {
-    prevSlide();
-    startSlideshow(); // Restart slideshow after manual navigation
-  });
-  
-  nextBtn.addEventListener('click', function() {
-    nextSlide();
-    startSlideshow(); // Restart slideshow after manual navigation
-  });
-  
-  // Event listeners for carousel indicators
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', function() {
-      showSlide(index);
-      startSlideshow(); // Restart slideshow after manual navigation
-    });
-  });
-  
-  // Pause slideshow when user hovers over carousel
-  const carousel = document.querySelector('.hero-carousel');
-  carousel.addEventListener('mouseenter', stopSlideshow);
-  carousel.addEventListener('mouseleave', startSlideshow);
-});
-        </script>
     
     </body>
-    <br><br>
-    <footer class="py-5" style="width: 100%; position: relative;">
-    <div class="container">
+   <!-- Footer Section -->
+<footer class="footer-wrapper">
+    <div class="footer-top">
+      <div class="container-fluid px-4 px-md-5">
         <div class="row">
-            <div class="col-md-3">
-                <h5 class="font-weight-bold mb-4">Our offerings</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">Mobile</li>
-                    <li class="mb-2">Fiber</li>
-                    <li class="mb-2">Business</li>
-                    <li class="mb-2">Apps</li>
-                    <li class="mb-2">Devices</li>
-                    <li class="mb-2">5G Network</li>
-                </ul>
+          <!-- Company Info Column -->
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <img src="images/footer-logo.png" alt="Mobicom Logo" class="footer-logo mb-3">
+            <p class="footer-desc">Delivering seamless mobile connectivity with the best plans and services for our valued customers since 2024.</p>
+            <div class="social-icons">
+              <a href="#" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
-            <div class="col-md-3">
-                <h5 class="font-weight-bold mb-4">Support</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">Explore Support</li>
-                    <li class="mb-2">Locate us</li>
-                    <li class="mb-2">FAQ</li>
-                    <li class="mb-2">Track order</li>
-                    <li class="mb-2">Contact us</li>
-                    <li class="mb-2">Do not disturb</li>
-                    <li class="mb-2">Protect Yourself</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5 class="font-weight-bold mb-4">Our company</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">About us</li>
-                    <li class="mb-2">Careers</li>
-                    <li class="mb-2">Investor relations</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5 class="font-weight-bold mb-4">Useful links</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2">Get MobiCom Prepaid</li>
-                    <li class="mb-2">Get MobiCom SIM</li>
-                    <li class="mb-2">Choose your number</li>
-                    <li class="mb-2">Recharge</li>
-                    <li class="mb-2">Pay Bills</li>
-                    <li class="mb-2">Login</li>
-                </ul>
-            </div>
+          </div>
+          
+          <!-- Quick Links Column -->
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <h4 class="footer-heading">Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="plans.html">All Plans</a></li>
+              <li><a href="index.html#recharge">Recharge</a></li>
+              <li><a href="index.html#contact">About Us</a></li>
+              <li><a href="index.html#support">Support</a></li>
+              <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          
+          <!-- Support Column -->
+          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+            <h4 class="footer-heading">Support</h4>
+            <ul class="footer-links">
+              <li><a href="index.html#support">Help Center</a></li>
+              <li><a href="index.html#support">FAQs</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Refund Policy</a></li>
+            </ul>
+          </div>
+          
+          <!-- Contact Info Column -->
+          <div class="col-lg-3 col-md-6">
+            <h4 class="footer-heading">Contact Info</h4>
+            <ul class="contact-info">
+              <li>
+                <i class="fas fa-map-marker-alt contact-icon"></i>
+                <span>123 Example Street, Tech City, India</span>
+              </li>
+              <li>
+                <i class="fas fa-phone-alt contact-icon"></i>
+                <span>+91 987 654 3210</span>
+              </li>
+              <li>
+                <i class="fas fa-envelope contact-icon"></i>
+                <span>support@mobicom.com</span>
+              </li>
+              <li>
+                <i class="fas fa-clock contact-icon"></i>
+                <span>24/7 Customer Support</span>
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
-                
-    <!-- Footer bottom -->
-    <div class="py-3 mt-5">
-        <div class="container text-center text-muted small">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <div class="d-flex align-items-center mb-3 mb-md-0">
-                    <p class="mb-0">“MobiCom” trademark is owned by MobiCom Private Limited and licensed to its affiliates and subsidiaries. All rights to this website, including copyright in content represented thereat, vest in MobiCom Private Limited and/or its respective affiliates and subsidiaries. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </footer>
-    </html>
     
+    <!-- Copyright Bar -->
+    <div class="footer-bottom">
+      <div class="container-fluid px-4 px-md-5">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="copyright">© 2025 Mobicom. All Rights Reserved.</p>
+          </div>
+          <div class="col-md-6">
+            <ul class="bottom-links">
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Sitemap</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</html>

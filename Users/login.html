@@ -3,101 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .hidden { display: none; }
-        .error { border-color: red; }
-        .error-message { color: red; font-size: 0.875rem; margin-top: 4px; }
-        .otp-input {
-            width: 3rem;
-            height: 3rem;
-            text-align: center;
-            font-size: 1.5rem;
-            border: 1px solid #ccc;
-            border-radius: 0.5rem;
-            margin: 0 0.5rem;
-        }
-    </style>
+    <title>Login | Secure Access</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="loginStyle.css">
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-2xl font-bold text-center mb-4">User Login</h2>
-        
-        <!-- Mobile Number Input -->
-        <div id="mobileInputSection">
-            <label class="block text-gray-700">Enter Mobile Number</label>
-            <input type="text" id="mobileNumber" class="w-full p-2 mt-2 border rounded bg-gray-100" placeholder="Enter your mobile number">
-            <span id="mobileError" class="error-message hidden">Please enter a valid 10-digit mobile number.</span>
-            <button id="sendOtpBtn" class="w-full mt-4 bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
-                Send OTP
-            </button>
-        </div>
-
-        <!-- OTP Input -->
-        <div id="otpInputSection" class="hidden">
-            <label class="block text-gray-700">Enter OTP</label>
-            <div class="flex justify-center mt-2">
-                <input type="text" maxlength="1" class="otp-input" id="otp1">
-                <input type="text" maxlength="1" class="otp-input" id="otp2">
-                <input type="text" maxlength="1" class="otp-input" id="otp3">
-                <input type="text" maxlength="1" class="otp-input" id="otp4">
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-5 col-sm-8">
+                <div class="card login-card">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <div class="logo-container mb-3">
+                                <i class="bi bi-shield-lock fs-1 text-primary"></i>
+                            </div>
+                            <h2 class="fw-bold">Welcome Back</h2>
+                            <p class="text-muted">Log in to your account</p>
+                        </div>
+                        
+                        <!-- Mobile Number Input -->
+                        <div id="mobileInputSection">
+                            <div class="mb-3">
+                                <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                                    <input type="text" id="mobileNumber" class="form-control" placeholder="Enter your 10-digit number">
+                                </div>
+                                <div id="mobileError" class="error-message d-none">Please enter a valid 10-digit mobile number.</div>
+                            </div>
+                            <button id="sendOtpBtn" class="btn btn-primary w-100 py-2 mt-2">
+                                Send OTP
+                            </button>
+                        </div>
+                        
+                        <!-- Message-style OTP Input -->
+                        <div id="otpInputSection" class="d-none">
+                            <div class="message-container fade-in">
+                                <div class="message-header">
+                                    <div class="message-avatar">
+                                        <i class="bi bi-shield-check"></i> <p class="d-inline">Mobicom Verification</p>
+                                    </div>
+                                </div><br>
+                                <div class="message-body">
+                                    <div class="message-text">
+                                        Hi there! We've sent a verification code to your registered mobile Number. Please enter the 4-digit code below to complete your login:
+                                    </div>
+                                    <div class="otp-inputs-container">
+                                        <input type="text" class="otp-input" maxlength="1">
+                                        <input type="text" class="otp-input" maxlength="1">
+                                        <input type="text" class="otp-input" maxlength="1">
+                                        <input type="text" class="otp-input" maxlength="1">
+                                    </div>
+                                    <div id="otpError" class="error-message d-none text-center">Invalid OTP. Please try again.</div>
+                                    <div class="message-footer">
+                                        <button id="resendOtpBtn" class="resend-link">Resend code</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex align-items-center mb-3">
+                                <button id="editMobileBtn" class="btn btn-link text-decoration-none p-0">
+                                    <i class="bi bi-arrow-left me-1"></i> Change number
+                                </button>
+                                <div class="ms-auto">
+                                    <button id="verifyOtpBtn" class="btn btn-primary px-4">
+                                        Verify & Login
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3 text-muted small">
+                    <p>&copy; 2025 Mobicom. All rights reserved.</p>
+                </div>
             </div>
-            <span id="otpError" class="error-message hidden">Invalid OTP. Please try again.</span>
-            <button id="verifyOtpBtn" class="w-full mt-4 bg-teal-600 text-white py-2 px-4 rounded-lg hover:bg-teal-700">
-                Verify & Login
-            </button>
         </div>
     </div>
 
-    <script>
-        let generatedOtp = "";
+    <!-- OTP Popup Message -->
+    <div id="otpPopup" class="otp-popup d-none">
+        <div class="otp-popup-content">
+            <div class="otp-popup-header">
+                <i class="bi bi-shield-check"></i>
+                <span>Your OTP</span>
+            </div>
+            <div class="otp-popup-body">
+                Your OTP is: <span id="otpPopupMessage"></span>
+            </div>
+        </div>
+    </div>
 
-        document.getElementById("sendOtpBtn").addEventListener("click", function () {
-            let mobileNumber = document.getElementById("mobileNumber").value;
-            let mobileError = document.getElementById("mobileError");
-
-            if (/^\d{10}$/.test(mobileNumber)) {
-                mobileError.classList.add("hidden");
-
-                // Generate a random 4-digit OTP
-                generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-                alert("Your OTP is: " + generatedOtp); // Display OTP (For testing, replace with an actual OTP modal)
-
-                // Show OTP section
-                document.getElementById("mobileInputSection").classList.add("hidden");
-                document.getElementById("otpInputSection").classList.remove("hidden");
-            } else {
-                mobileError.classList.remove("hidden");
-            }
-        });
-
-        document.querySelectorAll(".otp-input").forEach((input, index, inputs) => {
-            input.addEventListener("input", function () {
-                if (this.value.length === 1 && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-            });
-            input.addEventListener("keydown", function (event) {
-                if (event.key === "Backspace" && index > 0 && this.value === "") {
-                    inputs[index - 1].focus();
-                }
-            });
-        });
-
-        document.getElementById("verifyOtpBtn").addEventListener("click", function () {
-            let enteredOtp = Array.from(document.querySelectorAll(".otp-input"))
-                           .map(input => input.value)
-                           .join("");
-            let otpError = document.getElementById("otpError");
-
-            if (enteredOtp === generatedOtp) {
-                window.location.href = "dashboard.html"; // Redirect on successful OTP match
-            } else {
-                otpError.classList.remove("hidden");
-            }
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="loginScript.js"></script>
 </body>
 </html>
